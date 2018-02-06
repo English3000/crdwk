@@ -72,7 +72,9 @@ Click the **+** button in the top-right corner, and select **New repository**.
 
 Enter a repository name, then click **Create repository**.
 
-Under **…or create a new repository on the command line**, copy the lines `git remote add origin`... (URL to your repo) and `git push -u origin master`.
+Under **…or create a new repository on the command line**, copy the lines `git remote add origin`... _(URL to your repo)_ and `git push -u origin master`.
+
+NOTE: Whenever you make a very minor change, `git add -A && git commit -m '...' && git push`.
 
 ~ ~ ~
 
