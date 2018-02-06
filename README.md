@@ -60,4 +60,20 @@ Add to **package.json**,
 
 Copy & paste (refer to **webpack.config.js**).
 
+~ ~ ~
+
+**GitHub Setup**
+
+`git add -A && git commit -m '-'`
+
+Open your browser, go to **GitHub.com**, and sign up/in.
+
+Click the **+** button in the top-right corner, and select **New repository**.
+
+Enter a repository name, then click **Create repository**.
+
+Under **…or create a new repository on the command line**, copy the lines `git remote add origin`... (+ URL to your repo) and `git push -u origin master`.
+
+~ ~ ~
+
 Create /**frontend** folder (at root-level of directory).
