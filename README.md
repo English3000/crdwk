@@ -2,7 +2,7 @@
 
 Open **Terminal** _(or your preferred Command Line Interface, e.g. Powershell on Windows)_.
 
-> Install **[Ruby](https://www.ruby-lang.org/en/downloads/)** _[_`brew install ruby` _for Macs with_ **[Homebrew](https://brew.sh/)**_]_ and **[Node.js](https://nodejs.org/en/download/)**.
+> Install **[Ruby](https://www.ruby-lang.org/en/downloads/)** _(_`brew install ruby` _for Macs with_ **[Homebrew](https://brew.sh/)**_)_ and **[Node.js](https://nodejs.org/en/download/)**.
 
 `rails new Project --database=postgresql --webpack=react`
 
@@ -85,7 +85,7 @@ Copy & paste (refer to this project's **webpack.config.js**).
 
 >`git add -A && git commit -m '-'`
 
->Open your browser, go to **GitHub.com**, and sign up/in.
+>Open your browser, go to **[GitHub.com](https://github.com/)**, and sign up/in.
 
 >Click the **+** button in the top-right corner, and select **New repository**.
 
@@ -95,7 +95,21 @@ Copy & paste (refer to this project's **webpack.config.js**).
 
 >NOTE: Whenever you make a very minor change, `git add -A && git commit -m '...' && git push`
 
-Create /**frontend** folder (at root-level of directory).
+Create a ./**frontend** folder (at root-level of directory).
+
+`cd frontend && atom index.js`
+
+Copy & paste (refer, in **frontend**, to this project's **index.js**).
+
+`atom setup.js`
+
+Copy & paste.
+
+`atom store.js`
+
+Copy & paste.
+
+_LOOSE ENDS:_ `<div id='current-page'></div>`, HomePageContainer, rootReducer
 
 >**Rails Commands**
 
