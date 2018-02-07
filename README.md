@@ -1,5 +1,7 @@
 # [Skip to coding instructions]()
 
+_Or_, `git clone https://github.com/English3000/crdwk`
+
 ## Notes on my experience learning how to code
 
 ### GIVEN
@@ -121,9 +123,7 @@ I consider App Academy a gift:
 
 Post-curriculum, looking at other languages and technologies' documentation, the minority of it is accessible to "junior-level" developers, even fewer of them have even one guided project, and most of them take longer to actually get a project running--and with uglier syntax!
 
-_The thing is..._
-
-### SETUP = Ruby on Rails + PostgreSQL + React + Heroku
+### SETUP = Ruby on Rails (server- & client-side rendering) + PostgreSQL + React + Heroku
 
 Open **Terminal** _(or your preferred Command Line Interface, e.g. Powershell on Windows)_.
 
@@ -181,7 +181,9 @@ end
 
 `bundle update`
 
-`rails g react:install`
+`rails g react:install` (if you get a message saying you need to install Yarn, follow the URL)
+
+In **./app/assets/javascripts/application.js**, add `//= require react`
 
 `npm install --save babel-core babel-loader babel-polyfill babel-preset-env lodash react-redux react-router-dom redux redux-thunk webpack`
 
@@ -220,26 +222,51 @@ Copy & paste (refer to this project's **webpack.config.js**).
 
 >NOTE: Whenever you make a very minor change, `git add -A && git commit -m '...' && git push`
 
-Create a ./**frontend** folder (at root-level of directory).
+`mkdir frontend` (at root-level of directory)
 
 `cd frontend && atom index.js`
 
 Copy & paste (refer, in **frontend**, to this project's **index.js**).
 
-`atom setup.js`
+In **../app/views/layouts/application.html.erb**, add `<%= javascript_pack_tag 'application' %>` and wrap **yield** in a `div`:
 
-Copy & paste.
+```erb
+<div id='replace-with-js'>
+  <%= yield %>
+</div>
+```
 
-`atom store.js`
+`atom setup.js` Copy & paste.
 
-Copy & paste.
+`atom store.js` Copy & paste.
 
-_LOOSE ENDS:_ `<div id='current-page'></div>`, HomePageContainer, rootReducer
+`atom App.jsx` Copy & paste.
 
->**Rails Commands**
+`mkdir reducers && cd reducers`
 
->`rails g model Name foreign_key:integer <datafield>:<datatype>` _--creates a model in_ `./app/models` _& corresponding migration in_ `./db/migrations`
+`atom root.js && echo "export default () => ({});" >> root.js`
 
->In a migration file, you can
+`cd .. && mkdir components && cd components`
 
->* create a database table
+`atom HomePageContainer.jsx` Copy & paste.
+
+`rails g react:component HomePageContainer --es6`
+
+`⌘ t` in Atom, type HomePageContainer, select the file in **app/javascript/components/HomePageContainer.js** _(see [react-rails](https://github.com/reactjs/react-rails#component-generator) for details)_, copy & paste.
+
+In **../config/routes.rb**, add `root to: 'application#home'` _--sets the default route `/`_
+
+In **../app/controllers/application_controller.rb**, add:
+
+```ruby
+def home
+end
+```
+
+In **app/views** create an /**application** folder. In that folder, create a file **home.html.erb**. Copy & paste.
+
+`rails s`
+
+In another tab (`⌘ t` in Terminal), `webpack --watch`
+
+Open your browser & go to localhost:3000. You should see the text `Client-rendered`.
