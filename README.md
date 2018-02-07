@@ -1,6 +1,6 @@
 # [Skip to coding instructions](https://github.com/English3000/crdwk#setup--ruby-on-rails-server---client-side-rendering--postgresql--react--heroku)
 
-_Or_, `git clone https://github.com/English3000/crdwk`
+_Or_, `git clone https://github.com/English3000/Intro-to-Coding`
 
 ## Notes on my experience learning how to code
 
