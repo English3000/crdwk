@@ -123,7 +123,7 @@ I consider App Academy a gift:
 
 Post-curriculum, looking at other languages and technologies' documentation, the minority of it is accessible to "junior-level" developers, even fewer of them have even one guided project, and most of them take longer to actually get a project running--and with uglier syntax!
 
-### SETUP = Ruby on Rails (server- & client-side rendering) + PostgreSQL + React + Heroku
+## SETUP = Ruby on Rails (server- & client-side rendering) + PostgreSQL + React + Heroku
 
 Open **Terminal** _(or your preferred Command Line Interface, e.g. Powershell on Windows)_.
 
@@ -140,14 +140,14 @@ Open **Terminal** _(or your preferred Command Line Interface, e.g. Powershell on
 > Click the **Install** tab. Search...
 >
 > _for JavaScript:_
-linter-eslint
+linter-eslint,
 language-babel
 >
 > _for Ruby:_
 linter-rubocop
 >
 > _for React:_
-nuclide
+nuclide,
 linter-flow
 
 `cd Project && atom .`
@@ -219,8 +219,8 @@ Copy & paste (refer to this project's **webpack.config.js**).
 >Enter a repository name, then click **Create repository**.
 >
 >Under **…or create a new repository on the command line**, copy the lines `git remote add origin`... _(URL to your repo)_ and `git push -u origin master`.
-
->NOTE: Whenever you make a very minor change, `git add -A && git commit -m '...' && git push`
+>
+>***NOTE:*** Whenever you make a very minor change, `git add -A && git commit -m '...' && git push`
 
 `mkdir frontend` (at root-level of directory)
 

@@ -2,8 +2,8 @@ const path = require("path");
 const webpack = require("webpack");
 
 let plugins = [];
-let devPlugins = [];
 
+let devPlugins = [];
 let prodPlugins = [
   new webpack.DefinePlugin({
     'process.env': {
@@ -23,7 +23,10 @@ plugins = plugins.concat(
 
 module.exports = {
   context: __dirname,
+  // Running Webpack executes index.js (in ./frontend).
   entry: ["babel-polyfill", "./frontend/index.js"],
+  // Webpack creates (bundles) a tree of files that require one another,
+  //  bundle.js (in ./app/assets/javascripts).
   output: {
     path: path.resolve(__dirname, "app", "assets", "javascripts"),
     filename: "bundle.js"
@@ -43,6 +46,7 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
+    // Webpack will bundle both .js & .jsx files.
     extensions: [".js", ".jsx", "*"]
   }
 };

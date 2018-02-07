@@ -9,3 +9,5 @@ export default () => (
     </Switch>
   </div>
 );
+
+//If the the path is '/', show the home page.
