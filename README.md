@@ -269,4 +269,15 @@ In **app/views** create an /**application** folder. In that folder, create a fil
 
 In another tab (`⌘ t` in Terminal), `webpack --watch`
 
-Open your browser & go to localhost:3000. You should see the text `Client-rendered`.
+Open your browser & go to **localhost:3000**. You should see the text `Client-rendered`.
+
+> ### Rails Commands
+>`rails db:create` initializes your test & development databases
+>
+>`rails g model Name foreign_key:integer <datafield>:<datatype>` creates a model in `./app/models` & corresponding migration in `./db/migrations`
+>
+>`rails db:migrate` modifies your databases
+>
+>`rails db:rollback` undoes your last set of migrations
+>
+>`rails g controller Api::Names` creates a controller in `./app/controllers/api`
