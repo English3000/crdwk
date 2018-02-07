@@ -49,13 +49,13 @@ In all, the internship presented an area of work that was more robust than past 
 >* **education** _(high school & college, middle school if lucky--due to intellectual interest, assuming your school has curriculum and resources)_
 >* **professional experience** _(doing something tech-related in the workplace, as a young professional)_
 >* **higher education** _(a post-undergrad Computer Science program, or coding bootcamp)_
-
+>
 >If you have access at a young age (which is often accompanied by intellectual interest), you can supplement what your family/friends teach you around middle school age (or younger) with more advanced material offered in high school and college.
-
+>
 >By the time you are a young adult, you can build something worth millions of dollars.
-
+>
 >With education (and good academic performance), you can enter tech after undergrad and maybe you'll have produced a cool app people use.
-
+>
 >Otherwise, if you come to tech at a later age, all you'll know is the experience that got you interested and you'll need to research resources to learn more (namely a coding bootcamp or university program).
 
 In my case, I got into tech via experience and further education.
@@ -132,20 +132,20 @@ Open **Terminal** _(or your preferred Command Line Interface, e.g. Powershell on
 `rails new Project --database=postgresql --webpack=react`
 
 > Install and setup **[Postgres](https://postgresapp.com/)** and **[Atom](https://atom.io/)**.
-
-> **Atom Setup**
-
+>
+> ### Atom Setup
+>
 > Open **Atom** and navigate to Settings, _aka Preferences_ (`⌘,` on Mac).
-
-> Click the **Install** tab. Install:
-
+>
+> Click the **Install** tab. Search...
+>
 > _for JavaScript:_
 linter-eslint
 language-babel
-
+>
 > _for Ruby:_
 linter-rubocop
-
+>
 > _for React:_
 nuclide
 linter-flow
@@ -208,16 +208,16 @@ Add to **package.json**,
 
 Copy & paste (refer to this project's **webpack.config.js**).
 
->**GitHub Setup**
-
+> ### GitHub Setup
+>
 >`git add -A && git commit -m '-'`
-
+>
 >Open your browser, go to **[GitHub.com](https://github.com/)**, and sign up/in.
-
+>
 >Click the **+** button in the top-right corner, and select **New repository**.
-
+>
 >Enter a repository name, then click **Create repository**.
-
+>
 >Under **…or create a new repository on the command line**, copy the lines `git remote add origin`... _(URL to your repo)_ and `git push -u origin master`.
 
 >NOTE: Whenever you make a very minor change, `git add -A && git commit -m '...' && git push`
