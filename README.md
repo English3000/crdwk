@@ -1,4 +1,4 @@
-# [Skip to coding instructions]()
+# [Skip to coding instructions](https://github.com/English3000/crdwk#setup--ruby-on-rails-server---client-side-rendering--postgresql--react--heroku)
 
 _Or_, `git clone https://github.com/English3000/crdwk`
 
