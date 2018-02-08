@@ -26,7 +26,7 @@
 
 ## User Authentication Frontend (React/Redux)
 
-# Skip to coding instructions
+# [Skip to coding instructions](https://github.com/English3000/Intro-to-Coding/tree/user-auth#actions--api)
 
 **EXPLANATION**
 
