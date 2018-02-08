@@ -38,30 +38,56 @@ With a backend, you can customize what each user sees. This is achieved by recor
 
 So here's what we just did:
 
-As a reminder, the backend connects the frontend and your database. So when a request is made to sign up (as a brand new user), sign in, or sign out, `routes.rb` will point that request to either the UsersController or SessionsController.
+As a reminder, the backend connects the frontend and your database. So when a request is made to sign up (as a brand new user), sign in, or sign out, `routes.rb` will point (**route**) that request to either the UsersController or SessionsController.
 
-A request consists of a path (e.g. `/api/users`), an action/method (e.g. `POST`), and sometimes a payload (e.g. a user's email & password).
+A request consists of a path (e.g. `/api/users`), an action/method (e.g. `POST`), and _sometimes_ a payload (e.g. a user's email & password).
 
-`/api/users` will be matched to the UsersController. Because the request's method is `POST`, the controller will then `create` a new user, saving it to the database and sending back some of the user's info--filtered down with a view _(or as a JavaScript object, which is a data structure that looks like_ `{key: 'value'}`_)_--to the frontend.
+`/api/users` will be matched to the UsersController. Because the request's method is `POST`, the **controller** will then `create` a new user, saving it to the database and sending back some of the user's info--filtered down with a view _(or as a JavaScript object, which is a data structure that looks like_ `{key: 'value'}`_)_--to the frontend.
 
-Migrations create or modify tables in the database. They can include constraints, such as that all users' emails must be unique.
+**Migrations** create or modify tables in the database. They can include constraints, such as that all users' emails must be unique.
 
-Models also can have constraints, for example that a password must be at least 8 characters long.
+**Models** also can have constraints, for example that a password must be at least 8 characters long.
 
 If these constraints aren't met, the action to the database will fail. That's why you see some `if/else` logic for handling potential errors.
 
-Models can also have associations--methods that access data associated with a user, for example, from the database.
+Models can also have _associations_--methods that access data associated with a user, for example, from the database.
 
 Controllers can also have non-routing/non-database methods, such as checking whether there is currently a user signed in.
 
 ~ ~ ~
 
-On the frontend, we need a way to send requests to the backend and we also need a way to handle its responses. That's where React and Redux come in.
+On the frontend, we need a way to send requests to the backend and we also need a way to handle the backend's responses (which consist of an HTML page or JSON data). That's where React and Redux come in.
 
-React allows you to code out your webpages entirely in JavaScript (with a special kind of XML). This means you can have your layout, styling, and interactive scripting (aka event handlers) all in the same file (in what's called a component).
+React allows you to code out your webpages entirely in JavaScript (with a special kind of XML). This means you can have your layout, styling, and interactive scripting (aka event handlers) all in the same file (in what's called a **component**).
 
 Let's say you have a component with a form, and when you click the button, the event handler sends a request to your backend. Well, firstly, how does it do this?
 
 Remember, a request has a path, a method, and sometimes a payload (aka data). And we need to send that request to our server...
 
-### Actions & API
+### API & Actions
+
+In **./frontend**, create an /**actions** folder and a /**utils** folder.
+
+`npm install -S axios`
+
+In **./utils**, create a file **api.js**
+
+>As you add more functionality to your app, you can break the contents of this file into multiple files, organized by backend controller.
+
+Copy & paste. Under `HOST`, replace the number with dots (`'###.###.#.###'`) with your IP address.
+
+In **./actions**, create a file **auth.js** (as in _authentication_). Copy & paste.
+
+**EXPLANATION**
+
+The API (which uses a middleware called Axios) is how we send a request to our backend. So far, we've defined 3 different requests: signing up a new user, signing in a returning user, and signing out the current user.
+
+With this API, we can now create and modify the datafields of a row or rows (entries) in a database table.
+
+But we also need to handle the backend's response.
+
+That's why we have actions. An action first makes an API call, then it handles the response. We've setup some of our actions to also handle errors.
+
+What's the stuff above the API calls?
+
+### Reducers & Containers
