@@ -1,3 +1,11 @@
+**NOTE:**
+* **./components** has been renamed to **./pages**
+* both **HomePageContainer**'s have been renamed to **Home**
+
+On the client-side, you'll need to update **App.jsx**
+
+On the server-side, update **home.html.erb**
+
 ## User Authentication Backend (Ruby on Rails)
 
 `rails g controller Api::Users`
@@ -124,4 +132,4 @@ That's the Redux cycle!
 
 Our components access the store via **containers**. A container is just code that accesses the store and imports actions, which are set as props (properties) of our component.
 
-Copy & paste for `./frontend/components/HomePageContainer`
+Copy & paste for `./frontend/pages/Home`
