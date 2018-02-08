@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import HomePageContainer from './components/HomePageContainer';
+import HomePage from './pages/Home';
 
 export default () => (
   <div>
     <Switch>
-      <Route exact path='/' component={HomePageContainer}/>
+      <Route exact path='/' component={HomePage}/>
     </Switch>
   </div>
 );

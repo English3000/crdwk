@@ -28,7 +28,7 @@
 
 # [Skip to coding instructions](https://github.com/English3000/Intro-to-Coding/tree/user-auth#actions--api)
 
-**EXPLANATION**
+### EXPLANATION
 
 The reason to even have a backend is to make your website dynamic.
 
@@ -38,7 +38,7 @@ With a backend, you can customize what each user sees. This is achieved by recor
 
 So here's what we just did:
 
-As a reminder, the backend connects the frontend and your database. So when a request is made to sign up (as a brand new user), sign in, or sign out, `routes.rb` will point (**route**) that request to either the UsersController or SessionsController.
+As a reminder, the backend connects the frontend and your database. So when a request is made to sign up (as a brand new user), sign in, or sign out, **routes.rb** will point (route) that request to either the UsersController or SessionsController.
 
 A request consists of a path (e.g. `/api/users`), an action/method (e.g. `POST`), and _sometimes_ a payload (e.g. a user's email & password).
 
@@ -78,7 +78,7 @@ Copy & paste. Under `HOST`, replace the number with dots (`'###.###.#.###'`) wit
 
 In **./actions**, create a file **auth.js** (as in _authentication_). Copy & paste.
 
-**EXPLANATION**
+### EXPLANATION
 
 The API (which uses a middleware called Axios) is how we send a request to our backend. So far, we've defined 3 different requests: signing up a new user, signing in a returning user, and signing out the current user.
 
@@ -90,4 +90,38 @@ That's why we have actions. An action first makes an API call, then it handles t
 
 What's the stuff above the API calls?
 
-### Reducers & Containers
+### Reducers
+
+In **./reducers**, create two files: **errors.js** & **session.js**
+
+Copy & paste.
+
+Re-open **./reducers/root.js**. Copy & paste.
+
+### The Redux Cycle
+
+In **auth.js**, you'll see the function `dispatch`.
+
+If you look at our `signOut` action, we first make an API call, then we dispatch `receiveCurrentUser(null)`. In this case, we aren't using response data from the API call; we're just setting the current user to `null` in order to sign them out. The action _is_ handling the API's response.
+
+`dispatch` then tells our frontend that there isn't a current user. It does this with a much simpler action function, `receiveCurrentUser`, which has a type and a payload (`currentUser`, which in this case is `null`).
+
+`dispatch` sends this object through all of our reducers, which are used to format the response data for storage on the frontend. Because only one of our reducers handles actions of type `RECEIVE_CURRENT_USER`, other reducers will not modify the slice of data they manage; only **session.js** will modify its state.
+
+Then, all the slices of data (or, state) are combined in the **root.js** reducer.
+
+`⌘ t` for **store.js**. Remember, we import the `rootReducer` when we create a store.
+
+And refer back to **index.js**. There, we're importing the function that creates a store, which we set as a property of our `Setup` component.
+
+Look at **setup.js**. Here we pass the store to a `Provider`, which makes the store (of data on our frontend) accessible to all nested components. Oh hey, our entire `App` is nested... so all of our components will be able to access the store!
+
+So, actions both send API requests to our backend and handle responses. Reducers then update our store with the new response data. And then any component that uses that data will re-render.
+
+That's the Redux cycle!
+
+### Containers
+
+Our components access the store via **containers**. A container is just code that accesses the store and imports actions, which are set as props (properties) of our component.
+
+Copy & paste for `./frontend/components/HomePageContainer`

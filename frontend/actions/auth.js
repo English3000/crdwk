@@ -1,8 +1,10 @@
 import * as Api from '../utils/api';
 
+// ACTION TYPES
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
+// ACTION FUNCTIONS-to-OBJECTS
 export const receiveCurrentUser = currentUser => ({
   type: RECEIVE_CURRENT_USER,
   currentUser
@@ -11,6 +13,8 @@ export const receiveErrors = errors => ({
   type: RECEIVE_ERRORS,
   errors
 });
+
+// API CALLS
 
 // First our API sends a request to the backend.
 export const signUp = credentials => dispatch => Api.signUp(credentials).then(
