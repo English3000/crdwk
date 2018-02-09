@@ -10,6 +10,8 @@ const styles = {
   }
 };
 
+// COMPONENT w/o actions or custom elements
+// Server-side rendering only renders HTML faster than the browser
 export default class Home extends React.Component {
   constructor() {
     super();
@@ -20,7 +22,7 @@ export default class Home extends React.Component {
   render() {
     const {visibility, email, password} = this.state;
 
-    return <div key='App' style={{fontFamily: ''}}>
+    return <div id='App' style={{fontFamily: ''}}>
       <div key='AuthForm' style={{display: 'flex'}}>
         <button onClick={event => event.preventDefault()}>Sign Up</button>
         <div>

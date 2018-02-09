@@ -3,15 +3,18 @@ import { connect } from 'react-redux';
 import { View, TextInput, Button, Text, ErrorBoundary } from '../../utils/elements';
 import { signUp, signIn } from '../../actions/auth';
 
+//accessing errors from the store
 const mapStateToProps = ({ errors }) => ({
   errors
 });
 
+//setting up imported actions to dispatch to the store
 const mapDispatchToProps = dispatch => ({
   SignUp: user => dispatch(signUp(user)),
   SignIn: user => dispatch(signIn(user))
 });
 
+// COMPONENT
 class AuthForm extends React.Component {
   constructor() {
     super();
@@ -43,4 +46,5 @@ class AuthForm extends React.Component {
   }
 }
 
+// CONTAINER
 export default connect(mapStateToProps, mapDispatchToProps)(AuthForm);
