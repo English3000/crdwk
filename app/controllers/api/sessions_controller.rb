@@ -1,5 +1,5 @@
-class SessionsController < ApplicationController
-  def destroy
+class Api::SessionsController < ApplicationController
+  def destroy # when a user signs out, end the session
     unless signed_in?
       render status: 404
     end
@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     render {}
   end
 
-  def create # a session for returning user
+  def create # when a user signs in, create a session in the browser
     @user = User.find_by_credentials(params[:user][:username], params[:user][:password])
     if @user
       sign_in(@user)

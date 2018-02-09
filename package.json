@@ -3,7 +3,7 @@
   "private": true,
   "main": "webpack.config.js",
   "scripts": {
-    "start": "npm install",
+    "start": "npm install && yarn install",
     "postinstall": "webpack",
     "test": "jest",
     "test:watch": "npm test --watch"

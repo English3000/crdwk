@@ -9,7 +9,7 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  def user_params
+  def user_params # allows the server to receive a user's data
     params.require(:user).permit(:id, :email, :password, :session_token)
   end
 end

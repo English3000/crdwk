@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const PORT = ':3000';
 
-export const HOST = process.env.NODE_ENV === 'development' ?
-  `192.168.3.166${PORT}` : 'HEROKU URL';
+export const HOST = process.env.NODE_ENV === 'production' ?
+  'HEROKU URL' : `localhost${PORT}`;
 
 // =>                               method               path        payload
 export const signUp = user => axios.post(`http://${HOST}/api/users`, {user});
