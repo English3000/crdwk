@@ -30,7 +30,7 @@ Next, let's allow users to sign into our website.
 
 ## User Authentication Frontend (React/Redux)
 
-# [Skip to coding instructions](https://github.com/English3000/Intro-to-Coding/tree/user-auth#actions--api)
+# [Skip to coding instructions](https://github.com/English3000/Intro-to-Coding/tree/user-auth#api--actions)
 
 ### EXPLANATION
 
