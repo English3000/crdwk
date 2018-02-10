@@ -3,12 +3,12 @@ import { Provider } from 'react-redux';
 //Provider gives nested components access to the store.
 import { HashRouter } from 'react-router-dom';
 //HashRouter allows components to modify the URL.
-import App from './App';
+import Pages from './Pages';
 
 export default ({ store }) => (
   <Provider store={store}>
     <HashRouter>
-      <App />
+      <Pages />
     </HashRouter>
   </Provider>
 );

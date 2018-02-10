@@ -10,7 +10,7 @@ const styles = {
 
 };
 
-export const View = props => <div {...props} style={Object.assign({}, styles.reset, props.style)}>
+export const View = props => <div {...props} style={Object.assign({}, styles.reset, {display: 'flex'}, props.style)}>
                                {props.children}
                              </div>;
 
@@ -18,10 +18,10 @@ export const Text = props => <p {...props} style={Object.assign({}, styles.reset
                                {props.children}
                              </p>;
 
-export const TextInput = props => <input {...props}/>;
+export const TextInput = props => <input {...props} style={Object.assign({}, {display: 'block'}, props.style)}/>;
 
-export const Button = props => <button {...props}>
-                                 {props.children}
+export const Button = props => <button {...props} onClick={props.onPress}>
+                                 {props.title}
                                </button>;
 
 export class ErrorBoundary extends React.Component {

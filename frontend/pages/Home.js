@@ -4,8 +4,7 @@ import { View, Text, ErrorBoundary } from '../utils/elements';
 import AuthForm from './home/AuthForm';
 
 const styles = {
-  centered: { display: 'flex', flex: 1, height: 800,
-              justifyContent: 'center', alignItems: 'center' },
+  centered: {justifyContent: 'center', alignItems: 'center', height: 800},
   visibility: {
     false: {color: 'white', backgroundColor: 'white'},
     true: {color: 'black', backgroundColor: 'lightgray'},

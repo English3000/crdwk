@@ -4,9 +4,7 @@ import { View, TextInput, Button, Text, ErrorBoundary } from '../../utils/elemen
 import { signUp, signIn } from '../../actions/auth';
 
 //accessing errors from the store
-const mapStateToProps = ({ errors }) => ({
-  errors
-});
+const mapStateToProps = ({ errors }) => ({ errors });
 
 //setting up imported actions to dispatch to the store
 const mapDispatchToProps = dispatch => ({
@@ -26,22 +24,19 @@ class AuthForm extends React.Component {
     const {SignUp, SignIn, errors} = this.props;
 
     return [
-      <View key='AuthForm' style={{display: 'flex'}}>
-        <Button onClick={() => SignUp({email, password})}>
-          Sign Up
-        </Button>
-        <View>
+      <View key='AuthForm' style={{justifyContent: 'space-between', alignItems: 'center', width: 300}}>
+        <Button title='Sign Up' onPress={() => SignUp({email, password})}/>
+        <View style={{display: 'block'}}>
           <TextInput placeholder='Email' defaultValue={email} autoFocus
-                     onChange={event => this.setState({email: event.target.value})}
-                     style={{display: 'block'}}/>
+                     onChange={event => this.setState({email: event.target.value})}/>
           <TextInput placeholder='Password' defaultValue={password}
                      onChange={event => this.setState({password: event.target.value})}/>
         </View>
-        <Button onClick={() => SignIn({email, password})}>
-          Sign In
-        </Button>
+        <Button title='Sign In' onPress={() => SignIn({email, password})}/>
       </View>,
-      errors.map(err => <Text key={err}>{`${err}.`}</Text>)
+      errors.map(err => <Text key={err} style={{textAlign: 'center', width: 300}}>
+                          {`${err}.`}
+                        </Text>)
     ];
   }
 }
