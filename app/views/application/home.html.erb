@@ -1,3 +1,9 @@
 <%= javascript_pack_tag 'application' %>
 
+<% if signed_in? %>
+  <script>
+    window.currentUser = current_user //
+  </script>
+<% end %>
+
 <%= react_component 'Home', {}, prerender: true %>

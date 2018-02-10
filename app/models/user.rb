@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   validates :email, :session_token, presence: true, uniqueness: true
+  validates_format_of :email, with: /^[a-zA-Z]\w*@\w+\.\w{2,}$/, multiline: true
   validates :password_digest, presence: true
   validates :password, length: {minimum: 8, allow_nil: true}
   # Check that a user enters a long enough password.

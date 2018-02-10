@@ -8,12 +8,12 @@ class Api::SessionsController < ApplicationController
   end
 
   def create # when a user signs in, create a session in the browser
-    @user = User.find_by_credentials(params[:user][:username], params[:user][:password])
+    @user = User.find_by_credentials(params[:user][:email], params[:user][:password])
     if @user
       sign_in(@user)
       render json: @user
     else
-      render json: ['Invalid user credentials'], status: 422
+      render json: ['Invalid credentials: user not found'], status: 422
     end
   end
 end

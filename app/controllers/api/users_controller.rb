@@ -3,6 +3,7 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save #to database
       sign_in(@user)
+      # can setup ActionMailer here
       render json: @user
     else
       render json: @user.errors.full_messages, status: 404
