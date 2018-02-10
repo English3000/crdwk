@@ -35,7 +35,7 @@ export default class Home extends React.Component {
       <div key='Home' style={Object.assign({}, styles.reset, styles.centered, visibility)}
            onMouseOver={() => this.setState({visibility: styles.visible})}
            onMouseOut={() => this.setState({visibility: styles.hidden})}>
-        <p style={Object.assign({}, styles.reset, {fontSize: 50})}>Page</p>
+        <p style={Object.assign({}, styles.reset, {fontSize: 50})}>Home Page</p>
       </div>
     ];
   }
