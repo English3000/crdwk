@@ -1,17 +1,14 @@
 class Api::SessionsController < ApplicationController
-  def destroy # when a user signs out, end the session
-    unless signed_in?
-      render status: 404
-    end
+  def destroy
     sign_out
-    render {}
+    render json: {}
   end
 
-  def create # when a user signs in, create a session in the browser
+  def create
     @user = User.find_by_credentials(params[:user][:email], params[:user][:password])
     if @user
       sign_in(@user)
-      render json: @user
+      render json: {id: @user.id, email: @user.email}
     else
       render json: ['Invalid credentials: user not found'], status: 422
     end

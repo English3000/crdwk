@@ -5,7 +5,7 @@ export default (state = [], action) => {
 
   switch (action.type) {
     case RECEIVE_ERRORS:
-      console.log("reducer", action.errors);
+      // console.log("reducer", action.errors);
       return [].concat(action.errors);
     default:
       return [];

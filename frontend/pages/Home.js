@@ -1,30 +1,22 @@
 import React from 'react';
-//custom elements mimicking React Native's
 import { View, Text, ErrorBoundary } from '../utils/elements';
-import AuthForm from './home/AuthForm';
-
-const styles = {
-  centered: {justifyContent: 'center', alignItems: 'center', height: 800},
-  visibility: {
-    false: {color: 'white', backgroundColor: 'white'},
-    true: {color: 'black', backgroundColor: 'lightgray'},
-  }
-};
+import Header from './auth/Header';
+import styles from '../utils/styles';
 
 export default class Home extends React.Component {
   constructor() {
     super();
-    this.state = {visibility: styles.visibility.false};
+    this.state = {visibility: styles.hidden};
   }
 
   render() {
     const {visibility} = this.state;
 
     return [
-      <AuthForm key='AuthForm'/>,
+      <Header key='Header'/>,
       <View key='Home' style={Object.assign({}, styles.centered, visibility)}
-            onMouseOver={() => this.setState({visibility: styles.visibility.true})}
-            onMouseOut={() => this.setState({visibility: styles.visibility.false})}>
+            onMouseOver={() => this.setState({visibility: styles.visible})}
+            onMouseOut={() => this.setState({visibility: styles.hidden})}>
         <Text style={{fontSize: 50}}>Home Page</Text>
       </View> //placeholder
     ];

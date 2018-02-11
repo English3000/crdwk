@@ -2,7 +2,10 @@
 
 <% if signed_in? %>
   <script>
-    window.currentUser = current_user //
+    window.currentUser = <%= render(
+      "api/sessions/user.json.jbuilder",
+      user: current_user
+    ).html_safe %>
   </script>
 <% end %>
 

@@ -1,14 +1,9 @@
 //React Native-style custom components
 import React from 'react';
+import styles from './styles';
 
-const styles = {
-  reset: {margin: 0, padding: 0},
-  default: {cursor: 'default'},
-  pointer: {cursor: 'pointer'},
-};
-
-//this View defaults to `flexDirection: 'row'`
-//in React Native, View defaults to `flexDirection: 'column'`
+//React          flexDirection: 'row'
+//React Native   flexDirection: 'column'
 export const View = props => <div {...props} style={Object.assign({}, styles.reset, {display: 'flex'}, props.style)}>
                                {props.children}
                              </div>;
@@ -19,6 +14,8 @@ export const Text = props => <p {...props} style={Object.assign({}, styles.reset
 
 export const TextInput = props => <input {...props} style={Object.assign({}, {display: 'block'}, props.style)}/>;
 
+//React          onClick
+//React Native   onPress
 export class Button extends React.Component {
   constructor() {
     super();
@@ -42,8 +39,7 @@ export class ErrorBoundary extends React.Component {
 
   componentDidCatch(error) { this.setState({error}); }
 
-  render() {
-    return this.state.error ?
-      <Text>{this.state.error.toString()}</Text> : this.props.children;
+  render() { return this.state.error ?
+    <Text>{this.state.error.toString()}</Text> : this.props.children;
   }
 }
