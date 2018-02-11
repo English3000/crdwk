@@ -9,15 +9,16 @@ import { Button } from '../../../utils/elements';
 Enzyme.configure({ adapter: new Adapter() });
 
 const mockStore = configureMockStore([thunk]);
-const testStore = mockStore({ session: {currentUser: null}, errors: [] });
 
 jest.useFakeTimers(); //otherwise setTimeout fails
 
 //end-to-end testing
 describe('AuthForm', () => {
+  let testStore;
   let AuthFormWrapper;
 
   beforeEach(() => {
+    testStore = mockStore({ session: {currentUser: null}, errors: [] });
     AuthFormWrapper = mount(<AuthForm store={testStore}/>).find(AuthForm);
   });
 
@@ -33,13 +34,13 @@ describe('AuthForm', () => {
 
   afterEach(done => {
     function callback() {
-      console.log(testStore.getState());
+      console.log(testStore.getState().errors);
       expect(testStore.getState().errors.length).toBeGreaterThan(0);
-      done();
+      done(); // async/await & Promise.resolve().then don't work
     }
-    console.log(testStore.getState());
 
     setTimeout(callback, 0);
+    console.log(testStore.getState().errors); //=> []
     // makes 2 AJAX requests
     // errors are dispatched, but never reach reducer
 
