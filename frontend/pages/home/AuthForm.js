@@ -25,16 +25,14 @@ class AuthForm extends React.Component {
 
     return [
       <View key='AuthForm' style={{justifyContent: 'space-between', alignItems: 'center', width: 300}}>
-        <Button title='Sign Up' onPress={() => SignUp({email, password})}
-                ref={button => { this.signUp = button; } }/>
+        <Button id='sign-up' title='Sign Up' onClick={() => SignUp({email, password})}/>
         <View style={{display: 'block'}}>
           <TextInput placeholder='Email' defaultValue={email} autoFocus
                      onChange={event => this.setState({email: event.target.value})}/>
           <TextInput placeholder='Password' defaultValue={password}
                      onChange={event => this.setState({password: event.target.value})}/>
         </View>
-        <Button title='Sign In' onPress={() => SignIn({email, password})}
-                ref={button => { this.signIn = button; } }/>
+        <Button id='sign-in' title='Sign In' onClick={() => SignIn({email, password})}/>
       </View>,
       errors.map(err => <Text key={err} style={{textAlign: 'center', width: 300}}>
                           {`${err}.`}

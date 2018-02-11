@@ -22,7 +22,7 @@ export const signUp = credentials => dispatch => Api.signUp(credentials).then(
   //   the store (a JavaScript object of data that the frontend can access).
   user => dispatch(receiveCurrentUser(user.data)),
   // If the request fails, its error data is dispatched to the store instead.
-  err => { console.log(err, Api.HOST);
+  err => { console.log("action", err.response.data);
     dispatch(receiveErrors(err.response.data));
            return err.response.data; }
 );

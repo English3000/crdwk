@@ -27,7 +27,6 @@ export class Button extends React.Component {
 
   render() {
     return <button {...this.props} style={this.state.cursor}
-      onClick={this.props.onPress}
       onMouseOver={() => this.setState({cursor: styles.pointer})}
       onMouseOut={() => this.setState({cursor: styles.default})}>
       {this.props.title}

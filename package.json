@@ -12,6 +12,9 @@
     "node": "6.10.1",
     "npm": "3.10.10"
   },
+  "jest": {
+    "testURL": "http://localhost:3000"
+  },
   "dependencies": {
     "@rails/webpacker": "^3.2.1",
     "axios": "^0.17.1",
