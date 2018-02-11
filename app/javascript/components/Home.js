@@ -2,7 +2,7 @@ import React from 'react';
 
 const styles = {
   reset: {margin: 0, padding: 0},
-  centered: {justifyContent: 'center', alignItems: 'center', height: 800},
+  centered: {display: 'flex', justifyContent: 'center', alignItems: 'center', height: 800},
   hidden: {color: 'white', backgroundColor: 'white'},
   visible: {color: 'black', backgroundColor: 'lightgray'},
 };

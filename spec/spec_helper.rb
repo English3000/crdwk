@@ -13,11 +13,14 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'capybara'
-require 'capybara-webkit'
 
-Capybara.javascript_driver = :webkit
-Capybara.server_port = 3001
+# require 'capybara'
+# require 'capybara-webkit'
+#
+# Capybara.javascript_driver = :webkit
+# Capybara.server_port = 3001
+
+#using :headless_chrome via `application_system_test_case.rb` instead
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
