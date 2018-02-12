@@ -9,4 +9,13 @@
   </script>
 <% end %>
 
-<%= react_component 'Home', prerender: true %>
+<script>
+  window.user = <%= render(
+    "api/sessions/user.json.jbuilder",
+    user: @user
+  ).html_safe %>
+</script>
+
+<%= react_component 'Profile', {
+  user: {id: @user.id, email: @user.email}
+}, prerender: true %>

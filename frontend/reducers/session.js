@@ -1,13 +1,13 @@
 import { RECEIVE_CURRENT_USER } from '../actions/auth';
 
-const _nullUser = {currentUser: null};
+const _nullSession = {currentUser: null};
 
-export default (state = _nullUser, action) => {
-  Object.freeze(state); //freezes old state, so it can't be modified
+export default (state = _nullSession, action) => {
+  Object.freeze(state);
 
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
-      const currentUser = action.currentUser;
+      const currentUser = action.user;
       return {currentUser};
     default:
       return state;

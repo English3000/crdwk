@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ErrorBoundary } from '../utils/elements';
+import { View, Text } from '../utils/elements';
 import Header from './auth/Header';
 import styles from '../utils/styles';
 
