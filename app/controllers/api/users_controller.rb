@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
     if @user.save
       sign_in(@user)
       # can setup ActionMailer here
-      render json: {id: @user.id, email: @user.email}
+      render json: {id: @user.id, email: @user.email, session_token: @user.session_token}
     else
       render json: @user.errors.full_messages, status: 404
     end
