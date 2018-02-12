@@ -10,6 +10,22 @@ const mapDispatchToProps = dispatch => ({
   SignIn: user => dispatch(signIn(user))
 });
 
+const custom = {
+  authForm: {justifyContent: 'space-between', alignItems: 'center'},
+  textInput: { fontSize: 13, fontWeight: 500, width: 195, margin: '0 10px', outline: 'none',
+               padding: '3px 0 4.5px 7.5px', border: '0.5px solid lightgray', boxSizing: 'border-box'},
+
+  signUp: { width: 0, height: 0, borderStyle: 'solid', padding: 0, margin: 0,
+            borderWidth: '0 32px 50px 32px', borderRadius: 0, backgroundColor: 'transparent',
+            borderColor: 'transparent transparent lightgray transparent' },
+  signIn: { width: 0, height: 0, borderStyle: 'solid', padding: 0, margin: 0,
+            borderWidth: '29px 0 29px 50px', borderRadius: 0, backgroundColor: 'transparent',
+            borderColor: 'transparent transparent transparent lightgray' },
+
+  errors: {flexDirection: 'column', position: 'absolute', marginTop: 12.5},
+  err: {textAlign: 'center', width: 290}
+};
+
 class AuthForm extends React.Component {
   constructor() {
     super();
@@ -21,19 +37,23 @@ class AuthForm extends React.Component {
     const {SignUp, SignIn, errors} = this.props;
 
     return [
-      <View key='AuthForm' style={{justifyContent: 'space-between', alignItems: 'center', width: 300}}>
-        <Button title='Sign Up' onClick={() => SignUp({email, password})}/>
+      <View key='AuthForm' style={custom.authForm}>
+        <Button title='Sign Up' style={custom.signUp}
+                onClick={() => SignUp({email, password})}/>
         <View style={{flexDirection: 'column'}}>
           <TextInput placeholder='Email' defaultValue={email} autoFocus
-                     onChange={event => this.setState({email: event.target.value})}/>
+                     onChange={event => this.setState({email: event.target.value})}
+                     style={Object.assign({}, custom.textInput, {borderRadius: '7.5px 7.5px 0 0'})}/>
           <TextInput placeholder='Password' defaultValue={password} type='password'
-                     onChange={event => this.setState({password: event.target.value})}/>
+                     onChange={event => this.setState({password: event.target.value})}
+                     style={Object.assign({}, custom.textInput, {borderRadius: '0 0 7.5px 7.5px'})}/>
         </View>
-        <Button title='Sign In' onClick={() => SignIn({email, password})}/>
+        <Button title='Sign In' style={custom.signIn}
+                onClick={() => SignIn({email, password})}/>
       </View>,
-      errors.map(err => <Text key={err} style={{textAlign: 'center', width: 300}}>
-                          {`${err}.`}
-                        </Text>)
+      <View key='Errors' style={custom.errors}>{errors.map(
+        err => <Text key={err} style={custom.err}>{`${err}.`}</Text>
+      )}</View>
     ];
   }
 }

@@ -23,10 +23,12 @@ export class Button extends React.Component {
   }
 
   render() {
-    return <button {...this.props} style={this.state.cursor}
+    const {style, title} = this.props;
+
+    return <button {...this.props} style={Object.assign({}, this.state.cursor, style)}
       onMouseOver={() => this.setState({cursor: styles.pointer})}
       onMouseOut={() => this.setState({cursor: styles.default})}>
-      {this.props.title}
+      {title}
     </button>;
   }
 }
