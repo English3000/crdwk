@@ -14,8 +14,7 @@ export const receiveErrors = errors => ({
 
 export const signUp = credentials => dispatch => Api.signUp(credentials).then(
   user => dispatch(receiveCurrentUser(user.data)),
-  err => { // console.log("action", err.response.data);
-    dispatch(receiveErrors(err.response.data));
+  err => { dispatch(receiveErrors(err.response.data));
            return err.response.data; }
 );
 

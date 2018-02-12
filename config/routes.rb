@@ -1,11 +1,11 @@
-Rails.application.routes.draw do
-  # Learn more at http://guides.rubyonrails.org/routing.html
+Rails.application.routes.draw do #http://guides.rubyonrails.org/routing.html
+  # also server-rendered
   get '/users/:id', to: 'api/users#show'
+  get '/', to: 'application#home'
 
+  # only client-rendered
   namespace :api, defaults: {format: :json} do
     resources :users
     resource :session, only: [:create, :destroy]
   end
-
-  get '/', to: 'application#home'
 end

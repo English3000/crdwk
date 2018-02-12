@@ -12,7 +12,8 @@ export default class Home extends React.Component {
 
   render() {
     return [
-      <Header key='Header'/>,
+      <Header key='Header' style={styles.header}/>,
+      <div key='placeholder' style={{height: 80}}></div>,
       <div key='Home' style={Object.assign({}, styles.centered, this.state.visibility)}
            onMouseOver={() => this.setState({visibility: styles.visible})}
            onMouseOut={() => this.setState({visibility: styles.hidden})}>

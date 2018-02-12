@@ -8,7 +8,5 @@ export const receiveUser = user => ({
 });
 
 export const visitProfile = id => dispatch => Api.visitProfile(id).then(
-  user => {
-    if (user.id) dispatch(receiveUser(user.data));
-  }
+  user => { if (user.id) dispatch(receiveUser(user.data)); }
 );

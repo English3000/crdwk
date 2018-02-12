@@ -13,12 +13,12 @@ export default class Home extends React.Component {
     const {visibility} = this.state;
 
     return [
-      <Header key='Header'/>,
+      <Header key='Header' style={visibility}/>,
       <View key='Home' style={Object.assign({}, styles.centered, visibility)}
             onMouseOver={() => this.setState({visibility: styles.visible})}
             onMouseOut={() => this.setState({visibility: styles.hidden})}>
         <Text style={{fontSize: 50}}>Home Page</Text>
-      </View> //placeholder
+      </View>
     ];
   }
 }

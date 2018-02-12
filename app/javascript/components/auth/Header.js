@@ -9,7 +9,7 @@ export default class Header extends React.Component {
   render() {
     const {email, password} = this.state;
 
-    return <div style={{display: 'flex', justifyContent: 'space-between'}}>
+    return <div style={Object.assign({}, {display: 'flex', justifyContent: 'space-between'}, this.props.style)}>
       <p>Make it happen</p>
       <div style={{display: 'flex', justifyContent: 'space-between',
                    alignItems: 'center', width: 300}}>

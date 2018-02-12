@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 class Profile extends React.Component {
   render () {
     return [
-      <Header key='Header'/>,
+      <Header key='Header' style={styles.header}/>,
+      <div key='placeholder' style={{height: 80}}></div>,
       this.props.user ? <p key='Details' style={styles.reset}>{this.props.user.email}</p> :
                           <p key='Loading' style={styles.reset}>loading</p>,
       <div key='Profile' style={styles.centered}>

@@ -15,12 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
     preloadedState.users[window.user.id] = window.user;
     delete window.user;
   }
-  const store = createStore(preloadedState);
-
-  window.getState = store.getState;
-
+  // const store = createStore(preloadedState);
+  // window.getState = store.getState;
   ReactDOM.hydrate(
-    <App store={store}/>,
+    <App store={createStore(preloadedState)}/>,
     document.getElementById('replace-with-js')
   );
 });

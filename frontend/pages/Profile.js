@@ -16,9 +16,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Profile extends React.Component {
-  componentWillMount() {
-    this.props.VisitProfile(this.props.pageId);
-  }
+  componentWillMount() { this.props.VisitProfile(this.props.pageId); }
 
   render() {
     return [
@@ -27,7 +25,7 @@ class Profile extends React.Component {
                           <Text key='Loading'>loading</Text>,
       <View key='Profile' style={styles.centered}>
         <Text style={{fontSize: 50}}>Profile Page</Text>
-      </View> //placeholder
+      </View>
     ];
   }
 }

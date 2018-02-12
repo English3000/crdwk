@@ -22,14 +22,14 @@ class AuthForm extends React.Component {
 
     return [
       <View key='AuthForm' style={{justifyContent: 'space-between', alignItems: 'center', width: 300}}>
-        <Button id='sign-up' title='Sign Up' onClick={() => SignUp({email, password})}/>
-        <View style={{display: 'block'}}>
+        <Button title='Sign Up' onClick={() => SignUp({email, password})}/>
+        <View style={{flexDirection: 'column'}}>
           <TextInput placeholder='Email' defaultValue={email} autoFocus
                      onChange={event => this.setState({email: event.target.value})}/>
           <TextInput placeholder='Password' defaultValue={password} type='password'
                      onChange={event => this.setState({password: event.target.value})}/>
         </View>
-        <Button id='sign-in' title='Sign In' onClick={() => SignIn({email, password})}/>
+        <Button title='Sign In' onClick={() => SignIn({email, password})}/>
       </View>,
       errors.map(err => <Text key={err} style={{textAlign: 'center', width: 300}}>
                           {`${err}.`}

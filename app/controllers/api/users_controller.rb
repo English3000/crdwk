@@ -12,7 +12,7 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    if @user && visited
+    if @user && visited # can test once Search implemented
       render json: {id: @user.id, email: @user.email}
     elsif @user
       visited = true
@@ -23,7 +23,7 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  def user_params # allows the server to receive a user's data
+  def user_params
     params.require(:user).permit(:id, :email, :password, :session_token)
   end
 end
