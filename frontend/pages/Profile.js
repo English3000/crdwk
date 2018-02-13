@@ -21,9 +21,11 @@ class Profile extends React.Component {
   render() {
     return [
       <Header key='Header'/>,
+
       this.props.user ? <Text key='Details'>{this.props.user.email}</Text> :
                           <Text key='Loading'>loading</Text>,
-      <View key='Profile' style={styles.centered}>
+
+      <View key='Profile' style={Object.assign({}, styles.centered, {height: window.innerHeight})}>
         <Text style={{fontSize: 50}}>Profile Page</Text>
       </View>
     ];

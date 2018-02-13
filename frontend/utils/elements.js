@@ -1,14 +1,14 @@
 //React Native-style custom components
 import React from 'react';
-import styles from './styles';
 
+const domReset = {margin: 0, padding: 0};
 //React          flexDirection: 'row'
 //React Native   flexDirection: 'column'
-export const View = props => <div {...props} style={Object.assign({}, styles.reset, {display: 'flex'}, props.style)}>
+export const View = props => <div {...props} style={Object.assign({}, domReset, {display: 'flex'}, props.style)}>
                                {props.children}
                              </div>;
 
-export const Text = props => <p {...props} style={Object.assign({}, styles.reset, props.style)}>
+export const Text = props => <p {...props} style={Object.assign({}, domReset, props.style)}>
                                {props.children}
                              </p>;
 
@@ -16,22 +16,9 @@ export const TextInput = props => <input {...props} style={Object.assign({}, {di
 
 //React          onClick
 //React Native   onPress
-export class Button extends React.Component {
-  constructor() {
-    super();
-    this.state = {cursor: styles.default};
-  }
-
-  render() {
-    const {style, title} = this.props;
-
-    return <button {...this.props} style={Object.assign({}, this.state.cursor, style)}
-      onMouseOver={() => this.setState({cursor: styles.pointer})}
-      onMouseOut={() => this.setState({cursor: styles.default})}>
-      {title}
-    </button>;
-  }
-}
+export const Button = props => <button {...props} style={Object.assign({}, {cursor: 'pointer'}, props.style)}>
+                                            {props.title}
+                                          </button>;
 
 export class ErrorBoundary extends React.Component {
   constructor() {
