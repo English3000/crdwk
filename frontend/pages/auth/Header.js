@@ -20,7 +20,7 @@ const Header = ({ currentUser }) => [
     <View style={{display: 'block'}}>
       <AuthForm />
     </View>
-    <Text>crdwk</Text>
+    <Text style={{fontWeight: 700}}>crdwk</Text>
   </View>,
 
   <View key='placeholder' style={{height: 86.5}}></View>,

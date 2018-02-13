@@ -29,7 +29,7 @@ const custom = {
   errors: { flexDirection: 'column', position: 'absolute',
             border: '1px solid black', borderTop: '1px solid white',
             marginTop: 12.5, marginLeft: 72.75, padding: '0 5px 5px' },
-  err: {textAlign: 'center', width: 188, color: 'red', fontWeight: 700}
+  err: {textAlign: 'center', width: 188, color: 'red', fontWeight: 600}
 };
 
 class AuthForm extends React.Component {
@@ -44,11 +44,11 @@ class AuthForm extends React.Component {
 
     return [
       <View key='AuthForm' style={custom.authForm}>
-        <View>
-          <Button style={Object.assign({}, custom.button, custom.signUp)}
-                  onClick={() => SignUp({email, password})}/>
-          <Text style={Object.assign({}, custom.buttonText, custom.signUpText)}
-                onClick={() => SignUp({email, password})}>Sign<br/>Up</Text>
+        <View onClick={() => SignUp({email, password})}>
+          <Button style={Object.assign({}, custom.button, custom.signUp)}/>
+          <Text style={Object.assign({}, custom.buttonText, custom.signUpText)}>
+            Sign<br/>Up
+          </Text>
         </View>
 
         <View style={{flexDirection: 'column'}}>
@@ -60,11 +60,11 @@ class AuthForm extends React.Component {
                      style={Object.assign({}, custom.textInput, styles.bottomRounded, {borderTopWidth: 1})}/>
         </View>
 
-        <View>
-          <Button style={Object.assign({}, custom.button, custom.signIn)}
-                  onClick={() => SignIn({email, password})}/>
-          <Text style={Object.assign({}, custom.buttonText, custom.signInText)}
-                onClick={() => SignIn({email, password})}>Sign In</Text>
+        <View onClick={() => SignIn({email, password})}>
+          <Button style={Object.assign({}, custom.button, custom.signIn)}/>
+          <Text style={Object.assign({}, custom.buttonText, custom.signInText)}>
+            Sign In
+          </Text>
         </View>
       </View>,
 
