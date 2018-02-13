@@ -13,15 +13,16 @@ const mapDispatchToProps = dispatch => ({
 
 const custom = {
   authForm: {justifyContent: 'space-between', alignItems: 'center'},
-  textInput: { fontSize: 13, fontWeight: 500, width: 195, margin: '0 10px', outline: 'none',
-               padding: '3px 0 4.5px 7.5px', border: '0.5px solid lightgray', boxSizing: 'border-box'},
+  textInput: { fontSize: 13, fontWeight: 500, width: 195, margin: '0 10px',
+               padding: '3px 0 4.5px 7.5px', border: '2px solid gainsboro',
+               outline: 'none', boxSizing: 'border-box' },
 
   button: { width: 0, height: 0, borderStyle: 'solid', padding: 0, margin: 0,
             borderRadius: 0, backgroundColor: 'transparent' },
   signUp: {borderWidth: '0 32px 50px 32px', borderColor: 'transparent transparent gainsboro transparent'},
   signIn: {borderWidth: '29px 0 29px 50px', borderColor: 'transparent transparent transparent gainsboro'},
 
-  buttonText: {position: 'absolute', fontSize: 15, cursor: 'pointer'},
+  buttonText: {position: 'absolute', fontSize: 14, cursor: 'pointer'},
   signUpText: {marginTop: 17.25, marginLeft: 19, textAlign: 'center'},
   signInText: {marginTop: 20.5, marginLeft: 0},
 
@@ -53,10 +54,10 @@ class AuthForm extends React.Component {
         <View style={{flexDirection: 'column'}}>
           <TextInput placeholder='Email' defaultValue={email} autoFocus
                      onChange={event => this.setState({email: event.target.value})}
-                     style={Object.assign({}, custom.textInput, styles.topRounded)}/>
+                     style={Object.assign({}, custom.textInput, styles.topRounded, {borderBottomWidth: 1})}/>
           <TextInput placeholder='Password' defaultValue={password} type='password'
                      onChange={event => this.setState({password: event.target.value})}
-                     style={Object.assign({}, custom.textInput, styles.bottomRounded)}/>
+                     style={Object.assign({}, custom.textInput, styles.bottomRounded, {borderTopWidth: 1})}/>
         </View>
 
         <View>

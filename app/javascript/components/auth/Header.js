@@ -11,7 +11,7 @@ const headerStyle = {
 const custom = {
   authForm: {display: 'flex', justifyContent: 'space-between', alignItems: 'center'},
   textInput: { display: 'block', fontSize: 13, fontWeight: 500, width: 195, margin: '0 10px', outline: 'none',
-               padding: '3px 0 4.5px 7.5px', border: '0.5px solid lightgray', boxSizing: 'border-box'},
+               padding: '3px 0 4.5px 7.5px', border: '0.5px solid gainsboro', boxSizing: 'border-box'},
   // v-- no `cursor: 'pointer'` affordance
   button: { width: 0, height: 0, borderStyle: 'solid', padding: 0, margin: 0,
             borderRadius: 0, backgroundColor: 'transparent' },
@@ -25,7 +25,7 @@ const custom = {
 
 export default () => [
   <div key='Auth' style={headerStyle}>
-    <p style={styles.reset}>Make it happen</p>
+    <p style={styles.reset}>Make it happen.</p>
 
     <div style={custom.authForm}>
       <button style={Object.assign({}, custom.button, custom.signUp)}

@@ -16,7 +16,7 @@ const headerStyle = {
 const Header = ({ currentUser }) => [
   currentUser ? <Nav key='Nav'/> :
   <View key='Auth' style={headerStyle}>
-    <Text>Make it happen</Text>
+    <Text>Make it happen.</Text>
     <View style={{display: 'block'}}>
       <AuthForm />
     </View>
