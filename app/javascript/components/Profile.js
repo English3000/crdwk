@@ -3,17 +3,21 @@ import Header from './auth/Header';
 import styles from './styles';
 import PropTypes from 'prop-types';
 
-const Profile = ({ user }) => [
-  <Header key='Header'/>,
+export default class Profile extends React.Component {
+  static propTypes = {user: PropTypes.object};
 
-  user ? <p key='Details' style={styles.reset}>{user.email}</p> :
-           <p key='Loading' style={styles.reset}>loading</p>,
+  render() {
+    const {user} = this.props;
 
-  <div key='Profile' style={styles.centered}>
-    <p style={{fontSize: 50}}>Profile Page loading...</p>
-  </div>
-];
+    return [
+      <Header key='Header'/>,
 
-Profile.propTypes = {user: PropTypes.object};
+      user ? <p key='Details' style={styles.reset}>{user.email}</p> :
+      <p key='Loading' style={styles.reset}>loading</p>,
 
-export default Profile;
+      <div key='Profile' style={styles.centered}>
+        <p style={{fontSize: 50}}>Profile Page loading...</p>
+      </div>
+    ];
+  }
+}

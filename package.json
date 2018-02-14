@@ -4,6 +4,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "npm install && yarn install",
+    "start:dev": "webpack-dev-server",
     "postinstall": "webpack",
     "test": "jest",
     "test:watch": "npm test --watch"

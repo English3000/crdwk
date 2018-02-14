@@ -22,7 +22,7 @@ describe('AuthForm', () => {
     AuthFormWrapper = mount(<AuthForm store={testStore}/>).find(AuthForm);
   });
 
-  it('handles invalid Sign Up', () => {
+  it('handles invalid Sign Up', () => { //async; await || snapshots
     expect(testStore.getState().errors.length).toBe(0);
     AuthFormWrapper.find(Button).first().simulate('click');
   });
@@ -44,7 +44,7 @@ describe('AuthForm', () => {
     // makes 2 AJAX requests
     // errors are dispatched, but never reach reducer
 
-    //Timeout - Async callback was not invoked
+    //Timeout - Async callback was not invoked (done is never called)
     // within the 20-second timeout specified by jest.setTimeout.
 
     // it's an issue w/ setTimeout (commented out the clicks)
@@ -54,3 +54,6 @@ describe('AuthForm', () => {
     // now the tests run but the AJAX request doesn't have time to reach the server
   });
 });
+//Dallas recommends--
+// https://alligator.io/testing/asynchronous-testing-jest/
+// https://alligator.io/testing/snapshot-testing-jest/

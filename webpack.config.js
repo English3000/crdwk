@@ -29,7 +29,16 @@ module.exports = {
   //  bundle.js (in ./app/assets/javascripts).
   output: {
     path: path.resolve(__dirname, "app", "assets", "javascripts"),
+    publicPath: '/assets/',
     filename: "bundle.js"
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, "app", "assets", "javascripts"), //will look for index.html file
+    compress: true,
+    port: 3000,
+    open: true, //opens browser
+    hotOnly: true //enables hot module reload!
+    // https: true
   },
   plugins: plugins,
   module: {
