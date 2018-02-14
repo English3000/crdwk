@@ -1,19 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signOut } from '../../actions/auth';
 import { View } from '../../utils/elements';
+import { signOut } from '../../actions/auth';
 
 const mapDispatchToProps = dispatch => ({
   SignOut: () => dispatch(signOut())
 });
-
-class Nav extends React.Component {
-  render() {
-    return <View style={{justifyContent: 'flex-end', borderBottom: '1px solid black'}}>
-             <i className='fa fa-sign-out fa-lg' style={{cursor: 'pointer'}}
-                onClick={this.props.SignOut}></i>
-           </View>;
-  }
-}
+// no Home icon on Home page.
+const Nav = ({ currentUser, SignOut }) => (
+  <View style={{justifyContent: 'flex-end', borderBottom: '1px solid black'}}>
+    {currentUser ? <i className='fa fa-sign-out fa-lg' onClick={SignOut}
+                      style={{cursor: 'pointer'}}></i> : null}
+  </View>
+);
 
 export default connect(null, mapDispatchToProps)(Nav);

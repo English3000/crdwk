@@ -25,8 +25,8 @@ const custom = {
   signIn: {borderWidth: '29px 0 29px 50px', borderColor: 'transparent transparent transparent gainsboro'},
 
   buttonText: {position: 'absolute', fontSize: 14, cursor: 'pointer'},
-  signUpText: {marginTop: 17.25, marginLeft: 19, textAlign: 'center'},
-  signInText: {marginTop: 20.5, marginLeft: 0},
+  signUpText: {marginTop: 16, marginLeft: 19, textAlign: 'center'},
+  signInText: {marginTop: 20.25, marginLeft: 0.5},
 
   errors: { flexDirection: 'column', position: 'absolute', backgroundColor: 'white',
             border: '1px solid black', borderTop: '1px solid white',

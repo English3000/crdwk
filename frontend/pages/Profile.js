@@ -17,7 +17,7 @@ class Profile extends React.Component {
   componentWillMount() { this.props.VisitProfile(this.props.pageId); }
 
   render() {
-    return <View style={{fontSize: 50, display: 'block', textAlign: 'center'}}>
+    return <View style={{flexDirection: 'column', alignItems: 'center'}}>
              <Text style={{fontStyle: 'italic'}}>
                {this.props.user ? this.props.user.email : ''}
              </Text>

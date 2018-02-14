@@ -1,10 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { View, Text } from '../../utils/elements';
-import Nav from './Nav';
 import AuthForm from './AuthForm';
-
-const mapStateToProps = ({ session }) => ({ currentUser: session.currentUser });
 
 const headerStyle = {
   position: 'fixed', margin: '0 auto', padding: '15px 10% 12.5px',
@@ -13,20 +9,16 @@ const headerStyle = {
   borderBottom: '1px solid black'
 };
 
-const Header = ({ currentUser }) => currentUser ?
-<Nav key='Nav' currentUser={currentUser}/> : [
+const Header = () => [
   <View key='Auth' style={headerStyle}>
     <Text>Make it happen.</Text>
+
     <View style={{display: 'block'}}>
       <AuthForm />
     </View>
+
     <Text style={{fontWeight: 600}}>crdwk</Text>
   </View>,
-  //when signed out, do AuthForm + Nav:
-  // AuthForm disappears when signed in,
-  // no SignOut icon in Nav when signed out,
-  // no Home icon on Home page.
+
   <View key='placeholder' style={{height: 86.5}}></View>,
 ];
-
-export default connect(mapStateToProps, null)(Header);
