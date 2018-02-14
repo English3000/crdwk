@@ -13,16 +13,18 @@ const headerStyle = {
   borderBottom: '1px solid black'
 };
 
-const Header = ({ currentUser }) => [
-  currentUser ? <Nav key='Nav'/> :
+const Header = ({ currentUser }) => currentUser ? <Nav key='Nav'/> : [
   <View key='Auth' style={headerStyle}>
     <Text>Make it happen.</Text>
     <View style={{display: 'block'}}>
       <AuthForm />
     </View>
-    <Text style={{fontWeight: 700}}>crdwk</Text>
+    <Text style={{fontWeight: 600}}>crdwk</Text>
   </View>,
-
+  //when signed out, do AuthForm + Nav:
+  // AuthForm disappears when signed in,
+  // no SignOut icon in Nav when signed out,
+  // no Home icon on Home page.
   <View key='placeholder' style={{height: 86.5}}></View>,
 ];
 

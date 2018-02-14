@@ -32,7 +32,7 @@ module.exports = {
     publicPath: '/assets/',
     filename: "bundle.js"
   },
-  devServer: {
+  devServer: {// https://github.com/webpack/docs/wiki/webpack-dev-server
     contentBase: path.resolve(__dirname, "app", "assets", "javascripts"), //will look for index.html file
     compress: true,
     port: 3000,

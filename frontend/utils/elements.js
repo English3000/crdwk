@@ -4,7 +4,7 @@ import React from 'react';
 const domReset = {margin: 0, padding: 0};
 //React          flexDirection: 'row'
 //React Native   flexDirection: 'column'
-export const View = props => <div {...props} style={Object.assign({}, domReset, {display: 'flex'}, props.style)}>
+export const View = props => <div {...props} style={Object.assign({display: 'flex'}, domReset, props.style)}>
                                {props.children}
                              </div>;
 
@@ -12,13 +12,13 @@ export const Text = props => <p {...props} style={Object.assign({}, domReset, pr
                                {props.children}
                              </p>;
 
-export const TextInput = props => <input {...props} style={Object.assign({}, {display: 'block'}, props.style)}/>;
+export const TextInput = props => <input {...props} style={Object.assign({display: 'block'}, props.style)}/>;
 
 //React          onClick
 //React Native   onPress
-export const Button = props => <button {...props} style={Object.assign({}, {cursor: 'pointer'}, props.style)}>
-                                            {props.title}
-                                          </button>;
+export const Button = props => <button {...props} style={Object.assign({cursor: 'pointer'}, props.style)}>
+                                 {props.title}
+                               </button>;
 
 export class ErrorBoundary extends React.Component {
   constructor() {

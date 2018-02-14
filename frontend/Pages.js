@@ -5,6 +5,6 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 
 export default props => <Switch>
-                       <AuthRoute exact path='/' component={Home}/>
-                       <Route exact path='/users/:id' component={Profile}/>
-                     </Switch>;
+                          <AuthRoute exact path='/' component={Home}/>
+                          <Route exact path='/users/:id' component={Profile}/>
+                        </Switch>;

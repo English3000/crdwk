@@ -26,7 +26,7 @@ const custom = {
   signUpText: {marginTop: 17.25, marginLeft: 19, textAlign: 'center'},
   signInText: {marginTop: 20.5, marginLeft: 0},
 
-  errors: { flexDirection: 'column', position: 'absolute',
+  errors: { flexDirection: 'column', position: 'absolute', backgroundColor: 'white',
             border: '1px solid black', borderTop: '1px solid white',
             marginTop: 12.5, marginLeft: 72.75, padding: '0 5px 5px' },
   err: {textAlign: 'center', width: 188, color: 'red', fontWeight: 600}
@@ -54,10 +54,10 @@ class AuthForm extends React.Component {
         <View style={{flexDirection: 'column'}}>
           <TextInput placeholder='Email' defaultValue={email} autoFocus
                      onChange={event => this.setState({email: event.target.value})}
-                     style={Object.assign({}, custom.textInput, styles.topRounded, {borderBottomWidth: 1})}/>
+                     style={Object.assign({}, custom.textInput, {borderBottomWidth: 1}, styles.topRounded)}/>
           <TextInput placeholder='Password' defaultValue={password} type='password'
                      onChange={event => this.setState({password: event.target.value})}
-                     style={Object.assign({}, custom.textInput, styles.bottomRounded, {borderTopWidth: 1})}/>
+                     style={Object.assign({}, custom.textInput, {borderTopWidth: 1}, styles.bottomRounded)}/>
         </View>
 
         <View onClick={() => SignIn({email, password})}>

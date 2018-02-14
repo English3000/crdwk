@@ -22,10 +22,11 @@ class Profile extends React.Component {
     return [
       <Header key='Header'/>,
 
-      this.props.user ? <Text key='Details'>{this.props.user.email}</Text> :
-                          <Text key='Loading'>loading</Text>,
+      this.props.user ? <Text key='Details' style={{backgroundColor: 'ghostwhite'}}>
+        {this.props.user.email}
+      </Text> : <Text key='Loading'>loading</Text>,
 
-      <View key='Profile' style={Object.assign({}, styles.centered, {height: window.innerHeight})}>
+      <View key='Profile' style={Object.assign({height: window.innerHeight}, styles.centered)}>
         <Text style={{fontSize: 50}}>Profile Page</Text>
       </View>
     ];

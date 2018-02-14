@@ -10,8 +10,9 @@ const headerStyle = {
 
 const custom = {
   authForm: {display: 'flex', justifyContent: 'space-between', alignItems: 'center'},
-  textInput: { display: 'block', fontSize: 13, fontWeight: 500, width: 195, margin: '0 10px', outline: 'none',
-               padding: '3px 0 4.5px 7.5px', border: '0.5px solid gainsboro', boxSizing: 'border-box'},
+  textInput: { display: 'block', fontSize: 13, fontWeight: 500, width: 195, margin: '0 10px',
+               padding: '3px 0 4.5px 7.5px', border: '2px solid gainsboro',
+               outline: 'none', boxSizing: 'border-box' },
   // v-- no `cursor: 'pointer'` affordance
   button: { width: 0, height: 0, borderStyle: 'solid', padding: 0, margin: 0,
             borderRadius: 0, backgroundColor: 'transparent' },
@@ -36,9 +37,9 @@ export default () => [
 
       <div style={{display: 'flex', flexDirection: 'column'}}>
         <input placeholder='Email' readOnly
-               style={Object.assign({}, custom.textInput, styles.topRounded)}/>
+               style={Object.assign({}, custom.textInput, {borderBottomWidth: 1}, styles.topRounded)}/>
         <input placeholder='Password' readOnly
-               style={Object.assign({}, custom.textInput, styles.bottomRounded)}/>
+               style={Object.assign({}, custom.textInput, {borderTopWidth: 1}, styles.bottomRounded)}/>
       </div>
 
       <div>
@@ -50,7 +51,7 @@ export default () => [
       </div>
     </div>
 
-    <p style={styles.reset}>crdwk</p>
+    <p style={Object.assign({fontWeight: 600}, styles.reset)}>crdwk</p>
   </div>,
   <div key='placeholder' style={{height: 86.5}}></div>,
 ];

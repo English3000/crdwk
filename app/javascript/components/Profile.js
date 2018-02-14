@@ -12,8 +12,9 @@ export default class Profile extends React.Component {
     return [
       <Header key='Header'/>,
 
-      user ? <p key='Details' style={styles.reset}>{user.email}</p> :
-      <p key='Loading' style={styles.reset}>loading</p>,
+      user ? <p key='Details' style={Object.assign({backgroundColor: 'ghostwhite'}, styles.reset)}>
+               {user.email}
+             </p> : <p key='Loading' style={styles.reset}>loading</p>,
 
       <div key='Profile' style={styles.centered}>
         <p style={{fontSize: 50}}>Profile Page loading...</p>
