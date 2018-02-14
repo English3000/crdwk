@@ -2,13 +2,16 @@
 import React from 'react';
 
 const domReset = {margin: 0, padding: 0};
+
+export const Page = props => <div {...props}>{props.children}</div>;
+
 //React          flexDirection: 'row'
 //React Native   flexDirection: 'column'
-export const View = props => <div {...props} style={Object.assign({display: 'flex'}, domReset, props.style)}>
+export const View = props => <div {...props} style={Object.assign({display: 'flex'}, props.style)}>
                                {props.children}
                              </div>;
 
-export const Text = props => <p {...props} style={Object.assign({}, domReset, props.style)}>
+export const Text = props => <p {...props} style={Object.assign({display: 'flex'}, domReset, props.style)}>
                                {props.children}
                              </p>;
 

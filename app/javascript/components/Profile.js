@@ -1,24 +1,14 @@
 import React from 'react';
-import Header from './auth/Header';
-import styles from './styles';
 import PropTypes from 'prop-types';
+import { styles, P } from './util';
 
-export default class Profile extends React.Component {
-  static propTypes = {user: PropTypes.object};
+const Profile = ({ user }) => <div key='Profile' style={styles.page}>
+                                <div style={{textAlign: 'center'}}>
+                                  <P><em>{user.email}</em></P>
+                                  <P>profile page loading...</P>
+                                </div>
+                              </div>;
 
-  render() {
-    const {user} = this.props;
+Profile.propTypes = {user: PropTypes.object};
 
-    return [
-      <Header key='Header'/>,
-
-      user ? <p key='Details' style={Object.assign({backgroundColor: 'ghostwhite'}, styles.reset)}>
-               {user.email}
-             </p> : <p key='Loading' style={styles.reset}>loading</p>,
-
-      <div key='Profile' style={styles.centered}>
-        <p style={{fontSize: 50}}>Profile Page loading...</p>
-      </div>
-    ];
-  }
-}
+export default Profile;

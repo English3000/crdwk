@@ -13,7 +13,8 @@ const headerStyle = {
   borderBottom: '1px solid black'
 };
 
-const Header = ({ currentUser }) => currentUser ? <Nav key='Nav'/> : [
+const Header = ({ currentUser }) => currentUser ?
+<Nav key='Nav' currentUser={currentUser}/> : [
   <View key='Auth' style={headerStyle}>
     <Text>Make it happen.</Text>
     <View style={{display: 'block'}}>

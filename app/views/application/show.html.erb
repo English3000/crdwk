@@ -16,4 +16,5 @@
   ).html_safe %>
 </script>
 
+<%= react_component 'Header', prerender: true %>
 <%= react_component 'Profile', user: {id: @user.id, email: @user.email}, prerender: true %>
