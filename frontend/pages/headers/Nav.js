@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { withRouter, Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { View, Text } from '../../utils/elements';
 import { signOut } from '../../actions/auth';
 
@@ -8,8 +8,7 @@ const mapDispatchToProps = dispatch => ({
   SignOut: () => dispatch(signOut())
 });
 
-const navStyle = { position: 'fixed', justifyContent: 'flex-end',
-                   width: '100%', backgroundColor: 'white' };
+const navStyle = { position: 'fixed', justifyContent: 'flex-end', width: '100%' };
 
 const Nav = ({ currentUser, SignOut }) => (
   <View style={navStyle}>
