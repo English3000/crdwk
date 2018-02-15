@@ -29,10 +29,9 @@ const custom = {
   signInText: {marginTop: 20.25, marginLeft: 0.5},
 
   errors: { flexDirection: 'column', position: 'absolute', backgroundColor: 'white',
-            border: '1px solid black', borderTop: '1px solid white',
-            marginTop: 12.5, marginLeft: 72.75, padding: '0 5px 5px' },
-  err: {textAlign: 'center', width: 188, color: 'red', fontWeight: 600}
-};
+            marginTop: 12.5, marginLeft: 72.75, padding: 5 },
+  err: {width: 188, display: 'block', textAlign: 'center', color: 'red', fontWeight: 600, margin: '5px 0'}
+};                     //or `alignItems: 'center'`??
 
 class AuthForm extends React.Component {
   constructor() {

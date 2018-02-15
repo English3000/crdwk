@@ -1,16 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View } from '../../utils/elements';
+// import { withRouter, Link } from 'react-router-dom';
+import { View, Text } from '../../utils/elements';
 import { signOut } from '../../actions/auth';
 
 const mapDispatchToProps = dispatch => ({
   SignOut: () => dispatch(signOut())
 });
-// no Home icon on Home page.
+
+const navStyle = { position: 'fixed', justifyContent: 'flex-end',
+                   width: '100%', backgroundColor: 'white' };
+
 const Nav = ({ currentUser, SignOut }) => (
-  <View style={{justifyContent: 'flex-end', borderBottom: '1px solid black'}}>
+  <View style={navStyle}>
     {currentUser ? <i className='fa fa-sign-out fa-lg' onClick={SignOut}
-                      style={{cursor: 'pointer'}}></i> : null}
+                      style={{cursor: 'pointer'}}></i> : ''}
   </View>
 );
 

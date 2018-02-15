@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { View, Text } from '../utils/elements';
+import { Text } from '../utils/elements';
 import { visitProfile } from '../actions/visit';
 
 const mapStateToProps = ({ users }, { match }) => {
@@ -17,13 +17,13 @@ class Profile extends React.Component {
   componentWillMount() { this.props.VisitProfile(this.props.pageId); }
 
   render() {
-    return <View style={{flexDirection: 'column', alignItems: 'center'}}>
-             <Text style={{fontStyle: 'italic'}}>
-               {this.props.user ? this.props.user.email : ''}
-             </Text>
+    return [
+      <Text key='Details' style={{fontStyle: 'italic'}}>
+        {this.props.user ? this.props.user.email : ''}
+      </Text>,
 
-             <Text>profile page</Text>
-           </View>; //can this be an array instead?
+      <Text key='page'>profile page</Text>
+    ];
   }
 }
 

@@ -4,8 +4,7 @@ import { styles, P } from './util';
 const headerStyle = {
   position: 'fixed', margin: '0 auto', padding: '15px 10% 12.5px',
   width: '100%', boxSizing: 'border-box', backgroundColor: 'white',
-  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-  borderBottom: '1px solid black'
+  display: 'flex', justifyContent: 'space-between', alignItems: 'center'
 };
 
 const custom = {
@@ -56,5 +55,5 @@ export default () => [
 
     <P style={{fontWeight: 600}}>crdwk</P>
   </div>,
-  <div key='placeholder' style={{height: 86.5}}></div>,
+  <div key='placeholder' style={{height: 85.5}}></div>,
 ];
