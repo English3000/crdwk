@@ -12,9 +12,8 @@ const mapDispatchToProps = dispatch => ({
 
 const custom = {
   authForm: {justifyContent: 'space-between', alignItems: 'center'},
-  textInput: { fontSize: 13, fontWeight: 500, width: 195, margin: '0 10px',
-               padding: '3px 0 4.5px 7.5px', border: '2px solid gainsboro',
-               outline: 'none', boxSizing: 'border-box' },
+  textInput: { fontWeight: 500, width: 195, margin: '0 10px',
+               border: '2px solid gainsboro', boxSizing: 'border-box' },
 
   topRounded: {borderTopLeftRadius: 7.5, borderTopRightRadius: 7.5},
   bottomRounded: {borderBottomLeftRadius: 7.5, borderBottomRightRadius: 7.5},

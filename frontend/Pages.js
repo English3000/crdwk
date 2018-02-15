@@ -12,17 +12,13 @@ const mapStateToProps = ({ session }) => ({ currentUser: session.currentUser });
 
 const pageStyle = { display: 'flex', flexDirection: 'column',
                     justifyContent: 'center', alignItems: 'center',
-                    fontSize: 50, backgroundColor: 'whitesmoke', 
+                    fontSize: 50, backgroundColor: 'whitesmoke',
                     height: window.innerHeight };
 
 const Pages = ({ currentUser }) => [
   currentUser ? null :
   <ErrorBoundary key='AuthHeader'>
     <AuthHeader />
-  </ErrorBoundary>,
-
-  <ErrorBoundary key='Nav'>
-    <Nav currentUser={currentUser}/>
   </ErrorBoundary>,
 
   <ErrorBoundary key='Page'>
@@ -32,6 +28,10 @@ const Pages = ({ currentUser }) => [
         <Route exact path='/users/:id' component={Profile}/>
       </Switch>
     </Page>
+  </ErrorBoundary>,
+
+  <ErrorBoundary key='Nav'>
+    <Nav currentUser={currentUser}/>
   </ErrorBoundary>
 ];
 
