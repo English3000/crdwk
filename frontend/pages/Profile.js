@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Profile extends React.Component {
-  componentWillMount() { this.props.VisitProfile(this.props.pageId); }
+  componentWillMount() { if (!this.props.user) this.props.VisitProfile(this.props.pageId); }
 
   render() {
     return [

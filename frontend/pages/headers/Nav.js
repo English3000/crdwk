@@ -8,18 +8,22 @@ const mapDispatchToProps = dispatch => ({
   SignOut: () => dispatch(signOut())
 });
 
-const navStyle = { position: 'fixed', bottom: 5, width: '100%',
+const navStyle = { position: 'fixed', bottom: 7.5, width: '100%', margin: '0 -5px',
                    justifyContent: 'space-between', alignItems: 'end' };
 
 const Nav = ({ currentUser, SignOut }) => (
   <View style={navStyle}>
-    <i></i>
+    <View style={{width: 20}}></View>
+
     <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
-      <i className='fa fa-search' style={{position: 'fixed', marginRight: 5}}></i>
       <TextInput style={{border: 'none', borderRadius: 2.5, paddingRight: 25}}/>
+      <i className='fa fa-search' style={{position: 'fixed', marginRight: 5}}></i>
     </View>
-    {currentUser ? <i className='fa fa-sign-out fa-lg' onClick={SignOut}
-                      style={{cursor: 'pointer'}}></i> : <i></i>}
+
+    <View style={{width: 20}}>
+      {currentUser ? <i className='fa fa-sign-out fa-lg' onClick={SignOut}
+                        style={{cursor: 'pointer'}}></i> : null}
+    </View>
   </View>
 );
 

@@ -12,7 +12,7 @@ const mapStateToProps = ({ session }) => ({ currentUser: session.currentUser });
 
 const pageStyle = { display: 'flex', flexDirection: 'column',
                     justifyContent: 'center', alignItems: 'center',
-                    fontSize: 50, backgroundColor: 'whitesmoke',
+                    fontSize: 50, backgroundColor: '#ffffe6',
                     height: window.innerHeight };
 
 const Pages = ({ currentUser }) => [

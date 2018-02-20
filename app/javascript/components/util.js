@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const styles = {
-  page: { height: 800, fontSize: 50, backgroundColor: 'whitesmoke',
+  page: { height: 800, fontSize: 50, backgroundColor: '#ffffe6',
           display: 'flex', flexDirection: 'column',
           justifyContent: 'center', alignItems: 'center' }
 };
