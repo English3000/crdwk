@@ -52,8 +52,10 @@ class Nav extends React.Component {
 
       <View key='Page' style={{flexDirection: 'column', backgroundColor: '#ffffe6', height: window.innerHeight}}>
         {searchResults.length > 0 ?
-        searchResults.map(user => <Link to={`/users/${user.id}`}>{user.name}</Link> ) :
-        <Text>No results found.</Text>}
+        searchResults.map(user => <Link key={user.id} to={`/users/${user.id}`}
+                                        onClick={() => this.setState({query: ''})}>
+                                    {user.name}
+                                  </Link> ) : <Text>No results found.</Text>}
       </View>,
 
       <View key='Nav' style={custom.navStyle}>
@@ -63,17 +65,17 @@ class Nav extends React.Component {
           <TextInput style={{borderRadius: 2.5, paddingRight: 25}}
                      placeholder='Search for users...'
                      onChange={event => this.setState({query: event.target.value})}
-                     onFocus={event => this.setState({query: event.target.value})}
-                     onBlur={() => this.setState({query: ''})}/>
+                     onFocus={event => this.setState({query: event.target.value})}/>
           {!currentUser && location.pathname !== '/' ?
-          <Link to={'/'} style={{position: 'fixed', marginRight: 5}}>
+          <Link to={'/'} style={{position: 'fixed', marginRight: 5}}
+                onClick={() => this.setState({query: ''})}>
             <i className='fa fa-home fa-lg' style={{color: 'black'}}></i>
           </Link> : null}
         </View>
 
         <View style={{width: 20}}>
           {currentUser ? <i className='fa fa-sign-out fa-lg' style={{cursor: 'pointer'}}
-                            onClick={SignOut}></i> : null}
+                            onClick={() => { SignOut(); this.setState({query: ''}); }}></i> : null}
         </View>
       </View>
     ];
