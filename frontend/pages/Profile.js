@@ -16,9 +16,11 @@ class Profile extends React.Component {
   componentWillMount() { if (!this.props.user) this.props.VisitProfile(this.props.pageId); }
 
   render() {
+    const {user} = this.props;
+
     return [
       <Text key='Details' style={{fontStyle: 'italic'}}>
-        {this.props.user ? this.props.user.email : null}
+        {user ? user.name ? user.name : user.email : null}
       </Text>,
 
       <Text key='page'>profile page</Text>

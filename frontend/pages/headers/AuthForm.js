@@ -45,7 +45,9 @@ class AuthForm extends React.Component {
 
     return [
       <View key='AuthForm' style={custom.authForm}>
-        <View onClick={() => SignUp({email, password}).then( _ => this.setState({visible: true}) )}>
+        <View onClick={() => SignUp({email, password}).then(err => {
+          if (err instanceof Array) this.setState({visible: true});
+        })}>
           <Button style={Object.assign({}, custom.button, custom.signUp)}/>
           <Text style={Object.assign({}, custom.buttonText, custom.signUpText)}>
             Sign<br/>Up
@@ -61,7 +63,9 @@ class AuthForm extends React.Component {
                      style={Object.assign({}, custom.textInput, {borderTopWidth: 1}, custom.bottomRounded)}/>
         </View>
 
-        <View onClick={() => SignIn({email, password}).then( _ => this.setState({visible: true}) )}>
+        <View onClick={() => SignIn({email, password}).then(err => {
+          if (err instanceof Array) this.setState({visible: true});
+        })}>
           <Button style={Object.assign({}, custom.button, custom.signIn)}/>
           <Text style={Object.assign({}, custom.buttonText, custom.signInText)}>
             Sign In

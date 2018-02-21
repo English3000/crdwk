@@ -4,10 +4,16 @@ class Api::UsersController < ApplicationController
     if @user.save
       sign_in(@user)
       # can setup ActionMailer here
-      render json: {id: @user.id, email: @user.email, session_token: @user.session_token}
+      render partial: 'api/sessions/user', locals: {user: @user} #test if works
     else
       render json: @user.errors.full_messages, status: 404
     end
+  end
+
+  def update
+    @user = User.find_by(id: params[:id])
+    @user.update_attributes(user_params) #can add constraints
+    render partial: 'api/sessions/user', locals: {user: @user} #test if works
   end
 
   def show
@@ -24,6 +30,6 @@ class Api::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:id, :email, :password, :session_token)
+    params.require(:user).permit(:id, :name, :email, :password, :session_token)
   end
 end

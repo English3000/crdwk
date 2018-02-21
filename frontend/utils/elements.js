@@ -15,8 +15,8 @@ export const Text = props => <p {...props} style={Object.assign({display: 'flex'
                                {props.children}
                              </p>;
 
-const textInputStyle = { display: 'block', outline: 'none', fontSize: 13,
-                         padding: '3px 0 4.5px 7.5px' };
+const textInputStyle = { display: 'block', outline: 'none', border: 'none',
+                         fontSize: 13, padding: '3px 0 4.5px 7.5px' };
 
 export const TextInput = props => <input {...props} style={Object.assign({}, textInputStyle, props.style)}/>;
 

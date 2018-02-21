@@ -6,6 +6,7 @@ const HOST = process.env.NODE_ENV === 'production' ?
   'HEROKU URL' : `localhost${PORT}`;
 
 export const signUp = user => axios.post(`http://${HOST}/api/users`, {user});
+export const updateUser = user => axios.patch(`http://${HOST}/api/users/${user.id}`, {user});
 export const signIn = user => axios.post(`http://${HOST}/api/session`, {user});
 export const signOut = () => axios.delete(`http://${HOST}/api/session`);
 

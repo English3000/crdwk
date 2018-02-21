@@ -18,6 +18,10 @@ export const signUp = credentials => dispatch => Api.signUp(credentials).then(
            return err.response.data; }
 );
 
+export const updateUser = details => dispatch => Api.updateUser(details).then(
+  user => dispatch(receiveCurrentUser(user.data))
+);
+
 export const signIn = credentials => dispatch => Api.signIn(credentials).then(
   user => dispatch(receiveCurrentUser(user.data)),
   err => { dispatch(receiveErrors(err.response.data));
