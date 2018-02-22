@@ -16,5 +16,11 @@
   ).html_safe %>
 </script>
 
-<%= react_component 'Header', prerender: true %>
+<% if !signed_in? %>
+  <%= react_component 'AuthHeader', prerender: true %>
+<% elsif @user.id == current_user.id %>
+  <%= react_component 'NewUserForm', prerender: true %>
+<% end %>
+
 <%= react_component 'Profile', user: {id: @user.id, email: @user.email}, prerender: true %>
+<%= react_component 'Nav', prerender: true, page: 'Profile', signedIn: signed_in? %>

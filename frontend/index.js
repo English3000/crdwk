@@ -2,7 +2,7 @@ import "babel-polyfill";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createStore from './store';
-import ReactWrapper from './AppWrapper';
+import ReactWrapper from './App';
 
 document.addEventListener('DOMContentLoaded', () => {
   let preloadedState = { users: {} };

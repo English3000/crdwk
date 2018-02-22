@@ -6,3 +6,5 @@
   > Should check that clicking auth buttons:
   >* returns errors
   >* redirects to Profile
+
+2. User search

@@ -4,10 +4,11 @@
   <script>
     window.currentUser = <%= render(
       "api/sessions/user.json.jbuilder",
-      user: current_user
+      user: current_user, current: true
     ).html_safe %>
   </script>
 <% end %>
 
-<%= react_component 'Header', prerender: true %>
+<%= react_component 'AuthHeader', prerender: true %>
 <%= react_component 'Home', prerender: true %>
+<%= react_component 'Nav', prerender: true, page: 'Home', signedIn: signed_in? %>

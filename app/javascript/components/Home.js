@@ -1,6 +1,6 @@
 import React from 'react';
-import { styles } from './util';
+import { styles, P } from './util';
 
 export default () => <div key='Home' style={styles.page}>
-                       <p>home page loading...</p>
+                       <P>home page loading...</P>
                      </div>;

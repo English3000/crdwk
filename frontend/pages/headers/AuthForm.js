@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Button, TextInput, Text } from '../../utils/elements';
-import { signUp, signIn } from '../../actions/auth';
+import { signUp, signIn, RECEIVE_ERRORS } from '../../actions/auth';
 
 const mapStateToProps = ({ errors }) => ({ errors });
 
@@ -45,8 +45,8 @@ class AuthForm extends React.Component {
 
     return [
       <View key='AuthForm' style={custom.authForm}>
-        <View onClick={() => SignUp({email, password}).then(err => {
-          if (err instanceof Array) this.setState({visible: true});
+        <View onClick={() => SignUp({email, password}).then(action => {
+          if (action.type === RECEIVE_ERRORS) this.setState({visible: true});
         })}>
           <Button style={Object.assign({}, custom.button, custom.signUp)}/>
           <Text style={Object.assign({}, custom.buttonText, custom.signUpText)}>
@@ -63,8 +63,8 @@ class AuthForm extends React.Component {
                      style={Object.assign({}, custom.textInput, {borderTopWidth: 1}, custom.bottomRounded)}/>
         </View>
 
-        <View onClick={() => SignIn({email, password}).then(err => {
-          if (err instanceof Array) this.setState({visible: true});
+        <View onClick={() => SignIn({email, password}).then(action => {
+          if (action.type === RECEIVE_ERRORS) this.setState({visible: true});
         })}>
           <Button style={Object.assign({}, custom.button, custom.signIn)}/>
           <Text style={Object.assign({}, custom.buttonText, custom.signInText)}>

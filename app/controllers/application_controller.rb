@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   def home
     visited = true
+    render :show if signed_in?
   end
 
   def visited
