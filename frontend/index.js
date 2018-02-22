@@ -2,7 +2,7 @@ import "babel-polyfill";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createStore from './store';
-import App from './App';
+import ReactWrapper from './AppWrapper';
 
 document.addEventListener('DOMContentLoaded', () => {
   let preloadedState = { users: {} };
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const store = createStore(preloadedState);
   window.getState = store.getState;
   ReactDOM.hydrate(
-    <App store={store}/>,
+    <ReactWrapper store={store}/>,
     document.getElementById('replace-with-js')
   );
 });

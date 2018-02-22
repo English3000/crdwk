@@ -23,6 +23,7 @@ export const visitProfile = id => dispatch => Api.visitProfile(id).then(
 );
 
 export const findUsers = query => dispatch => {
+  //add loading dispatch (displays a blank screen)
   dispatch(recordSearch(query));
   Api.findUsers(query).then( users => dispatch(receiveUsers(users.data)) );
 };

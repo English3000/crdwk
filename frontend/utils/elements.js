@@ -3,7 +3,12 @@ import React from 'react';
 
 const domReset = {margin: 0, padding: 0};
 
-export const Page = props => <div {...props}>{props.children}</div>;
+const pageStyle = { display: 'flex', flexDirection: 'column',
+                    backgroundColor: '#ffffe6', height: window.innerHeight };
+
+export const Page = props => <div {...props} style={Object.assign({}, pageStyle, props.style)}>
+                               {props.children}
+                             </div>;
 
 //React          flexDirection: 'row'
 //React Native   flexDirection: 'column'

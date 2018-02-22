@@ -4,7 +4,7 @@
   <script>
     window.currentUser = <%= render(
       "api/sessions/user.json.jbuilder",
-      user: current_user
+      user: current_user, current: true
     ).html_safe %>
   </script>
 <% end %>
@@ -12,7 +12,7 @@
 <script>
   window.user = <%= render(
     "api/sessions/user.json.jbuilder",
-    user: @user
+    user: @user, current: false
   ).html_safe %>
 </script>
 

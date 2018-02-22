@@ -13,7 +13,7 @@ class NewUserForm extends React.Component {
     this.state = {name: '', id: props.currentUser.id};
   }
 
-  render() {
+  render() { //style Button
     return <View style={{backgroundColor: '#ffffe6'}}>
       <TextInput placeholder='Name' autoFocus
                  onChange={event => this.setState({name: event.target.value})}/>
