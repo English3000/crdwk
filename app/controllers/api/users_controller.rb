@@ -1,10 +1,14 @@
 class Api::UsersController < ApplicationController
+  def index
+    @users = User.where("LOWER(users.name) LIKE ?", '%' + params['query'].downcase + '%')
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save
       sign_in(@user)
       # can setup ActionMailer here
-      render partial: 'api/sessions/user', locals: {user: @user} #test if works
+      render partial: 'api/sessions/user', locals: {user: @user, current: true}
     else
       render json: @user.errors.full_messages, status: 404
     end
@@ -13,7 +17,7 @@ class Api::UsersController < ApplicationController
   def update
     @user = User.find_by(id: params[:id])
     @user.update_attributes(user_params) #can add constraints
-    render partial: 'api/sessions/user', locals: {user: @user} #test if works
+    render partial: 'api/sessions/user', locals: {user: @user, current: true}
   end
 
   def show

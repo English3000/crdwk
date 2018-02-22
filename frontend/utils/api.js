@@ -12,3 +12,4 @@ export const signOut = () => axios.delete(`http://${HOST}/api/session`);
 
 // client-side rendering
 export const visitProfile = id => axios.get(`http://${HOST}/users/${id}`);
+export const findUsers = query => axios.get( `http://${HOST}/api/users`, {params: {query}} );

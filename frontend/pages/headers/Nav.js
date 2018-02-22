@@ -4,14 +4,16 @@ import { withRouter, Switch, Route, Link } from 'react-router-dom';
 import { AuthRoute } from '../../utils/routing';
 import { Page, View, Text, TextInput, ErrorBoundary } from '../../utils/elements';
 import { signOut } from '../../actions/auth';
+import { findUsers } from '../../actions/visit';
 import Home from '../Home';
 import Profile from '../Profile';
 
-const mapStateToProps = ({ users, session }) => ({
-  users, currentUser: session.currentUser
+const mapStateToProps = ({ users, session, searches }) => ({
+  users, currentUser: session.currentUser, searches
 });
 
 const mapDispatchToProps = dispatch => ({
+  FindUsers: query => dispatch(findUsers(query)),
   SignOut: () => dispatch(signOut())
 });
 
@@ -64,7 +66,7 @@ class Nav extends React.Component {
         <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
           <TextInput style={{borderRadius: 2.5, paddingRight: 25}}
                      placeholder='Search for users...'
-                     onChange={event => this.setState({query: event.target.value})}
+                     onChange={event => this.handleSearch(event.target.value)}
                      onFocus={event => this.setState({query: event.target.value})}/>
           {!currentUser && location.pathname !== '/' ?
           <Link to={'/'} style={{position: 'fixed', marginRight: 5}}
@@ -79,6 +81,11 @@ class Nav extends React.Component {
         </View>
       </View>
     ];
+  }
+
+  handleSearch(query) {
+    this.setState({query});
+    if (!this.props.searches.includes(query.toLowerCase()) && query.length > 0) this.props.FindUsers(query);
   }
 }
 
