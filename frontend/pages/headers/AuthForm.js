@@ -15,8 +15,8 @@ const custom = {
   textInput: { fontWeight: 500, width: 195, margin: '0 10px',
                border: '2px solid #ffd24d', boxSizing: 'border-box' },
 
-  topRounded: {borderTopLeftRadius: 7.5, borderTopRightRadius: 7.5},
-  bottomRounded: {borderBottomLeftRadius: 7.5, borderBottomRightRadius: 7.5},
+  topRounded: {borderTopLeftRadius: 7.5, borderTopRightRadius: 7.5, borderBottomWidth: 1},
+  bottomRounded: {borderBottomLeftRadius: 7.5, borderBottomRightRadius: 7.5, borderTopWidth: 1},
 
   button: { width: 0, height: 0, borderStyle: 'solid', padding: 0, margin: 0,
             borderRadius: 0, backgroundColor: 'transparent' },
@@ -36,46 +36,72 @@ const custom = {
 class AuthForm extends React.Component {
   constructor() {
     super();
-    this.state = {email: '', password: '', visible: false};
+    this.state = { email: '', password: '', showErrors: false,
+                   signUpShadow: 'none', signInShadow: 'none' };
+  }
+
+  handleAuth(fn) {
+    const {email, password} = this.state;
+
+    fn({email, password}).then(action => {
+      if (action.type === RECEIVE_ERRORS) this.setState({showErrors: true});
+    });
+  }
+
+  handleEmailInput(email) {
+    if (!email.includes('@') || !email.includes('.')) {
+      this.setState({signInShadow: 'none', email});
+    } else if (this.state.password.length > 7) {
+      this.setState({signInShadow: '0 0 5px orange', email});
+    } else { this.setState({email}); }
+  }
+
+  handlePasswordInput(password) {
+    const {email} = this.state;
+
+    if (password.length > 7 && email.includes('@') && email.includes('.')) {
+      this.setState({signInShadow: '0 0 5px orange', password});
+    } else { this.setState({signInShadow: 'none', password}); }
   }
 
   render() {
-    const {email, password} = this.state;
+    const {email, password, signUpShadow, signInShadow} = this.state;
     const {SignUp, SignIn, errors} = this.props;
 
     return [
       <View key='AuthForm' style={custom.authForm}>
-        <View onClick={() => SignUp({email, password}).then(action => {
-          if (action.type === RECEIVE_ERRORS) this.setState({visible: true});
-        })}>
-          <Button style={Object.assign({}, custom.button, custom.signUp)}/>
-          <Text style={Object.assign({}, custom.buttonText, custom.signUpText)}>
+        <View onClick={() => this.handleAuth(SignUp)}>
+          <Button style={Object.assign({}, custom.button, custom.signUp, {boxShadow: signUpShadow})}
+                  onMouseOver={() => {if (signInShadow !== 'none') this.setState({signInShadow: 'none', signUpShadow: '0 0 5px orange'}); }}
+                  onMouseOut={() => {if (signUpShadow !== 'none') this.setState({signUpShadow: 'none', signInShadow: '0 0 5px orange'}); }}/>
+          <Text style={Object.assign({}, custom.buttonText, custom.signUpText)}
+                onMouseOver={() => {if (signInShadow !== 'none') this.setState({signInShadow: 'none', signUpShadow: '0 0 5px orange'}); }}
+                onMouseOut={() => {if (signUpShadow !== 'none') this.setState({signUpShadow: 'none', signInShadow: '0 0 5px orange'}); }}>
             Sign<br/>Up
           </Text>
         </View>
 
         <View style={{flexDirection: 'column'}}>
           <TextInput placeholder='Email' defaultValue={email} autoFocus
-                     onChange={event => this.setState({email: event.target.value})}
-                     style={Object.assign({}, custom.textInput, {borderBottomWidth: 1}, custom.topRounded)}/>
+                     onChange={event => this.handleEmailInput(event.target.value)}
+                     style={Object.assign({}, custom.textInput, custom.topRounded)}/>
           <TextInput placeholder='Password' defaultValue={password} type='password'
-                     onChange={event => this.setState({password: event.target.value})}
-                     style={Object.assign({}, custom.textInput, {borderTopWidth: 1}, custom.bottomRounded)}/>
+                     onChange={event => this.handlePasswordInput(event.target.value)}
+                     onKeyDown={event => {if (event.keyCode === 13) this.handleAuth(SignIn);} }
+                     style={Object.assign({}, custom.textInput, custom.bottomRounded)}/>
         </View>
 
-        <View onClick={() => SignIn({email, password}).then(action => {
-          if (action.type === RECEIVE_ERRORS) this.setState({visible: true});
-        })}>
-          <Button style={Object.assign({}, custom.button, custom.signIn)}/>
+        <View onClick={() => this.handleAuth(SignIn)}>
+          <Button style={Object.assign({}, custom.button, custom.signIn, {boxShadow: signInShadow})}/>
           <Text style={Object.assign({}, custom.buttonText, custom.signInText)}>
             Sign In
           </Text>
         </View>
       </View>,
 
-      errors.length > 0 && this.state.visible ?
+      errors.length > 0 && this.state.showErrors ?
       <View key='Errors' style={Object.assign({}, custom.errors, custom.bottomRounded)}
-                         onClick={() => this.setState({visible: false})}>
+                         onClick={() => this.setState({showErrors: false})}>
         {errors.map(err => <Text key={err} style={custom.err}>{`${err}.`}</Text>)}
       </View> : null
     ];

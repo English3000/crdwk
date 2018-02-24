@@ -46,7 +46,7 @@ class CRDWK extends React.Component {
       </ErrorBoundary>,
       // v- add styling -v
       <ErrorBoundary key='Page'>
-        <Page onClick={() => { if (query !== '') this.setState({query: ''}); }}>
+        <Page>
           {query === '' || loading && query.length - 1 === 0 ?
           <Switch>
             <AuthRoute exact path='/' component={Home}/>
@@ -54,7 +54,8 @@ class CRDWK extends React.Component {
           </Switch> :
 
           searchResults.length > 0 ? searchResults.map(user => (
-            <Link key={user.id} to={`/users/${user.id}`}>
+            <Link key={user.id} to={`/users/${user.id}`}
+                  onClick={() => this.setState({query: ''})}>
               {user.name}
             </Link>
           )) : <Text>No results found.</Text>}
@@ -67,13 +68,13 @@ class CRDWK extends React.Component {
 
           <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
             <TextInput placeholder='Search for users...'
-                       style={{borderRadius: 2.5, paddingRight: 25}}
+                       style={{borderRadius: 2.5, paddingRight: 25, boxShadow: '0 0 2.5px #ffd24d'}}
                        onChange={event => this.handleSearch(event.target.value)}
                        onFocus={event => this.setState({query: event.target.value})}/>
 
             {location.pathname === homePath ? null :
             <Link to={homePath} onClick={() => this.setState({query: ''})}
-              style={{position: 'fixed', marginRight: 5}}>
+              style={{position: 'absolute', marginRight: 5}}>
               <i className='fa fa-home fa-lg' style={{color: 'black'}}></i>
             </Link>}
           </View>
