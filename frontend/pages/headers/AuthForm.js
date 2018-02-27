@@ -28,7 +28,7 @@ const custom = {
                 fontWeight: 300, textShadow: '0 0 1px whitesmoke' },
   signInText: {marginTop: 20.25, marginLeft: 0.5, fontWeight: 600},
 
-  errors: { flexDirection: 'column', position: 'absolute', backgroundColor: '#ffffb3',
+  errors: { flexDirection: 'column', position: 'absolute', backgroundColor: '#ffff99',
             marginTop: 12.5, marginLeft: 72.75, padding: 5, cursor: 'pointer' },
   err: {width: 188, display: 'block', textAlign: 'center', color: 'red', margin: '5px 0'}
 };                     //or `alignItems: 'center'`??
@@ -38,30 +38,6 @@ class AuthForm extends React.Component {
     super();
     this.state = { email: '', password: '', showErrors: false,
                    signUpShadow: 'none', signInShadow: 'none' };
-  }
-
-  handleAuth(fn) {
-    const {email, password} = this.state;
-
-    fn({email, password}).then(action => {
-      if (action.type === RECEIVE_ERRORS) this.setState({showErrors: true});
-    });
-  }
-
-  handleEmailInput(email) {
-    if (!email.includes('@') || !email.includes('.')) {
-      this.setState({signInShadow: 'none', email});
-    } else if (this.state.password.length > 7) {
-      this.setState({signInShadow: '0 0 5px orange', email});
-    } else { this.setState({email}); }
-  }
-
-  handlePasswordInput(password) {
-    const {email} = this.state;
-
-    if (password.length > 7 && email.includes('@') && email.includes('.')) {
-      this.setState({signInShadow: '0 0 5px orange', password});
-    } else { this.setState({signInShadow: 'none', password}); }
   }
 
   render() {
@@ -105,6 +81,30 @@ class AuthForm extends React.Component {
         {errors.map(err => <Text key={err} style={custom.err}>{`${err}.`}</Text>)}
       </View> : null
     ];
+  }
+
+  handleAuth(fn) {
+    const {email, password} = this.state;
+
+    fn({email, password}).then(action => {
+      if (action.type === RECEIVE_ERRORS) this.setState({showErrors: true});
+    });
+  }
+
+  handleEmailInput(email) { //could check for regex
+    if (!email.includes('@') || !email.includes('.')) {
+      this.setState({signInShadow: 'none', email});
+    } else if (this.state.password.length > 7) {
+      this.setState({signInShadow: '0 0 5px orange', email});
+    } else { this.setState({email}); }
+  }
+
+  handlePasswordInput(password) {
+    const {email} = this.state;
+
+    if (password.length > 7 && email.includes('@') && email.includes('.')) {
+      this.setState({signInShadow: '0 0 5px orange', password});
+    } else { this.setState({signInShadow: 'none', password}); }
   }
 }
 

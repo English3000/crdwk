@@ -23,7 +23,9 @@ class Profile extends React.Component {
         {user ? user.name ? user.name : user.email : null}
       </Text>,
 
-      <Text key='page'>profile page</Text>
+      <Text key='placeholder'>profile page</Text>,
+
+      <Text key='Copyright' style={{color: '#ffd9b3'}}>English3000 &copy; 2018</Text>
     ];
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { styles } from './util';
 
-const navStyle = { justifyContent: 'space-between', alignItems: 'end',
+const navStyle = { justifyContent: 'space-between', alignItems: 'flex-end',
                    position: 'fixed', bottom: 7.5, width: '100%',
                    margin: '0 -5px', display: 'flex' };
 

@@ -5,7 +5,7 @@ import AuthForm from './AuthForm';
 
 const custom = {
   headerStyle: { position: 'fixed', margin: '0 auto', padding: '15px 10% 12.5px',
-                 width: '100%', boxSizing: 'border-box', backgroundColor: '#ffffb3',
+                 width: '100%', boxSizing: 'border-box', backgroundColor: '#ffff99',
                  justifyContent: 'space-between', alignItems: 'center' },
   logoStyle: { width: 126.5, fontSize: 25, textAlign: 'center', color: 'black',
                textDecoration: 'none', padding: '10px 0', borderRadius: '100%' }

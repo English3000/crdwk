@@ -8,3 +8,8 @@
   >* redirects to Profile
 
 2. User search + integrations + styling
+
+**COMPETITOR:** Facebook's [Workplace](https://play.google.com/store/apps/details?id=com.facebook.work) -- its weakness is the platform is just a spin-off of Facebook...
+
+**Fancy Features:**
+* [videochat](https://medium.com/@jeanpaulsio/an-intro-to-webrtc-for-rails-developers-453c79a0d6a1)

@@ -3,7 +3,7 @@ import { styles, P } from './util';
 
 const headerStyle = {
   position: 'fixed', margin: '0 auto', padding: '15px 10% 12.5px',
-  width: '100%', boxSizing: 'border-box', backgroundColor: '#ffffb3',
+  width: '100%', boxSizing: 'border-box', backgroundColor: '#ffff99',
   display: 'flex', justifyContent: 'space-between', alignItems: 'center'
 };
 

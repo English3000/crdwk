@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const styles = {
-  page: { height: 800, backgroundColor: '#ffffe6',
+  page: { height: 800, backgroundColor: '#fff2e6',
           display: 'flex', flexDirection: 'column' },
   textInput: { display: 'block', outline: 'none', border: 'none',
                fontSize: 13, padding: '3px 0 4.5px 7.5px' }

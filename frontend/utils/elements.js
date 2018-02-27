@@ -4,7 +4,7 @@ import React from 'react';
 const domReset = {margin: 0, padding: 0};
 // Color-styling resource ~ https://www.w3schools.com/colors/colors_picker.asp
 const pageStyle = { display: 'flex', flexDirection: 'column',
-                    backgroundColor: '#ffffe6', height: window.innerHeight };
+                    backgroundColor: '#fff2e6', height: window.innerHeight };
 
 export const Page = props => <div {...props} style={Object.assign({}, pageStyle, props.style)}>
                                {props.children}

@@ -19,9 +19,11 @@ const mapDispatchToProps = dispatch => ({
   SignOut: () => dispatch(signOut())
 });
 
-const navStyle = { justifyContent: 'space-between', alignItems: 'end',
-                   position: 'fixed', bottom: 7.5, width: '100%',
-                   margin: '0 -5px' };
+const custom = {
+  navStyle: { justifyContent: 'space-between', alignItems: 'flex-end',
+              position: 'fixed', bottom: 7.5, width: '97.5%', margin: '0 1.25%' },
+  connectSym: {fontSize: 32, height: 23.5, fontWeight: 600, position: 'relative', top: -2.5}
+};
 
 class CRDWK extends React.Component {
   constructor() {
@@ -61,14 +63,19 @@ class CRDWK extends React.Component {
           )) : <Text>No results found.</Text>}
         </Page>
       </ErrorBoundary>,
-
+      //add onHover tooltips
       <ErrorBoundary key='Nav'>
-        <View style={navStyle}>
-          <View style={{width: 20}}></View>
+        <View style={custom.navStyle}>
+          <View style={{width: 87.5, justifyContent: 'space-between', alignItems: 'flex-end'}}>
+          {currentUser && location.pathname[location.pathname.length - 1] !== `${currentUser.id}` ? [
+            <Text key='Connect' style={custom.connectSym}>&infin;</Text>,
+            <i key='Chat' className='fa fa-comments fa-lg'></i>,
+            <Text key='placeholder' style={{width: 22}}></Text> ] : null}
+          </View>
 
           <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
             <TextInput placeholder='Search for users...'
-                       style={{borderRadius: 2.5, paddingRight: 25, boxShadow: '0 0 2.5px #ffd24d'}}
+                       style={{borderRadius: 2.5, paddingRight: 25}}
                        onChange={event => this.handleSearch(event.target.value)}
                        onFocus={event => this.setState({query: event.target.value})}/>
 
@@ -79,9 +86,11 @@ class CRDWK extends React.Component {
             </Link>}
           </View>
 
-          <View style={{width: 20}}>
-            {currentUser ? <i className='fa fa-sign-out fa-lg' style={{cursor: 'pointer'}}
-                              onClick={() => { SignOut(); this.setState({query: ''}); }}></i> : null}
+          <View style={{width: 87.5, justifyContent: 'space-between'}}>{currentUser ? [
+            <i key='MyOrgs' className='fa fa-briefcase fa-lg'></i>,
+            <i key='NewOrg' className='fa fa-sitemap fa-lg'></i>,
+            <i key='SignOut' className='fa fa-sign-out fa-lg' style={{cursor: 'pointer'}}
+               onClick={() => { SignOut(); this.setState({query: ''}); }}></i> ] : null}
           </View>
         </View>
       </ErrorBoundary>
