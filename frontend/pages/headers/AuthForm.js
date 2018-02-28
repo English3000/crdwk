@@ -38,31 +38,33 @@ class AuthForm extends React.Component {
     super();
     this.state = { email: '', password: '', showErrors: false,
                    signUpShadow: 'none', signInShadow: 'none' };
+    this.addShadow = this.addShadow.bind(this);
+    this.removeShadow = this.removeShadow.bind(this);
+    this.handleEmailInput = this.handleEmailInput.bind(this);
+    this.handlePasswordInput = this.handlePasswordInput.bind(this);
   }
 
   render() {
-    const {email, password, signUpShadow, signInShadow} = this.state;
+    const {email, password, showErrors, signUpShadow, signInShadow} = this.state;
     const {SignUp, SignIn, errors} = this.props;
 
     return [
       <View key='AuthForm' style={custom.authForm}>
         <View onClick={() => this.handleAuth(SignUp)}>
-          <Button style={Object.assign({}, custom.button, custom.signUp, {boxShadow: signUpShadow})}
-                  onMouseOver={() => {if (signInShadow !== 'none') this.setState({signInShadow: 'none', signUpShadow: '0 0 5px orange'}); }}
-                  onMouseOut={() => {if (signUpShadow !== 'none') this.setState({signUpShadow: 'none', signInShadow: '0 0 5px orange'}); }}/>
-          <Text style={Object.assign({}, custom.buttonText, custom.signUpText)}
-                onMouseOver={() => {if (signInShadow !== 'none') this.setState({signInShadow: 'none', signUpShadow: '0 0 5px orange'}); }}
-                onMouseOut={() => {if (signUpShadow !== 'none') this.setState({signUpShadow: 'none', signInShadow: '0 0 5px orange'}); }}>
+          <Button onMouseOver={this.addShadow} onMouseOut={this.removeShadow}
+                  style={Object.assign({}, custom.button, custom.signUp, {boxShadow: signUpShadow})}/>
+          <Text onMouseOver={this.addShadow} onMouseOut={this.removeShadow}
+                style={Object.assign({}, custom.buttonText, custom.signUpText)}>
             Sign<br/>Up
           </Text>
         </View>
 
         <View style={{flexDirection: 'column'}}>
-          <TextInput placeholder='Email' defaultValue={email} autoFocus
-                     onChange={event => this.handleEmailInput(event.target.value)}
+          <TextInput placeholder='Email' defaultValue={email}
+                     onChange={this.handleEmailInput} autoFocus
                      style={Object.assign({}, custom.textInput, custom.topRounded)}/>
-          <TextInput placeholder='Password' defaultValue={password} type='password'
-                     onChange={event => this.handlePasswordInput(event.target.value)}
+          <TextInput placeholder='Password' defaultValue={password}
+                     onChange={this.handlePasswordInput} type='password'
                      onKeyDown={event => {if (event.keyCode === 13) this.handleAuth(SignIn);} }
                      style={Object.assign({}, custom.textInput, custom.bottomRounded)}/>
         </View>
@@ -75,7 +77,7 @@ class AuthForm extends React.Component {
         </View>
       </View>,
 
-      errors.length > 0 && this.state.showErrors ?
+      errors.length > 0 && showErrors ?
       <View key='Errors' style={Object.assign({}, custom.errors, custom.bottomRounded)}
                          onClick={() => this.setState({showErrors: false})}>
         {errors.map(err => <Text key={err} style={custom.err}>{`${err}.`}</Text>)}
@@ -91,7 +93,23 @@ class AuthForm extends React.Component {
     });
   }
 
-  handleEmailInput(email) { //could check for regex
+  addShadow() {
+    if (this.state.signInShadow !== 'none') this.setState({
+      signInShadow: 'none',
+      signUpShadow: '0 0 5px orange'
+    });
+  }
+
+  removeShadow() {
+    if (this.state.signUpShadow !== 'none') this.setState({
+      signUpShadow: 'none',
+      signInShadow: '0 0 5px orange'
+    });
+  }
+
+  handleEmailInput(event) { //could check for regex
+    const email = event.target.value;
+
     if (!email.includes('@') || !email.includes('.')) {
       this.setState({signInShadow: 'none', email});
     } else if (this.state.password.length > 7) {
@@ -99,8 +117,9 @@ class AuthForm extends React.Component {
     } else { this.setState({email}); }
   }
 
-  handlePasswordInput(password) {
+  handlePasswordInput(event) {
     const {email} = this.state;
+    const password = event.target.value;
 
     if (password.length > 7 && email.includes('@') && email.includes('.')) {
       this.setState({signInShadow: '0 0 5px orange', password});

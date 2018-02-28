@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Switch, Route, Link } from 'react-router-dom';
-import { Page, View, Text, TextInput, ErrorBoundary } from './utils/elements';
+import { Page, FlatList, View, Text, TextInput, ErrorBoundary } from './utils/elements';
 import { AuthRoute } from './utils/routing';
 import { signOut } from './actions/auth';
 import { findUsers } from './actions/visit';
@@ -36,8 +36,10 @@ class CRDWK extends React.Component {
     const {currentUser, loading} = this.props.session;
     const {query} = this.state;
 
-    const searchResults = Object.values(users).filter(user => user.name ?
-      user.name.toLowerCase().includes(query.toLowerCase()) : false);
+    const searchResults = [];
+    Object.values(users).filter(user => user.name ?
+      user.name.toLowerCase().includes(query.toLowerCase()) : false)
+    .forEach(user => {searchResults.push({key: user});});
 
     const homePath = currentUser ? `/users/${currentUser.id}` : '/';
 
@@ -54,13 +56,14 @@ class CRDWK extends React.Component {
             <AuthRoute exact path='/' component={Home}/>
             <Route exact path='/users/:id' component={Profile}/>
           </Switch> :
-
-          searchResults.length > 0 ? searchResults.map(user => (
-            <Link key={user.id} to={`/users/${user.id}`}
+          //implement as SectionList on mobile (4 "FlatLists" on web)
+          searchResults.length > 0 ?
+          <FlatList Itemdata={searchResults} Itemrender={data => data.map(item => (
+            <Link key={item.key.id} to={`/users/${item.key.id}`}
                   onClick={() => this.setState({query: ''})}>
-              {user.name}
+              {item.key.name}
             </Link>
-          )) : <Text>No results found.</Text>}
+          ))}/> : <Text>No results found.</Text>}
         </Page>
       </ErrorBoundary>,
       //add onHover tooltips
@@ -74,7 +77,7 @@ class CRDWK extends React.Component {
           </View>
 
           <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
-            <TextInput placeholder='Search for users...'
+            <TextInput placeholder='Search users & orgs'
                        style={{borderRadius: 2.5, paddingRight: 25}}
                        onChange={event => this.handleSearch(event.target.value)}
                        onFocus={event => this.setState({query: event.target.value})}/>

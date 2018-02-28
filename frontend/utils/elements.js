@@ -1,22 +1,26 @@
 //React Native-style custom components
 import React from 'react';
-
-const domReset = {margin: 0, padding: 0};
-// Color-styling resource ~ https://www.w3schools.com/colors/colors_picker.asp
-const pageStyle = { display: 'flex', flexDirection: 'column',
-                    backgroundColor: '#fff2e6', height: window.innerHeight };
-
-export const Page = props => <div {...props} style={Object.assign({}, pageStyle, props.style)}>
-                               {props.children}
-                             </div>;
-
+import { Link } from 'react-router-dom'; // Color-styling resource ~ https://www.w3schools.com/colors/colors_picker.asp
 //React          flexDirection: 'row'
 //React Native   flexDirection: 'column'
 export const View = props => <div {...props} style={Object.assign({display: 'flex'}, props.style)}>
                                {props.children}
                              </div>;
 
-export const Text = props => <p {...props} style={Object.assign({display: 'flex'}, domReset, props.style)}>
+const pageStyle = { flexDirection: 'column', backgroundColor: '#fff2e6',
+                    height: window.innerHeight };
+
+export const Page = props => <View {...props} style={Object.assign({}, pageStyle, props.style)}></View>;
+
+export const ScrollView = props => <View {...props} style={Object.assign({overflowY: 'scroll', display: 'flex', flexDirection: 'column'}, props.style)}></View>;
+
+//React          <FlatList Itemdata={...} Itemrender={item => item.key}
+//React Native   <FlatList data={...} renderItem={({item})} => item.key}
+export const FlatList = props => <ScrollView>{props.Itemrender(props.Itemdata)}</ScrollView>;
+// use diff. names b/c React's `data` converts attribute to string
+//  & `renderitem` won't accept a function
+
+export const Text = props => <p {...props} style={Object.assign({display: 'flex', margin: 0, padding: 0}, props.style)}>
                                {props.children}
                              </p>;
 
