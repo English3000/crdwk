@@ -24,3 +24,5 @@
 
 <%= react_component 'Profile', user: {id: @user.id, email: @user.email}, prerender: true %>
 <%= react_component 'Nav', prerender: true, page: 'Profile', signedIn: signed_in? %>
+
+<script src="/assets/bundle.js"></script>

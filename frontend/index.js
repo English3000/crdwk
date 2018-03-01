@@ -5,7 +5,6 @@ import createStore from './store';
 import ReactWrapper from './App';
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('client');
   let preloadedState = { users: {} };
 
   if (window.currentUser) {
@@ -21,5 +20,4 @@ document.addEventListener('DOMContentLoaded', () => {
   window.getState = store.getState;
   hydrate( <ReactWrapper store={store}/>,
            document.getElementById('replace-with-js') );
-  console.log('hydrated'); //wasn't logged, in prod
 });
