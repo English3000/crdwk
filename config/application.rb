@@ -20,6 +20,11 @@ module Crdwk
         :s3_region => ENV["s3_region"]
       }
     }
+
+    config.action_dispatch.default_headers = {
+      'Access-Control-Allow-Origin' => 'https://crdwk.herokuapp.com',
+      'Access-Control-Request-Method' => %w{GET POST PATCH DELETE OPTIONS}.join(",")
+    }
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

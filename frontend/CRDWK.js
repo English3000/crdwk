@@ -58,7 +58,7 @@ class CRDWK extends React.Component {
           </Switch> :
           //implement as SectionList on mobile (4 "FlatLists" on web)
           searchResults.length > 0 ?
-          <FlatList style={{width: window.innerWidth * 0.5, height: window.innerHeight * 0.5, display: 'inline-flex'}}
+          <FlatList style={{width: window.innerWidth * 0.5, height: (window.innerHeight - 85.5) * 0.5, display: 'inline-flex'}}
                     Itemdata={searchResults} Itemrender={data => data.map(item => (
             <Link key={item.key.id} to={`/users/${item.key.id}`}
                   onClick={() => this.setState({query: ''})}>
