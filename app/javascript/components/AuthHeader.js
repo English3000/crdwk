@@ -22,7 +22,8 @@ const custom = {
   signIn: {borderWidth: '29px 0 29px 50px', borderColor: 'transparent transparent transparent #ffd24d'},
 
   buttonText: {position: 'absolute', fontSize: 14},
-  signUpText: {marginTop: 15.5, marginLeft: 19, textAlign: 'center'},
+  signUpText: { marginTop: /*-15.5*/ -34, marginLeft: 19, textAlign: 'center', color: 'white',
+                fontWeight: 300, textShadow: '0 0 1px whitesmoke' },
   signInText: {marginTop: -37.75, marginLeft: 0.5},
 
   logoStyle: { width: 126.5, fontSize: 25, textAlign: 'center', color: 'black',
@@ -31,11 +32,11 @@ const custom = {
 
 export default () => [ //added extra <div>s so DOM tree matches
   <div key='Auth' style={headerStyle}>
-    <P style={{width: 115}}>Make it happen.</P>
+    <P style={{width: 126, fontSize: '1.1em'}}>Make it happen.</P>
 
     <div>
       <div style={custom.authForm}>
-        <div>
+        <div style={{height: 50, position: 'relative', top: -15}}>
           <button style={Object.assign({}, custom.button, custom.signUp)}
                   onClick={event => event.preventDefault()}></button>
           <P style={Object.assign({}, custom.buttonText, custom.signUpText)}>
