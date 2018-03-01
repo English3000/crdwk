@@ -25,4 +25,4 @@
 <%= react_component 'Profile', user: {id: @user.id, email: @user.email}, prerender: true %>
 <%= react_component 'Nav', prerender: true, page: 'Profile', signedIn: signed_in? %>
 
-<% javascript_pack_tag 'bundle' %>
+<%= javascript_pack_tag 'bundle' %>
