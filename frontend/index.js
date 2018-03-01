@@ -2,8 +2,9 @@ import "babel-polyfill";
 import React from 'react';
 import { hydrate } from 'react-dom';
 import createStore from './store';
-import App from './App';
-// return to production hydration issue later
+import ReactWrapper from './App';
+//return to production hydration issue later
+// couldn't find answers via search
 document.addEventListener('DOMContentLoaded', () => {
   let preloadedState = { users: {} };
 
@@ -18,6 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   const store = createStore(preloadedState);
   window.getState = store.getState;
-  hydrate( <App store={store}/>,
+  hydrate( <ReactWrapper store={store}/>,
            document.getElementById('replace-with-js') );
 });

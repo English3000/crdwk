@@ -48,7 +48,7 @@ class CRDWK extends React.Component {
         {currentUser ? currentUser.name ?
           null : <NewUserForm currentUser={currentUser}/> : <AuthHeader />}
       </div></ErrorBoundary>,
-      // v- add styling -v
+
       <ErrorBoundary key='Page'><div>
         <Page>
           {query === '' || loading && query.length - 1 === 0 ?
