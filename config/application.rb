@@ -21,10 +21,13 @@ module Crdwk
       }
     }
 
-    config.action_dispatch.default_headers = {
-      'Access-Control-Allow-Origin' => 'https://crdwk.herokuapp.com/api',
-      'Access-Control-Request-Method' => %w{GET POST PATCH DELETE OPTIONS}.join(",")
-    }
+    # Access-Control-Allow-Origin
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'localhost:3000', /https*:\/\/crdwk\.herokuapp\.com.*/
+        resource '*', :headers => :any, :methods => :any
+      end
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
