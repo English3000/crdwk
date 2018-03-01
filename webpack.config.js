@@ -28,8 +28,9 @@ module.exports = {
   // Webpack creates (bundles) a tree of files that require one another,
   //  bundle.js, in ./app/javascript/packs.
   output: {
-    path: path.resolve(__dirname, "app", "javascript", "packs"),
-    // publicPath: '/assets/',
+    path: process.env.NODE_ENV === 'production' ? path.resolve(__dirname, "app", "javascript", "packs") :
+            path.resolve(__dirname, "app", "assets", "javascripts"),
+    publicPath: '/assets/',
     filename: "bundle.js"
   },
   devServer: {// https://github.com/webpack/docs/wiki/webpack-dev-server

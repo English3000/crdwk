@@ -2351,16 +2351,17 @@ var Page = exports.Page = function Page(props) {
   return _react2.default.createElement(View, _extends({}, props, { style: Object.assign({}, pageStyle, props.style) }));
 };
 
+var listStyle = { overflowY: 'scroll', display: 'flex', flexDirection: 'column' };
 var ScrollView = exports.ScrollView = function ScrollView(props) {
-  return _react2.default.createElement(View, _extends({}, props, { style: Object.assign({ overflowY: 'scroll', display: 'flex', flexDirection: 'column' }, props.style) }));
+  return _react2.default.createElement(View, _extends({}, props, { style: Object.assign({}, listStyle, props.style) }));
 };
 
 //React          <FlatList Itemdata={...} Itemrender={item => item.key}
 //React Native   <FlatList data={...} renderItem={({item})} => item.key}
 var FlatList = exports.FlatList = function FlatList(props) {
   return _react2.default.createElement(
-    ScrollView,
-    null,
+    View,
+    { style: Object.assign({}, listStyle, props.style) },
     props.Itemrender(props.Itemdata)
   );
 };
@@ -57681,7 +57682,8 @@ var CRDWK = function (_React$Component) {
               _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/users/:id', component: _Profile2.default })
             ) :
             //implement as SectionList on mobile (4 "FlatLists" on web)
-            searchResults.length > 0 ? _react2.default.createElement(_elements.FlatList, { Itemdata: searchResults, Itemrender: function Itemrender(data) {
+            searchResults.length > 0 ? _react2.default.createElement(_elements.FlatList, { style: { width: window.innerWidth * 0.5, display: 'inline-flex' },
+              Itemdata: searchResults, Itemrender: function Itemrender(data) {
                 return data.map(function (item) {
                   return _react2.default.createElement(
                     _reactRouterDom.Link,

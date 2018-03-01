@@ -12,11 +12,12 @@ const pageStyle = { flexDirection: 'column', backgroundColor: '#fff2e6',
 
 export const Page = props => <View {...props} style={Object.assign({}, pageStyle, props.style)}></View>;
 
-export const ScrollView = props => <View {...props} style={Object.assign({overflowY: 'scroll', display: 'flex', flexDirection: 'column'}, props.style)}></View>;
+const listStyle = {overflowY: 'scroll', display: 'flex', flexDirection: 'column'};
+export const ScrollView = props => <View {...props} style={Object.assign({}, listStyle, props.style)}></View>;
 
 //React          <FlatList Itemdata={...} Itemrender={item => item.key}
 //React Native   <FlatList data={...} renderItem={({item})} => item.key}
-export const FlatList = props => <ScrollView>{props.Itemrender(props.Itemdata)}</ScrollView>;
+export const FlatList = props => <View style={Object.assign({}, listStyle, props.style)}>{props.Itemrender(props.Itemdata)}</View>;
 // use diff. names b/c React's `data` converts attribute to string
 //  & `renderitem` won't accept a function
 
