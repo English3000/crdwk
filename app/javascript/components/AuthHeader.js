@@ -24,36 +24,44 @@ const custom = {
   buttonText: {position: 'absolute', fontSize: 14},
   signUpText: {marginTop: 15.5, marginLeft: 19, textAlign: 'center'},
   signInText: {marginTop: -37.75, marginLeft: 0.5},
+
+  logoStyle: { width: 126.5, fontSize: 25, textAlign: 'center', color: 'black',
+               textDecoration: 'none', padding: '10px 0', borderRadius: '100%' }
 };
 
-export default () => [
+export default () => [ //added extra <div>s so DOM tree matches
   <div key='Auth' style={headerStyle}>
     <P style={{width: 115}}>Make it happen.</P>
 
-    <div style={custom.authForm}>
-      <button style={Object.assign({}, custom.button, custom.signUp)}
-              onClick={event => event.preventDefault()}></button>
-      <P style={Object.assign({}, custom.buttonText, custom.signUpText)}>
-        Sign<br/>Up
-      </P>
+    <div>
+      <div style={custom.authForm}>
+        <div>
+          <button style={Object.assign({}, custom.button, custom.signUp)}
+                  onClick={event => event.preventDefault()}></button>
+          <P style={Object.assign({}, custom.buttonText, custom.signUpText)}>
+            Sign<br/>Up
+          </P>
+        </div>
 
-      <div style={{display: 'flex', flexDirection: 'column'}}>
-        <input placeholder='Email' readOnly
-               style={Object.assign({}, custom.textInput, {borderBottomWidth: 1}, custom.topRounded)}/>
-        <input placeholder='Password' readOnly
-               style={Object.assign({}, custom.textInput, {borderTopWidth: 1}, custom.bottomRounded)}/>
-      </div>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+          <input placeholder='Email' readOnly
+                 style={Object.assign({}, custom.textInput, {borderBottomWidth: 1}, custom.topRounded)}/>
+          <input placeholder='Password' readOnly
+                 style={Object.assign({}, custom.textInput, {borderTopWidth: 1}, custom.bottomRounded)}/>
+        </div>
 
-      <div>
-        <button style={Object.assign({}, custom.button, custom.signIn)}
-                onClick={event => event.preventDefault()}></button>
-        <P style={Object.assign({}, custom.buttonText, custom.signInText)}>
-          Sign In
-        </P>
+        <div>
+          <button style={Object.assign({}, custom.button, custom.signIn)}
+                  onClick={event => event.preventDefault()}></button>
+          <P style={Object.assign({}, custom.buttonText, custom.signInText)}>
+            Sign In
+          </P>
+        </div>
       </div>
     </div>
 
-    <P style={{width: 115, fontWeight: 600, textAlign: 'center'}}>crdwk</P>
+    <a href='https://github.com/English3000/crdwk' target='_blank'
+       style={custom.logoStyle}>crdwk</a>
   </div>,
   <div key='placeholder' style={{height: 85.5}}></div>,
 ];

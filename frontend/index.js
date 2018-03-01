@@ -3,8 +3,8 @@ import React from 'react';
 import { hydrate } from 'react-dom';
 import createStore from './store';
 import ReactWrapper from './App';
-
-// document.addEventListener('DOMContentLoaded', () => {
+// return to production hydration issue later
+document.addEventListener('DOMContentLoaded', () => {
   let preloadedState = { users: {} };
 
   if (window.currentUser) {
@@ -20,4 +20,4 @@ import ReactWrapper from './App';
   window.getState = store.getState;
   hydrate( <ReactWrapper store={store}/>,
            document.getElementById('replace-with-js') );
-// });
+});

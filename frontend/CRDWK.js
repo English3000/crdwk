@@ -44,12 +44,12 @@ class CRDWK extends React.Component {
     const homePath = currentUser ? `/users/${currentUser.id}` : '/';
 
     return [
-      <ErrorBoundary key='Header'>
+      <ErrorBoundary key='Header'><div>
         {currentUser ? currentUser.name ?
           null : <NewUserForm currentUser={currentUser}/> : <AuthHeader />}
-      </ErrorBoundary>,
+      </div></ErrorBoundary>,
       // v- add styling -v
-      <ErrorBoundary key='Page'>
+      <ErrorBoundary key='Page'><div>
         <Page>
           {query === '' || loading && query.length - 1 === 0 ?
           <Switch>
@@ -65,9 +65,9 @@ class CRDWK extends React.Component {
             </Link>
           ))}/> : <Text>No results found.</Text>}
         </Page>
-      </ErrorBoundary>,
+      </div></ErrorBoundary>,
       //add onHover tooltips
-      <ErrorBoundary key='Nav'>
+      <ErrorBoundary key='Nav'><div>
         <View style={custom.navStyle}>
           <View style={{width: 87.5, justifyContent: 'space-between', alignItems: 'flex-end'}}>
           {currentUser && location.pathname[location.pathname.length - 1] !== `${currentUser.id}` ? [
@@ -96,7 +96,7 @@ class CRDWK extends React.Component {
                onClick={() => { SignOut(); this.setState({query: ''}); }}></i> ] : null}
           </View>
         </View>
-      </ErrorBoundary>
+      </div></ErrorBoundary>
     ];
   }
 
