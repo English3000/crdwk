@@ -4,7 +4,7 @@ import { hydrate } from 'react-dom';
 import createStore from './store';
 import ReactWrapper from './App';
 
-document.addEventListener('DOMContentLoaded', () => {
+// document.addEventListener('DOMContentLoaded', () => {
   let preloadedState = { users: {} };
 
   if (window.currentUser) {
@@ -20,4 +20,4 @@ document.addEventListener('DOMContentLoaded', () => {
   window.getState = store.getState;
   hydrate( <ReactWrapper store={store}/>,
            document.getElementById('replace-with-js') );
-});
+// });
