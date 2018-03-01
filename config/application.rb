@@ -22,7 +22,7 @@ module Crdwk
     }
 
     config.action_dispatch.default_headers = {
-      'Access-Control-Allow-Origin' => 'https://crdwk.herokuapp.com',
+      'Access-Control-Allow-Origin' => 'https://crdwk.herokuapp.com/api',
       'Access-Control-Request-Method' => %w{GET POST PATCH DELETE OPTIONS}.join(",")
     }
     # Settings in config/environments/* take precedence over those specified here.
