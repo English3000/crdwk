@@ -26,7 +26,7 @@ module.exports = {
   // Running Webpack executes index.js (in ./frontend).
   entry: ["babel-polyfill", "./frontend/index.js"],
   // Webpack creates (bundles) a tree of files that require one another,
-  //  bundle.js (in ./app/assets/javascripts).
+  //  bundle.js, in ./app/assets/javascripts.
   output: {
     path: path.resolve(__dirname, "app", "assets", "javascripts"),
     publicPath: '/assets/',
