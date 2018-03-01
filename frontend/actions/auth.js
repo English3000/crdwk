@@ -22,5 +22,6 @@ export const signIn = credentials => dispatch => Api.signIn(credentials).then(
 );
 
 export const signOut = () => dispatch => Api.signOut().then(
-  _ => dispatch(receiveCurrentUser(null))
+  () => dispatch(receiveCurrentUser(null)),
+  err => dispatch(receiveErrors(err.response.data))
 );
