@@ -1,6 +1,6 @@
 import "babel-polyfill";
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrate } from 'react-dom';
 import createStore from './store';
 import ReactWrapper from './App';
 
@@ -18,8 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   const store = createStore(preloadedState);
   window.getState = store.getState;
-  ReactDOM.hydrate(
-    <ReactWrapper store={store}/>,
-    document.getElementById('replace-with-js')
-  );
+  hydrate( <ReactWrapper store={store}/>,
+           document.getElementById('replace-with-js') );
+  console.log('hydrated'); //commit, test in production
 });
