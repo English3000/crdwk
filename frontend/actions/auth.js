@@ -23,7 +23,7 @@ export const signIn = credentials => dispatch => Api.signIn(credentials).then(
 
 export const signOut = () => dispatch => Api.signOut().then(
   () => dispatch(receiveCurrentUser(null)),
-  err => {
+  err => { //refreshing signs out the user...
     console.log(err);
     console.log(err.response.data);
     dispatch(receiveErrors(err.response.data));

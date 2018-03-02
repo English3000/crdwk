@@ -43,6 +43,8 @@ class CRDWK extends React.Component {
 
     const homePath = currentUser ? `/users/${currentUser.id}` : '/';
 
+    console.log(this.props);
+
     return [
       <ErrorBoundary key='Header'><div>
         {currentUser ? currentUser.name ?
