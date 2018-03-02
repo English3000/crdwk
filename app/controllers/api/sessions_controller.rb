@@ -1,7 +1,7 @@
 class Api::SessionsController < ApplicationController
   def destroy
     sign_out
-    render json: {}
+    render json: {currentUser: current_user}
   end
 
   def create

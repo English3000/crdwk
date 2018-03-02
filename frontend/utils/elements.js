@@ -18,7 +18,7 @@ export const ScrollView = props => <View {...props} style={Object.assign({}, lis
 //React          <FlatList Itemdata={...} Itemrender={item => item.key}
 //React Native   <FlatList data={...} renderItem={({item})} => item.key}
 export const FlatList = props => <View {...props} style={Object.assign({}, listStyle, props.style)}>
-                                   {props.Itemrender(props.Itemdata)}
+                                   {props.itemrender(props.itemdata)}
                                  </View>;
 // use diff. names b/c React's `data` converts attribute to string
 //  & `renderitem` won't accept a function

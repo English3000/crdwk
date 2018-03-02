@@ -23,7 +23,7 @@ class Api::UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
     if @user && visited # can test once Search implemented
-      render json: {id: @user.id, email: @user.email}
+      render partial: 'api/sessions/user', locals: {user: @user, current: false}
     elsif @user
       visited = true
       render :show

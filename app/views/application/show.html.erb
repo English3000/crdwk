@@ -22,7 +22,7 @@
   <%= react_component 'NewUserForm', prerender: true %>
 <% end %>
 
-<%= react_component 'Profile', user: {id: @user.id, email: @user.email}, prerender: true %>
+<%= react_component 'Profile', user: {id: @user.id, name: @user.name, email: @user.email}, prerender: true %>
 <%= react_component 'Nav', prerender: true, page: 'Profile', signedIn: signed_in? %>
 
 <%= javascript_pack_tag 'bundle' %>
