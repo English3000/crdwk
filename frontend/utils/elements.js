@@ -15,7 +15,7 @@ export const Page = props => <View {...props} style={Object.assign({}, pageStyle
 const listStyle = {overflowY: 'scroll', display: 'flex', flexDirection: 'column'};
 export const ScrollView = props => <View {...props} style={Object.assign({}, listStyle, props.style)}></View>;
 
-//React          <FlatList Itemdata={...} Itemrender={item => item.key}
+//React          <FlatList itemdata={...} itemrender={item => item.key}
 //React Native   <FlatList data={...} renderItem={({item})} => item.key}
 export const FlatList = props => <View {...props} style={Object.assign({}, listStyle, props.style)}>
                                    {props.itemrender(props.itemdata)}

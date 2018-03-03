@@ -23,9 +23,16 @@ export const signIn = credentials => dispatch => Api.signIn(credentials).then(
 
 export const signOut = () => dispatch => Api.signOut().then(
   () => dispatch(receiveCurrentUser(null)),
-  err => { //refreshing signs out the user...
-    console.log(err);
-    console.log(err.response.data);
-    dispatch(receiveErrors(err.response.data));
-  }
+  err => dispatch(receiveErrors(err.response.data))
 );
+/*
+In production:
+I have a server-side rendered, client-side hydrated React/Rails app.
+
+I added the gem 'rack-cors' plus setup in application.rb in order for my requests to work.
+However, for some weird reason, signing out (a DELETE request) fails and hitting refresh erases the current user.
+
+Here's the app: http://crdwk.herokuapp.com
+
+And the repo: https://github.com/English3000/crdwk
+*/

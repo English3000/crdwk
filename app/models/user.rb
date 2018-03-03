@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_attached_file :profile_pic, default_url: ''
   validates_attachment_content_type :profile_pic, content_type: /\Aimage\/.*\Z/
 
+  has_many :ideas
+
   after_initialize :ensure_token
   def ensure_token
     self.session_token ||= SecureRandom::urlsafe_base64(16)

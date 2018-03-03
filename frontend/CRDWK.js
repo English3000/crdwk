@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Switch, Route, Link } from 'react-router-dom';
-import { Page, FlatList, View, Text, TextInput, ErrorBoundary } from './utils/elements';
+import { Page, ScrollView, View, Text, TextInput, ErrorBoundary } from './utils/elements';
 import { AuthRoute } from './utils/routing';
 import { signOut } from './actions/auth';
 import { findUsers } from './actions/visit';
@@ -22,7 +22,10 @@ const mapDispatchToProps = dispatch => ({
 const custom = {
   navStyle: { justifyContent: 'space-between', alignItems: 'flex-end',
               position: 'fixed', bottom: 7.5, width: '97.5%', margin: '0 1.25%' },
-  connectSym: {fontSize: 32, height: 23.5, fontWeight: 600, position: 'relative', top: -2.5}
+  connectSym: {fontSize: 32, height: 23.5, fontWeight: 600, position: 'relative', top: -2.5},
+  scrollViewStyle: { width: window.innerWidth * 0.5, alignItems: 'center',
+                     height: (window.innerHeight - 85.5) * 0.5 },
+  titleStyle: {fontWeight: 700, marginBottom: 10, marginTop: 5}
 };
 
 class CRDWK extends React.Component {
@@ -37,13 +40,12 @@ class CRDWK extends React.Component {
     const {query} = this.state;
 
     const searchResults = [];
+    //get Users, Ideas, Projects, & Orgs on same request (b/c assoc'd)
     Object.values(users).filter(user => user.name ?
       user.name.toLowerCase().includes(query.toLowerCase()) : false)
     .forEach(user => {searchResults.push({key: user});});
 
     const homePath = currentUser ? `/users/${currentUser.id}` : '/';
-
-    console.log(this.props);
 
     return [
       <ErrorBoundary key='Header'><div>
@@ -58,15 +60,27 @@ class CRDWK extends React.Component {
             <AuthRoute exact path='/' component={Home}/>
             <Route exact path='/users/:id' component={Profile}/>
           </Switch> :
-          //implement as SectionList on mobile (4 "FlatLists" on web)
-          searchResults.length > 0 ?
-          <FlatList style={{width: window.innerWidth * 0.5, height: (window.innerHeight - 85.5) * 0.5, display: 'inline-flex'}}
-                    itemdata={searchResults} itemrender={data => data.map(item => (
-            <Link key={item.key.id} to={`/users/${item.key.id}`}
-                  onClick={() => this.setState({query: ''})}>
-              {item.key.name}
-            </Link>
-          ))}/> : <Text>No results found.</Text>}
+          //implement as SectionList on mobile
+          searchResults.length > 0 ? [ <View key='row-1' style={{flexDirection: 'row'}}>
+            <ScrollView style={custom.scrollViewStyle}>
+              <Text style={custom.titleStyle}>Projects</Text>
+            </ScrollView>
+            <ScrollView style={custom.scrollViewStyle}>
+              <Text style={custom.titleStyle}>Ideas</Text>
+            </ScrollView>
+          </View>, <View key='row-2' style={{flexDirection: 'row'}}>
+            <ScrollView style={custom.scrollViewStyle}>
+              <Text style={custom.titleStyle}>Users</Text>
+              {searchResults.map(item => <Text style={{marginBottom: 5}}>
+              <Link key={item.key.id} to={`/users/${item.key.id}`}
+                    onClick={() => this.setState({query: ''})}>
+                {item.key.name}
+              </Link>
+            </Text>)}</ScrollView>
+            <ScrollView style={custom.scrollViewStyle}>
+              <Text style={custom.titleStyle}>Orgs</Text>
+            </ScrollView>
+          </View> ] : <Text>No results found.</Text>}
         </Page>
       </div></ErrorBoundary>,
       //add onHover tooltips
@@ -94,7 +108,7 @@ class CRDWK extends React.Component {
 
           <View style={{width: 87.5, justifyContent: 'space-between'}}>{currentUser ? [
             <i key='MyOrgs' className='fa fa-briefcase fa-lg'></i>,
-            <i key='NewOrg' className='fa fa-sitemap fa-lg'></i>,
+            <i key='Build' className='fa fa-plus fa-lg'></i>, //links to Build page
             <i key='SignOut' className='fa fa-sign-out fa-lg' style={{cursor: 'pointer'}}
                onClick={() => { SignOut(); this.setState({query: ''}); }}></i> ] : null}
           </View>
