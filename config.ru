@@ -2,6 +2,7 @@
 require_relative 'config/environment'
 run Rails.application
 
+# adding this didn't solve my issue
 require 'rack/cors'
 use Rack::Cors do
   allow do
