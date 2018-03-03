@@ -46,7 +46,7 @@ class CRDWK extends React.Component {
     .forEach(user => {searchResults.push({key: user});});
 
     const homePath = currentUser ? `/users/${currentUser.id}` : '/';
-
+    console.log(this.props);
     return [
       <ErrorBoundary key='Header'><div>
         {currentUser ? currentUser.name ?

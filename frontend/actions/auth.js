@@ -23,7 +23,11 @@ export const signIn = credentials => dispatch => Api.signIn(credentials).then(
 
 export const signOut = () => dispatch => Api.signOut().then(
   () => dispatch(receiveCurrentUser(null)),
-  err => dispatch(receiveErrors(err.response.data))
+  err => {
+    console.log(err);
+    console.log(err.response.data);
+    dispatch(receiveErrors(err.response.data));
+  }
 );
 /*
 In production:
