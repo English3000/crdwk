@@ -1,8 +1,7 @@
-json.id user.id
-json.name user.name
+json.currentUser do
+  json.extract! user, :id, :name, :session_token
+end
 
-if current
-  json.session_token user.session_token
-else
-  json.ideas user.idea_ids
+json.user do
+  json.partial! 'api/users/user.json.jbuilder', user: user
 end

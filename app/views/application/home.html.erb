@@ -2,9 +2,9 @@
 
 <% if signed_in? %>
   <script>
-    window.currentUser = <%= render(
+    window.presets = <%= render(
       "api/sessions/user.json.jbuilder",
-      user: current_user, current: true
+      user: current_user
     ).html_safe %>
   </script>
 <% else %>

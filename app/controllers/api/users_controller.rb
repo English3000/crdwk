@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
     if @user.save
       sign_in(@user)
       # can setup ActionMailer here
-      render partial: 'api/sessions/user', locals: {user: @user, current: true}
+      render partial: 'api/sessions/user', locals: {user: @user}
     else
       render json: @user.errors.full_messages, status: 404
     end
@@ -13,20 +13,12 @@ class Api::UsersController < ApplicationController
   def update
     @user = User.find_by(id: params[:id])
     @user.update_attributes(user_params) #can add constraints
-    render partial: 'api/sessions/user', locals: {user: @user, current: true}
+    render partial: 'api/sessions/user', locals: {user: @user}
   end
 
-  def show
+  def show #SSR
     @user = User.find_by(id: params[:id])
-    if @user && visited
-      render partial: :show, locals: {user: @user, current: true}
-    elsif @user
-      visited = true
-      render template: 'application/show'
-    else
-      visited = true
-      redirect_to '/'
-    end
+    @user ? (render template: 'application/show') : (redirect_to '/')
   end
 
   def user_params

@@ -15,11 +15,13 @@ class NewUserForm extends React.Component {
 
   render() { //style Button; value doesn't persist on refresh
     const {UpdateUser} = this.props;
+    const {name} = this.state;
 
     return <View style={{backgroundColor: '#fff2e6'}}>
-      <TextInput placeholder='Name' value={this.state.name}
+      <TextInput placeholder='Name' value={name}
                  onChange={event => this.setState({name: event.target.value})}
-                 onKeyDown={event => {if (event.keyCode === 13) UpdateUser(this.state);}}/>
+                 onKeyDown={event => {if (event.keyCode === 13 && name.length > 0) {
+                                        UpdateUser(this.state); }}}/>
       <Button title='Save' onClick={() => UpdateUser(this.state)}/>
     </View>;
   }

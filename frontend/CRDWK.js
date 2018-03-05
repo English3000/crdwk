@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter, Switch, Route, Link } from 'react-router-dom';
 import { Page, ScrollView, View, Text, TextInput, ErrorBoundary } from './utils/elements';
 import { signOut } from './actions/auth';
-import { search } from './actions/visit';
+import { search, visit } from './actions/visit';
 import AuthHeader from './pages/headers/AuthHeader';
-import NewUserForm from './pages/headers/NewUserForm';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 
@@ -15,6 +14,7 @@ const mapStateToProps = ({ data, session, searches }) => ({
 
 const mapDispatchToProps = dispatch => ({
   Search: query => dispatch(search(query)),
+  Visit: (path, id) => dispatch(visit(path, id)),
   SignOut: () => dispatch(signOut())
 });
 
@@ -39,8 +39,8 @@ class CRDWK extends React.Component {
     }
   }
 
-  render() {
-    const {data, SignOut, location} = this.props;
+  render() { console.log(this.props);
+    const {data, SignOut, location, history} = this.props;
     const {currentUser, loading} = this.props.session;
     const {query} = this.state;
 
@@ -59,8 +59,7 @@ class CRDWK extends React.Component {
 
     return [
       <ErrorBoundary key='Header'><div>
-        {currentUser ? currentUser.name || !urlMatch || (!loading && query !== '') ?
-          null : <NewUserForm currentUser={currentUser}/> : <AuthHeader />}
+        {currentUser ? null : <AuthHeader />}
       </div></ErrorBoundary>,
 
       <ErrorBoundary key='Page'><div>
@@ -129,16 +128,21 @@ class CRDWK extends React.Component {
 
   handleSearch(query) {
     const {searches, Search} = this.props;
+    const arr = searches[query.length];
 
-    if (!searches.includes(query.toLowerCase()) && query.length > 0) Search(query); //can't chain .then
+    if (!arr || !arr.includes(query.toLowerCase()) && query.length > 0) Search(query);
     this.setState({query});
   }
 
-  handleResults(results, type) {
+  handleResults(results, path) {
     return results && results.length > 0 ? results.map(
       item => <Text key={item.key.id} style={{marginBottom: 5}}>
-                <Link to={`/${type}/${item.key.id}`}
-                      onClick={() => this.setState({query: ''})}>
+                <Link to={`/${path}/${item.key.id}`}
+                      onClick={() => { if (path !== 'users') {
+                        this.props.Visit(path, item.key.id).then(
+                          () => this.setState({query: ''})
+                        );
+                      } else { this.setState({query: ''}); } }}>
                   {item.key.name}
                 </Link>
               </Text>

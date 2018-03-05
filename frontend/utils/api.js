@@ -9,5 +9,5 @@ export const signIn = user => axios.post(`${HOST}/api/session`, {user});
 export const signOut = () => axios.delete(`${HOST}/api/session`);
 
 // client-side rendering
-export const visitProfile = id => axios.get(`${HOST}/users/${id}`);
-export const search = query => axios.get( `${HOST}/api/session/search`, {params: {query}} );
+export const visit = (path, id) => axios.get(`${HOST}/api/${path}/${id}`);
+export const search = query => axios.get( `${HOST}/api/session/search`, {params: {query} });

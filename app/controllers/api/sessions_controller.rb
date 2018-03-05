@@ -8,7 +8,7 @@ class Api::SessionsController < ApplicationController
     @user = User.find_by_credentials(params[:user][:email], params[:user][:password])
     if @user
       sign_in(@user)
-      render partial: 'api/users/show', locals: {user: @user, current: true}
+      render partial: 'user.json.jbuilder', locals: {user: @user}
     else
       render json: ['Invalid credentials: user not found'], status: 422
     end

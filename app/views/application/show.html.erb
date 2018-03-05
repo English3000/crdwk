@@ -2,19 +2,21 @@
 
 <% if signed_in? %>
   <script>
-    window.currentUser = <%= render(
+    window.presets = <%= render(
       "api/sessions/user.json.jbuilder",
-      user: current_user, current: true
+      user: current_user
     ).html_safe %>
   </script>
 <% end %>
 
-<script>
-  window.data = <%= render(
-    "api/users/show.json.jbuilder",
-    user: @user, current: false
-  ).html_safe %>
-</script>
+<% if !signed_in? || current_user.id != @user.id %>
+  <script>
+    window.show = <%= render(
+      "api/users/user.json.jbuilder",
+      user: @user
+    ).html_safe %>
+  </script>
+<% end %>
 
 <% ideas = {} %>
 <% @user.ideas.each {|idea| ideas[idea.id] = idea} %>

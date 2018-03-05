@@ -1,35 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from '../utils/elements';
-import { visitProfile } from '../actions/visit';
+import NewUserForm from './headers/NewUserForm';
 
-const mapStateToProps = ({ data }, { match }) => {
-  const pageId = match.params.id;
-  return ({user: data.users ? data.users[pageId] : null, ideas: data.ideas, pageId});
-};
-
-const mapDispatchToProps = dispatch => ({
-  VisitProfile: id => dispatch(visitProfile(id)),
+const mapStateToProps = ({ data, session }, { match }) => ({
+  user: data.users[match.params.id],
+  currentUser: session.currentUser
 });
 
-class Profile extends React.Component {
-  componentWillMount() { if (!this.props.user) this.props.VisitProfile(this.props.pageId); }
+const Profile = props => [
+  props.user.name ?
+  <Text key='Details' style={{fontStyle: 'italic'}}>{props.user.name}</Text> :
+  props.user.id === props.currentUser.id ?
+  <NewUserForm key='Form' currentUser={props.currentUser}/> : null,
 
-  render() {
-    const {user, ideas} = this.props;
+  <View key='Ideas' style={{justifyContent: 'space-around'}}>
+    {props.user.ideas.map(idea => idea.active ?
+    <Text key={idea.id}>{idea.name}</Text> : null)}
+  </View>,
 
-    return [
-      <Text key='Details' style={{fontStyle: 'italic'}}>
-        {user ? user.name ? user.name : user.email : null}
-      </Text>,
+  <Text key='Copyright' style={{color: '#ffd9b3'}}>English3000 &copy; 2018</Text>
+];
 
-      <View key='Ideas' style={{justifyContent: 'space-around'}}>
-        {Object.keys(ideas).map(id => ideas[id].active ? <Text key={id}>{ideas[id].name}</Text> : null)}
-      </View>,
-
-      <Text key='Copyright' style={{color: '#ffd9b3'}}>English3000 &copy; 2018</Text>
-    ];
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps)(Profile);
