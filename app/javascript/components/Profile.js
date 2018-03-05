@@ -7,8 +7,8 @@ const Profile = ({ data }) => <div key='Profile' style={styles.page}>
     <input key='Name' placeholder='Name' style={styles.textInput} readOnly/>,
     <button key='Save' style={{cursor: 'default'}}>Save</button> ]}</P>
   <div key='Ideas' style={{display: 'flex', justifyContent: 'space-around'}}>
-    {data.user.ideas.map(idea => idea.active ?
-    <P key={idea.id}>{idea.name}</P> : null)}
+    {Object.keys(data.ideas).map(id => data.ideas[id].active ?
+    <P key={data.ideas[id].id}>{data.ideas[id].name}</P> : null)}
   </div>
   <P><b>loading...</b></P>
 </div>;

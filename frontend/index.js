@@ -5,10 +5,12 @@ import createStore from './store';
 import ReactWrapper from './App';
 
 document.addEventListener('DOMContentLoaded', () => {
-  let preloadedState = {data: {users: {} } };
+  let preloadedState = { data: {users: {}},
+                         session: {authToken: window.authToken} };
+  delete window.authToken;
 
   if (window.presets) {
-    preloadedState.session = {currentUser: window.presets.currentUser};
+    preloadedState.session.currentUser = window.presets.currentUser;
     preloadedState.data.users = window.presets.user;
     delete window.presets;
   }

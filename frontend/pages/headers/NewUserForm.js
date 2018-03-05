@@ -18,7 +18,7 @@ class NewUserForm extends React.Component {
     const {name} = this.state;
 
     return <View style={{backgroundColor: '#fff2e6'}}>
-      <TextInput placeholder='Name' value={name}
+      <TextInput placeholder='Name' defaultValue={name}
                  onChange={event => this.setState({name: event.target.value})}
                  onKeyDown={event => {if (event.keyCode === 13 && name.length > 0) {
                                         UpdateUser(this.state); }}}/>

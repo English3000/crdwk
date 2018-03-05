@@ -1,4 +1,6 @@
 import axios from 'axios';
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "XCSRF-TOKEN";
 
 const HOST = process.env.NODE_ENV === 'production' ?
   'https://crdwk.herokuapp.com' : 'http://localhost:3000';
