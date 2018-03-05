@@ -11,8 +11,8 @@ const custom = {
                textDecoration: 'none', padding: '10px 0', borderRadius: '100%' }
 };
 
-export default () => [
-  <View key='Auth' style={custom.headerStyle}>
+export default props => [
+  <View key='Auth' {...props} style={custom.headerStyle}>
     <Text style={{width: 126.5, fontSize: '1.1em'}}>Make it happen.</Text>
 
     <ErrorBoundary>

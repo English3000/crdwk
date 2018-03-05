@@ -7,9 +7,10 @@
       user: current_user, current: true
     ).html_safe %>
   </script>
+<% else %>
+  <%= react_component 'AuthHeader', prerender: true %>
 <% end %>
 
-<%= react_component 'AuthHeader', prerender: true %>
 <%= react_component 'Home', prerender: true %>
 <%= react_component 'Nav', prerender: true, page: 'Home', signedIn: signed_in? %>
 

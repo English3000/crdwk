@@ -1,5 +1,5 @@
 import { RECEIVE_CURRENT_USER } from '../actions/auth';
-import { LOADING, RECEIVE_USERS } from '../actions/visit';
+import { LOADING, RECEIVE_DATA } from '../actions/visit';
 import merge from 'lodash';
 
 const _nullSession = {currentUser: null, loading: false};
@@ -12,7 +12,7 @@ export default (state = _nullSession, action) => {
       return {currentUser: action.user, loading: false};
     case LOADING:
       return {currentUser: state.currentUser, loading: true};
-    case RECEIVE_USERS:
+    case RECEIVE_DATA:
       return {currentUser: state.currentUser, loading: false};
     default:
       return state;

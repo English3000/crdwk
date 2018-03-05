@@ -13,11 +13,14 @@ class NewUserForm extends React.Component {
     this.state = {name: '', id: props.currentUser.id};
   }
 
-  render() { //style Button
+  render() { //style Button; value doesn't persist on refresh
+    const {UpdateUser} = this.props;
+
     return <View style={{backgroundColor: '#fff2e6'}}>
-      <TextInput placeholder='Name' autoFocus
-                 onChange={event => this.setState({name: event.target.value})}/>
-      <Button title='Save' onClick={() => this.props.UpdateUser(this.state)}/>
+      <TextInput placeholder='Name' value={this.state.name}
+                 onChange={event => this.setState({name: event.target.value})}
+                 onKeyDown={event => {if (event.keyCode === 13) UpdateUser(this.state);}}/>
+      <Button title='Save' onClick={() => UpdateUser(this.state)}/>
     </View>;
   }
 }

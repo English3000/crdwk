@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { styles, P } from './util';
 
-const Profile = ({ user }) => <div key='Profile' style={styles.page}>
-                                <P><em>{user.name ? user.name : user.email}</em></P>
-                                <P>profile page</P>
-                                <P><b>loading...</b></P>
-                              </div>;
+const Profile = ({ data }) => <div key='Profile' style={styles.page}>
+  <P><em>{data.user.name ? data.user.name : data.user.email}</em></P>
+  <div key='Ideas' style={{display: 'flex', justifyContent: 'space-around'}}>
+    {Object.keys(data.ideas).map(id => data.ideas[id].active ? 
+      <P key={id}>{data.ideas[id].name}</P> : null)}
+  </div>
+  <P><b>loading...</b></P>
+</div>;
 
-Profile.propTypes = {user: PropTypes.object};
+Profile.propTypes = {data: PropTypes.object};
 
 export default Profile;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { View, Button, TextInput, Text } from '../../utils/elements';
 import { signUp, signIn, RECEIVE_ERRORS } from '../../actions/auth';
 
@@ -89,7 +90,8 @@ class AuthForm extends React.Component {
     const {email, password} = this.state;
 
     fn({email, password}).then(action => {
-      if (action.type === RECEIVE_ERRORS) this.setState({showErrors: true});
+      if (action && action.type === RECEIVE_ERRORS) { this.setState({showErrors: true});
+      } else { this.props.history.push(`/users/${action.user.id}`); }
     });
   }
 
@@ -127,4 +129,4 @@ class AuthForm extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthForm));

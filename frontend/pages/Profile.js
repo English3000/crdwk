@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text } from '../utils/elements';
+import { View, Text } from '../utils/elements';
 import { visitProfile } from '../actions/visit';
 
-const mapStateToProps = ({ users }, { match }) => {
+const mapStateToProps = ({ data }, { match }) => {
   const pageId = match.params.id;
-  return ({user: users[pageId], pageId});
+  return ({user: data.users ? data.users[pageId] : null, ideas: data.ideas, pageId});
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -16,14 +16,16 @@ class Profile extends React.Component {
   componentWillMount() { if (!this.props.user) this.props.VisitProfile(this.props.pageId); }
 
   render() {
-    const {user} = this.props;
+    const {user, ideas} = this.props;
 
     return [
       <Text key='Details' style={{fontStyle: 'italic'}}>
         {user ? user.name ? user.name : user.email : null}
       </Text>,
 
-      <Text key='placeholder'>profile page</Text>,
+      <View key='Ideas' style={{justifyContent: 'space-around'}}>
+        {Object.keys(ideas).map(id => ideas[id].active ? <Text key={id}>{ideas[id].name}</Text> : null)}
+      </View>,
 
       <Text key='Copyright' style={{color: '#ffd9b3'}}>English3000 &copy; 2018</Text>
     ];

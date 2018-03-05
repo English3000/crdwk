@@ -2,20 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Switch, Route, Link } from 'react-router-dom';
 import { Page, ScrollView, View, Text, TextInput, ErrorBoundary } from './utils/elements';
-import { AuthRoute } from './utils/routing';
 import { signOut } from './actions/auth';
-import { findUsers } from './actions/visit';
+import { search } from './actions/visit';
 import AuthHeader from './pages/headers/AuthHeader';
 import NewUserForm from './pages/headers/NewUserForm';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 
-const mapStateToProps = ({ users, session, searches }) => ({
-  users, session, searches
+const mapStateToProps = ({ data, session, searches }) => ({
+  data, session, searches
 });
 
 const mapDispatchToProps = dispatch => ({
-  FindUsers: query => dispatch(findUsers(query)),
+  Search: query => dispatch(search(query)),
   SignOut: () => dispatch(signOut())
 });
 
@@ -34,22 +33,33 @@ class CRDWK extends React.Component {
     this.state = {query: ''};
   }
 
+  componentWillReceiveProps(newProps) {
+    if (!this.props.session.currentUser && newProps.session.currentUser) {
+      this.setState({query: ''});
+    }
+  }
+
   render() {
-    const {users, SignOut, location} = this.props;
+    const {data, SignOut, location} = this.props;
     const {currentUser, loading} = this.props.session;
     const {query} = this.state;
 
-    const searchResults = [];
-    //get Users, Ideas, Projects, & Orgs on same request (b/c assoc'd)
-    Object.values(users).filter(user => user.name ?
-      user.name.toLowerCase().includes(query.toLowerCase()) : false)
-    .forEach(user => {searchResults.push({key: user});});
+    const searchResults = {};
+
+    Object.keys(data).forEach(category => {
+      searchResults[category] = [];
+      Object.values(data[category]).filter(item => item.name ?
+        item.name.toLowerCase().includes(query.toLowerCase()) : false)
+      .forEach(result => {searchResults[category].push({key: result});});
+    });
 
     const homePath = currentUser ? `/users/${currentUser.id}` : '/';
-    console.log(this.props);
+    const urlLen = location.pathname.length;
+    const urlMatch = currentUser ? location.pathname.substring(urlLen - `${currentUser.id}`.length, urlLen) === `${currentUser.id}` : true;
+
     return [
       <ErrorBoundary key='Header'><div>
-        {currentUser ? currentUser.name ?
+        {currentUser ? currentUser.name || !urlMatch || (!loading && query !== '') ?
           null : <NewUserForm currentUser={currentUser}/> : <AuthHeader />}
       </div></ErrorBoundary>,
 
@@ -57,37 +67,36 @@ class CRDWK extends React.Component {
         <Page>
           {query === '' || loading && query.length - 1 === 0 ?
           <Switch>
-            <AuthRoute exact path='/' component={Home}/>
+            <Route exact path='/' component={Home}/>
             <Route exact path='/users/:id' component={Profile}/>
-          </Switch> :
+          </Switch> : [
           //implement as SectionList on mobile
-          searchResults.length > 0 ? [ <View key='row-1' style={{flexDirection: 'row'}}>
+          <View key='row-1' style={{flexDirection: 'row'}}>
             <ScrollView style={custom.scrollViewStyle}>
               <Text style={custom.titleStyle}>Projects</Text>
+              {this.handleResults(searchResults.orgs, 'orgs')}
+            </ScrollView>
+            <ScrollView style={custom.scrollViewStyle}>
+              <Text style={custom.titleStyle}>Projects</Text>
+              {this.handleResults(searchResults.projects, 'projects')}
+            </ScrollView>
+          </View>,<View key='row-2' style={{flexDirection: 'row'}}>
+            <ScrollView style={custom.scrollViewStyle}>
+              <Text style={custom.titleStyle}>Users</Text>
+              {this.handleResults(searchResults.users, 'users')}
             </ScrollView>
             <ScrollView style={custom.scrollViewStyle}>
               <Text style={custom.titleStyle}>Ideas</Text>
+              {this.handleResults(searchResults.ideas, 'ideas')}
             </ScrollView>
-          </View>, <View key='row-2' style={{flexDirection: 'row'}}>
-            <ScrollView style={custom.scrollViewStyle}>
-              <Text style={custom.titleStyle}>Users</Text>
-              {searchResults.map(item => <Text style={{marginBottom: 5}}>
-              <Link key={item.key.id} to={`/users/${item.key.id}`}
-                    onClick={() => this.setState({query: ''})}>
-                {item.key.name}
-              </Link>
-            </Text>)}</ScrollView>
-            <ScrollView style={custom.scrollViewStyle}>
-              <Text style={custom.titleStyle}>Orgs</Text>
-            </ScrollView>
-          </View> ] : <Text>No results found.</Text>}
+          </View> ]}
         </Page>
       </div></ErrorBoundary>,
       //add onHover tooltips
       <ErrorBoundary key='Nav'><div>
         <View style={custom.navStyle}>
           <View style={{width: 87.5, justifyContent: 'space-between', alignItems: 'flex-end'}}>
-          {currentUser && location.pathname[location.pathname.length - 1] !== `${currentUser.id}` ? [
+          {currentUser && !urlMatch && location.pathname !== '/' ? [
             <Text key='Connect' style={custom.connectSym}>&infin;</Text>,
             <i key='Chat' className='fa fa-comments fa-lg'></i>,
             <Text key='placeholder' style={{width: 22}}></Text> ] : null}
@@ -99,11 +108,12 @@ class CRDWK extends React.Component {
                        onChange={event => this.handleSearch(event.target.value)}
                        onFocus={event => this.setState({query: event.target.value})}/>
 
-            {location.pathname === homePath ? null :
+            {query.length === 0 ? location.pathname === homePath ? null :
             <Link to={homePath} onClick={() => this.setState({query: ''})}
               style={{position: 'absolute', marginRight: 5}}>
               <i className='fa fa-home fa-lg' style={{color: 'black'}}></i>
-            </Link>}
+            </Link> : <Text onClick={() => this.setState({query: ''})}
+                            style={{position: 'absolute', marginRight: 7.5, fontSize: '1.2em', fontWeight: 500, cursor: 'pointer'}}>&times;</Text>}
           </View>
 
           <View style={{width: 87.5, justifyContent: 'space-between'}}>{currentUser ? [
@@ -118,10 +128,21 @@ class CRDWK extends React.Component {
   }
 
   handleSearch(query) {
-    const {searches, FindUsers} = this.props;
+    const {searches, Search} = this.props;
 
-    if (!searches.includes(query.toLowerCase()) && query.length > 0) FindUsers(query); //can't chain .then
+    if (!searches.includes(query.toLowerCase()) && query.length > 0) Search(query); //can't chain .then
     this.setState({query});
+  }
+
+  handleResults(results, type) {
+    return results && results.length > 0 ? results.map(
+      item => <Text key={item.key.id} style={{marginBottom: 5}}>
+                <Link to={`/${type}/${item.key.id}`}
+                      onClick={() => this.setState({query: ''})}>
+                  {item.key.name}
+                </Link>
+              </Text>
+    ) : null;
   }
 }
 

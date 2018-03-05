@@ -1,4 +1,5 @@
 import * as Api from '../utils/api';
+import { receiveData } from './visit';
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const receiveCurrentUser = user => ({type: RECEIVE_CURRENT_USER, user});
@@ -17,17 +18,14 @@ export const updateUser = details => dispatch => Api.updateUser(details).then(
 );
 
 export const signIn = credentials => dispatch => Api.signIn(credentials).then(
-  user => dispatch(receiveCurrentUser(user.data)),
+  info => { dispatch(receiveData(info.data));
+            return dispatch(receiveCurrentUser(Object.values(info.data.users)[0])); },
   err => dispatch(receiveErrors(err.response.data))
 );
 
 export const signOut = () => dispatch => Api.signOut().then(
   () => dispatch(receiveCurrentUser(null)),
-  err => {
-    console.log(err);
-    console.log(err.response.data);
-    dispatch(receiveErrors(err.response.data));
-  }
+  err => dispatch(receiveErrors(err.response.data))
 );
 /*
 In production:

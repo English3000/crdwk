@@ -10,19 +10,23 @@
 <% end %>
 
 <script>
-  window.user = <%= render(
-    "api/sessions/user.json.jbuilder",
+  window.data = <%= render(
+    "api/users/show.json.jbuilder",
     user: @user, current: false
   ).html_safe %>
 </script>
 
+<% ideas = {} %>
+<% @user.ideas.each {|idea| ideas[idea.id] = idea} %>
+
+<!-- rendered -->
 <% if !signed_in? %>
   <%= react_component 'AuthHeader', prerender: true %>
 <% elsif !current_user.name && @user.id == current_user.id %>
   <%= react_component 'NewUserForm', prerender: true %>
 <% end %>
 
-<%= react_component 'Profile', user: {id: @user.id, name: @user.name, email: @user.email}, prerender: true %>
+<%= react_component 'Profile', data: {user: @user, ideas: ideas}, prerender: true %>
 <%= react_component 'Nav', prerender: true, page: 'Profile', signedIn: signed_in? %>
 
 <%= javascript_pack_tag 'bundle' %>

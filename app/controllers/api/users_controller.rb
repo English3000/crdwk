@@ -1,8 +1,4 @@
 class Api::UsersController < ApplicationController
-  def index
-    @users = User.where("LOWER(users.name) LIKE ?", '%' + params['query'].downcase + '%')
-  end
-
   def create
     @user = User.new(user_params)
     if @user.save
@@ -22,11 +18,11 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    if @user && visited # can test once Search implemented
-      render partial: 'api/sessions/user', locals: {user: @user, current: false}
+    if @user && visited
+      render partial: :show, locals: {user: @user, current: true}
     elsif @user
       visited = true
-      render :show
+      render template: 'application/show'
     else
       visited = true
       redirect_to '/'
@@ -34,6 +30,7 @@ class Api::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:id, :name, :email, :password, :session_token)
+    params.require(:user).permit(:id, :name, :email, :password, :session_token,
+                                 :profile_pic)
   end
 end

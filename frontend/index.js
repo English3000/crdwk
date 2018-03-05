@@ -3,22 +3,20 @@ import React from 'react';
 import { hydrate } from 'react-dom';
 import createStore from './store';
 import ReactWrapper from './App';
-//return to production hydration issue later
-// couldn't find answers via search
-document.addEventListener('DOMContentLoaded', () => {
-  let preloadedState = { users: {} };
 
+document.addEventListener('DOMContentLoaded', () => {
+  let preloadedState = {};
+
+  if (window.data) {
+    preloadedState.data = window.data;
+    delete window.data;
+  }
   if (window.currentUser) {
     preloadedState.session = {currentUser: window.currentUser};
-    preloadedState.users[window.currentUser.id] = window.currentUser;
     delete window.currentUser;
   }
-  if (window.user) {
-    preloadedState.users[window.user.id] = window.user;
-    delete window.user;
-  }
-  const store = createStore(preloadedState);
-  window.getState = store.getState;
-  hydrate( <ReactWrapper store={store}/>,
+  // const store = createStore(preloadedState);
+  // window.getState = store.getState;
+  hydrate( <ReactWrapper store={createStore(preloadedState)}/>,
            document.getElementById('replace-with-js') );
 });

@@ -1,5 +1,6 @@
 class Idea < ApplicationRecord
-  validates :name, :body, :user_id, :active, presence: true
+  validates :name, :body, :user_id, presence: true
+  validates :active, inclusion: [true, false]
 
   has_attached_file :cover_photo, default_url: ''
   validates_attachment_content_type :cover_photo, content_type: /\Aimage\/.*\Z/
