@@ -39,7 +39,7 @@ class CRDWK extends React.Component {
     }
   }
 
-  render() { console.log(this.props);
+  render() {
     const {data, SignOut, location, history} = this.props;
     const {currentUser, loading} = this.props.session;
     const {query} = this.state;

@@ -9,8 +9,7 @@ export const receiveErrors = errors => ({type: RECEIVE_ERRORS, errors});
 
 const action = (fn, arg) => dispatch => fn(arg).then(
   res => dispatch(receiveCurrentUser(arg ? res.data : null)),
-  err => { if (!arg) { console.log(err); console.log(err.response.data); }
-           return dispatch(receiveErrors(err.response.data)); }
+  err => dispatch(receiveErrors(err.response.data))
 );
 
 export const signUp = credentials => action(Api.signUp, credentials);
