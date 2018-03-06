@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    return nil unless session[:session_token]
     @current_user ||= User.find_by(session_token: session[:session_token])
   end
 
@@ -21,12 +20,12 @@ class ApplicationController < ActionController::Base
   end
 
   def sign_in(user)
-    current_user = user
+    @current_user = user
     session[:session_token] = current_user.reset_token
   end
 
   def sign_out
-    current_user.reset_token if current_user #cond'l = workaround
+    current_user.try(:reset_token) #if current_user #cond'l = workaround
     session[:session_token] = nil
   end
 end
