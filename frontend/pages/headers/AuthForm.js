@@ -4,9 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { View, Button, TextInput, Text } from '../../utils/elements';
 import { signUp, signIn, RECEIVE_ERRORS } from '../../actions/auth';
 
-const mapStateToProps = ({ session, errors }) => ({
-  authToken: session.authToken, errors
-});
+const mapStateToProps = ({ errors }) => ({errors});
 
 const mapDispatchToProps = dispatch => ({
   SignUp: user => dispatch(signUp(user)),
@@ -49,7 +47,7 @@ class AuthForm extends React.Component {
 
   render() {
     const {email, password, showErrors, signUpShadow, signInShadow} = this.state;
-    const {SignUp, SignIn, authToken, errors} = this.props;
+    const {SignUp, SignIn, errors} = this.props;
 
     return [
       <View key='AuthForm' style={custom.authForm}>
@@ -70,7 +68,6 @@ class AuthForm extends React.Component {
                      onChange={this.handlePasswordInput} type='password'
                      onKeyDown={event => {if (event.keyCode === 13) this.handleAuth(SignIn);} }
                      style={Object.assign({}, custom.textInput, custom.bottomRounded)}/>
-          <TextInput type='hidden' name='authenticity_token' value={authToken}/>
         </View>
 
         <View onClick={() => this.handleAuth(SignIn)}>

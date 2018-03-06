@@ -6,9 +6,7 @@ import ReactWrapper from './App';
 
 document.addEventListener('DOMContentLoaded', () => {
   let preloadedState = { data: {users: {}},
-                         session: {authToken: window.authToken} };
-  delete window.authToken;
-
+                         session: {} };
   if (window.presets) {
     preloadedState.session.currentUser = window.presets.currentUser;
     preloadedState.data.users = window.presets.user;

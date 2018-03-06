@@ -38,6 +38,28 @@ export const Button = props => <button {...props} style={Object.assign({cursor: 
                                  {props.title}
                                </button>;
 
+//Source: http://cssdeck.com/labs/light-bulb
+const bulbStyle = {
+  container: { flexDirection: 'column', alignItems: 'center', borderRadius: '100%',
+               justifyContent: 'flex-end', cursor: 'pointer' },
+  top: { width: 85, height: 110, border: 0, borderRadius: '100%',
+         backgroundColor: 'radial-gradient(yellow, whitesmoke)' },
+  bottom: { marginTop: -25.5, width: 27.5, height: 0,
+            borderLeft: '23px solid transparent',
+        	  borderRight: '23px solid transparent',
+        	  borderTop: '55px solid whitesmoke' }
+};
+export const LightBulb = ({idea, history}) => (
+  <View onClick={() => history.push(`/ideas/${idea.id}`)}
+        style={bulbStyle.container}>
+    <View style={Object.assign({backgroundImage: idea.cover_photo}, bulbStyle.top)}></View>
+    <View style={bulbStyle.bottom}></View>
+    <View style={{position: 'absolute'}}>
+      <Text style={{width: 27.5, marginTop: -45}}>{idea.name}</Text>
+    </View>
+  </View>
+);
+
 export class ErrorBoundary extends React.Component {
   constructor() {
     super();

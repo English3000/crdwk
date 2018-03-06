@@ -16,7 +16,3 @@ export const signUp = credentials => action(Api.signUp, credentials);
 export const signIn = credentials => action(Api.signIn, credentials);
 export const updateUser = details => action(Api.updateUser, details);
 export const signOut = () => action(Api.signOut);
-/* In production:
-I added the gem 'rack-cors' plus setup in application.rb in order for my requests to work.
-However, for some weird reason, signing out (a DELETE request) fails and hitting refresh erases the current user.
-*/

@@ -1,9 +1,5 @@
 <%= javascript_pack_tag 'application' %>
 
-<script>
-  window.authToken = <%= "`#{form_authenticity_token}`".html_safe %>
-</script>
-
 <% if signed_in? %>
   <script>
     window.presets = <%= render(

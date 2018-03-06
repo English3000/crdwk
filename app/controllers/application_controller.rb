@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-  skip_before_action :verify_authenticity_token
-
+  protect_from_forgery #with: :exception
+  #commenting out------^ allows signing in for mobile but not signing out
+  # gives same error w/ sign out, but first need to fix mobile's Redux cycle
   helper_method :current_user, :signed_in?
 
   def home
