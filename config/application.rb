@@ -23,7 +23,7 @@ module Crdwk
 
     # Access-Control-Allow-Origin
     config.middleware.insert_before 0, Rack::Cors do
-      allow do #`origins` fails w/ '*'
+      allow do
         origins 'localhost:3000', /https*:\/\/crdwk\.herokuapp\.com.*/
         resource '*', :headers => :any, :methods => :any
       end

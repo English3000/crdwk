@@ -10,7 +10,7 @@ To get the token, have a look at <meta name='csrf-token' content='THE-TOKEN'>
 tag printed by <%= csrf_meta_tags %> in your application view. */
 
 const HOST = process.env.NODE_ENV === 'production' ?
-  'https://crdwk.herokuapp.com' : 'http://localhost:3000';
+  'http://crdwk.herokuapp.com' : 'http://localhost:3000';
 
 export const signUp = user => axios.post(`${HOST}/api/users`, {user});
 export const updateUser = user => axios.patch(`${HOST}/api/users/${user.id}`, {user});

@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def sign_out
-    current_user.reset_token
+    current_user.reset_token if current_user #cond'l = workaround
     session[:session_token] = nil
   end
 end
