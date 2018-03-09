@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   def home
     if signed_in?
       @user = current_user
-      render :show
+      render :profile
     end
   end
 

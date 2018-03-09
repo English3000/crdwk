@@ -17,5 +17,5 @@ export const updateUser = user => axios.patch(`${HOST}/api/users/${user.id}`, {u
 export const signIn = user => axios.post(`${HOST}/api/session`, {user});
 export const signOut = () => axios.delete(`${HOST}/api/session`);
 
-export const visit = (path, id) => axios.get(`${HOST}/api/${path}/${id}`);
+export const visit = (path, id) => axios.get(`${HOST}/api/${path}/${id}`, {params: {visited: true}});
 export const search = query => axios.get( `${HOST}/api/session/search`, {params: {query} });

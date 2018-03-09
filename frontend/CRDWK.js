@@ -7,6 +7,7 @@ import { search, visit } from './actions/visit';
 import AuthHeader from './pages/headers/AuthHeader';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
+import Idea from './pages/Idea';
 
 const mapStateToProps = ({ data, session, searches }) => ({
   data, session, searches
@@ -63,13 +64,13 @@ class CRDWK extends React.Component {
       </div></ErrorBoundary>,
 
       <ErrorBoundary key='Page'><div>
-        <Page>
-          {query === '' || loading && query.length - 1 === 0 ?
-          <Switch>
+        <Page style={{paddingTop: 10}}>
+          {query === '' || loading && query.length - 1 === 0 ? <Switch>
             <Route exact path='/' component={Home}/>
             <Route exact path='/users/:id' component={Profile}/>
-          </Switch> : [
-          //implement as SectionList on mobile
+            <Route exact path='/ideas/:id' component={Idea}/>
+          </Switch> : [ //implement as SectionList on mobile
+
           <View key='row-1' style={{flexDirection: 'row'}}>
             <ScrollView style={custom.scrollViewStyle}>
               <Text style={custom.titleStyle}>Projects</Text>
@@ -79,7 +80,8 @@ class CRDWK extends React.Component {
               <Text style={custom.titleStyle}>Projects</Text>
               {this.handleResults(searchResults.projects, 'projects')}
             </ScrollView>
-          </View>,<View key='row-2' style={{flexDirection: 'row'}}>
+          </View>,
+          <View key='row-2' style={{flexDirection: 'row'}}>
             <ScrollView style={custom.scrollViewStyle}>
               <Text style={custom.titleStyle}>Users</Text>
               {this.handleResults(searchResults.users, 'users')}
@@ -103,7 +105,7 @@ class CRDWK extends React.Component {
 
           <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
             <TextInput placeholder='Search users & orgs'
-                       style={{borderRadius: 2.5, paddingRight: 25}}
+                       style={{borderRadius: 1, paddingRight: 25}}
                        onChange={event => this.handleSearch(event.target.value)}
                        onFocus={event => this.setState({query: event.target.value})}/>
 
@@ -136,16 +138,16 @@ class CRDWK extends React.Component {
 
   handleResults(results, path) {
     return results && results.length > 0 ? results.map(
-      item => <Text key={item.key.id} style={{marginBottom: 5}}>
-                <Link to={`/${path}/${item.key.id}`}
-                      onClick={() => { if (path !== 'users') {
-                        this.props.Visit(path, item.key.id).then(
-                          () => this.setState({query: ''})
-                        );
-                      } else { this.setState({query: ''}); } }}>
-                  {item.key.name}
-                </Link>
-              </Text>
+      item => <Link key={item.key.id} style={{marginBottom: 5}}
+                    to={`/${path}/${item.key.id}`}
+                    onClick={() => { if (path !== 'users') {
+                      //remove cond'l as build out Profile
+                      this.props.Visit(path, item.key.id).then(
+                        () => this.setState({query: ''})
+                      );
+                    } else { this.setState({query: ''}); } }}>
+                {item.key.name}
+              </Link>
     ) : null;
   }
 }

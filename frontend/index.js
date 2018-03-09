@@ -5,16 +5,20 @@ import createStore from './store';
 import ReactWrapper from './App';
 
 document.addEventListener('DOMContentLoaded', () => {
-  let preloadedState = { data: {users: {}},
+  let preloadedState = { data: {users: {}, ideas: {}},
                          session: {} };
   if (window.presets) {
     preloadedState.session.currentUser = window.presets.currentUser;
-    preloadedState.data.users = window.presets.user;
+    preloadedState.data.users[window.presets.user.id] = window.presets.user;
     delete window.presets;
   }
-  if (window.show) {
-    preloadedState.data.users[window.show.id] = window.show;
-    delete window.show;
+  if (window.user) {
+    preloadedState.data.users[window.user.id] = window.user;
+    delete window.user;
+  }
+  if (window.idea) {
+    preloadedState.data.ideas[window.idea.id] = window.idea;
+    delete window.idea;
   }
   // const store = createStore(preloadedState);
   // window.getState = store.getState;

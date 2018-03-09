@@ -2,8 +2,8 @@ class User < ApplicationRecord
   validates :email, :session_token, presence: true, uniqueness: true
   validates_format_of :email, with: /^[a-zA-Z]\w*@\w+\.\w{2,}$/, multiline: true
   validates :password_digest, presence: true
-  validates :name, length: {minimum: 1, allow_nil: true}
   validates :password, length: {minimum: 8, allow_nil: true}
+  validates :name, length: {minimum: 1, allow_nil: true}
   has_attached_file :profile_pic, default_url: ''
   validates_attachment_content_type :profile_pic, content_type: /\Aimage\/.*\Z/
 

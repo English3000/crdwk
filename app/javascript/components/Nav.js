@@ -11,7 +11,7 @@ const custom = {
 const Nav = ({ page, signedIn }) => (
   <div style={custom.navStyle}>
     <div style={{width: 87.5, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end'}}>
-    {/* signedIn ? [
+    {/* signedIn && page === 'Profile' /*&& !currentUser && !connected ? [
       <P key='Connect' style={custom.connectSym}>&infin;</P>,
       <i key='Chat' className='fa fa-comments fa-lg'></i>,
       <P key='placeholder' style={{width: 22}}></P> ] : null */}
@@ -20,8 +20,9 @@ const Nav = ({ page, signedIn }) => (
     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end'}}>
       <input placeholder='Search for users...' readOnly
              style={Object.assign({}, styles.textInput, {borderRadius: 2.5, paddingRight: 25})}/>
-      {!signedIn && page === 'Profile' ? <i className='fa fa-home fa-lg'
-         style={{position: 'fixed', marginRight: 5, color: 'black'}}></i> : null}
+      {(!signedIn && page !== 'Home') || (signedIn && page !== 'Profile') ?
+      <i className='fa fa-home fa-lg' style={{position: 'fixed', marginRight: 5, color: 'black'}}>
+      </i> : null}
     </div>
 
     <div style={{width: 87.5, display: 'flex', justifyContent: 'space-between'}}>
