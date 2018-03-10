@@ -91,7 +91,7 @@ class AuthForm extends React.Component {
 
     fn({email, password}).then(action => {
       if (action && action.type === RECEIVE_ERRORS) { this.setState({showErrors: true});
-    } else { this.props.history.push(`/users/${action.data.user.id}`); }
+    } else { this.props.history.push(`/users/${action.data.currentUser.id}`); }
     });
   }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { styles, P } from './util';
 
-const Profile = ({ data }) => <div key='Profile' style={styles.page}>
+const Profile = ({ data }) => <div style={styles.page}>
   <P>{data.user.name ? <em>{data.user.name}</em> : [
     <input key='Name' placeholder='Name' style={styles.textInput} readOnly/>,
     <button key='Save' style={{cursor: 'default'}}>Save</button> ]}</P>

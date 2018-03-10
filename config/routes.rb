@@ -2,12 +2,14 @@ Rails.application.routes.draw do #http://guides.rubyonrails.org/routing.html
 
   # only client-rendered
   namespace :api, defaults: {format: :json} do
-    resources :users, only: [:create, :update, :show]
-    resources :ideas, only: [:show]
+    resources :users, only: [:create, :show, :update]
+    resources :ideas, only: [:create, :show, :update]
     resource :session, only: [:create, :destroy, :search] do
       get 'search', on: :collection
     end
   end
+
+  # redirect invalid requests #
 
   # also server-rendered
   get '/ideas/:id', to: 'api/ideas#show'

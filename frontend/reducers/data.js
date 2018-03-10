@@ -13,7 +13,8 @@ export default (state = _nullState, action) => {
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
       if (action.data) {
-        newState.users[action.data.user.id] = action.data.user;
+        newState.users = action.data.users;
+        newState.ideas = action.data.ideas ? action.data.ideas : {};
         return newState;
       }
     case RECEIVE_DATA:

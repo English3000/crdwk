@@ -12,10 +12,18 @@ tag printed by <%= csrf_meta_tags %> in your application view. */
 const HOST = process.env.NODE_ENV === 'production' ?
   'http://crdwk.herokuapp.com' : 'http://localhost:3000';
 
-export const signUp = user => axios.post(`${HOST}/api/users`, {user});
-export const updateUser = user => axios.patch(`${HOST}/api/users/${user.id}`, {user});
 export const signIn = user => axios.post(`${HOST}/api/session`, {user});
 export const signOut = () => axios.delete(`${HOST}/api/session`);
-
-export const visit = (path, id) => axios.get(`${HOST}/api/${path}/${id}`, {params: {visited: true}});
-export const search = query => axios.get( `${HOST}/api/session/search`, {params: {query} });
+export const create = (path, item) => axios.post(
+  `${HOST}/api/${path}`, {[path.substring(0, path.length - 1)]: item}
+);
+export const visit = (path, id) => axios.get(
+  `${HOST}/api/${path}/${id}`, {params: {visited: true}}
+);
+export const update = (path, item) => axios.patch(
+  `${HOST}/api/${path}/${item.id}`,
+  {[path.substring(0, path.length - 1)]: item}
+);
+export const search = query => axios.get(
+  `${HOST}/api/session/search`, {params: {query}}
+);
