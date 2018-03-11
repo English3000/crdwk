@@ -70,7 +70,9 @@ const Lightbulb = ({ Visit, idea, style }) => ( //does `to` b4 `onClick`
     <View style={Object.assign({backgroundImage: idea.cover_photo}, bulbStyle.top)}></View>
     <View style={bulbStyle.bottom}></View>
     <View style={{position: 'absolute'}}>
-      <Text style={{width: 27.5, marginTop: -45}}>{idea.name}</Text>
+      <Text style={{width: 27.5, marginTop: -45, textAlign: 'center'}}>
+        {idea.name}
+      </Text>
     </View>
   </Link>
 );
