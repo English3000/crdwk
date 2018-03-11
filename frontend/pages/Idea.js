@@ -14,8 +14,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const custom = {
-  ideaBox: { flexDirection: 'column', width: 400, height: 200, borderRadius: 15,
-             alignItems: 'center', justifyContent: 'center', backgroundColor: 'whitesmoke' }
+  ideaBox: { flexDirection: 'column', width: 400, minHeight: 200,
+             borderRadius: 15, alignItems: 'center', justifyContent: 'center',
+             backgroundColor: 'whitesmoke' }
 };
 
 class Idea extends React.Component {
@@ -25,11 +26,11 @@ class Idea extends React.Component {
 
     return idea ? [
       //comments here
-      //display in page center
       <View key='Idea' style={Object.assign({backgroundImage: idea.cover_photo}, custom.ideaBox)}>
-        <Field field='name' item={idea} Update={UpdateIdea} editable={editable}
-               style={{fontWeight: 700}} color='whitesmoke'/>
-        <Field field='body' item={idea} Update={UpdateIdea} editable={editable}
+        <Field field='name' item={idea} path='ideas' editable={editable}
+               style={{fontWeight: 700, marginLeft: -16.5}} color='whitesmoke'/>
+        <Field field='body' item={idea} path='ideas' editable={editable}
+               multiline='true' numberoflines={1.5} style={{marginLeft: -16.5}}
                color='whitesmoke'/>
       </View>
     ] : null;

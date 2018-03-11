@@ -55,8 +55,12 @@ class CRDWK extends React.Component {
     });
 
     const homePath = currentUser ? `/users/${currentUser.id}` : '/';
-    const urlLen = location.pathname.length;
-    const urlMatch = currentUser ? location.pathname.substring(urlLen - `${currentUser.id}`.length, urlLen) === `${currentUser.id}` : true;
+    const url = location.pathname;
+    function urlMatch(path, id) {
+      return currentUser ? url.substring(
+        url.length - `${id}`.length, url.length
+      ) === `${id}` && url.includes(path) : true;
+    }
 
     return [
       <ErrorBoundary key='Header'><div>
@@ -96,11 +100,17 @@ class CRDWK extends React.Component {
       //add onHover tooltips
       <ErrorBoundary key='Nav'><div>
         <View style={custom.navStyle}>
-          <View style={{width: 87.5, justifyContent: 'space-between', alignItems: 'flex-end'}}>
-          {currentUser && !urlMatch && location.pathname !== '/' ? [
+          <View style={{width: 115, justifyContent: 'space-between', alignItems: 'flex-end'}}>
+          {currentUser ? !urlMatch('users', currentUser.id) && url.includes('users') ? [
             <Text key='Connect' style={custom.connectSym}>&infin;</Text>,
             <i key='Chat' className='fa fa-comments fa-lg'></i>,
-            <Text key='placeholder' style={{width: 22}}></Text> ] : null}
+            <Text key='placeholder' style={{width: 60}}></Text> ] :
+          urlMatch('users', currentUser.id) ||
+          data.users[currentUser.id].ideas.some(id => urlMatch('ideas', id)) ? [
+            <i key='Delete' className='fa fa-trash fa-lg'></i>,
+            <i key='Archive' className='fa fa-inbox fa-lg'></i>,
+            <Text key='placeholder' style={{width: 60}}></Text>
+          ] : null : null}
           </View>
 
           <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
@@ -109,7 +119,7 @@ class CRDWK extends React.Component {
                        onChange={event => this.handleSearch(event.target.value)}
                        onFocus={event => this.setState({query: event.target.value})}/>
 
-            {query.length === 0 ? location.pathname === homePath ? null :
+            {query.length === 0 ? url === homePath ? null :
             <Link to={homePath} onClick={() => this.setState({query: ''})}
               style={{position: 'absolute', marginRight: 5}}>
               <i className='fa fa-home fa-lg' style={{color: 'black'}}></i>
@@ -117,8 +127,9 @@ class CRDWK extends React.Component {
                             style={{position: 'absolute', marginRight: 7.5, fontSize: '1.2em', fontWeight: 500, cursor: 'pointer'}}>&times;</Text>}
           </View>
 
-          <View style={{width: 87.5, justifyContent: 'space-between'}}>{currentUser ? [
+          <View style={{width: 115, justifyContent: 'space-between'}}>{currentUser ? [
             <i key='MyOrgs' className='fa fa-briefcase fa-lg'></i>,
+            <i key='Mail' className='fa fa-envelope fa-lg'></i>,
             <i key='Build' className='fa fa-plus fa-lg'></i>, //links to Build page
             <i key='SignOut' className='fa fa-sign-out fa-lg' style={{cursor: 'pointer'}}
                onClick={() => { SignOut(); this.setState({query: ''}); }}></i> ] : null}

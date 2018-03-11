@@ -11,15 +11,15 @@ const mapStateToProps = ({ data, session }, { match }) => ({
 
 const Profile = ({ user, ideas, currentUser, UpdateUser }) => user ? [
   <Field key='nameForm' field='name' item={user} path='users' color='#fff2e6'
-         editable={currentUser && user.id === currentUser.id}/>,
-  //skeleton page layout //Doesn't dynamically render newly created idea
-  <View key='Ideas' style={{justifyContent: 'space-around', width: 600}}>
+         editable={currentUser && user.id === currentUser.id} style={{marginLeft: 45}}/>,
+  //skeleton page layout
+  <View key='Ideas' style={{justifyContent: 'center', width: 750, flexWrap: 'wrap'}}>
+    {currentUser && user.id === currentUser.id ? <NullBulb style={{marginLeft: 25, marginRight: 25, marginBottom: 10}}/> : null}
     {user.ideas.map(id => ideas[id].active ?
-    <LightBulb key={ideas[id].id} idea={ideas[id]}/> : null)}
-    {currentUser && user.id === currentUser.id ? <NullBulb/> : null}
+    <LightBulb key={ideas[id].id} idea={ideas[id]} style={{marginLeft: 25, marginRight: 25, marginBottom: 10}}/> : null)}
   </View>,
 
-  <Text key='Copyright' style={{color: '#ffd9b3', marginTop: 5}}>English3000 &copy; 2018</Text>
+  <Text key='Copyright' style={{color: '#ffd9b3'}}>English3000 &copy; 2018</Text>
 ] : null;
 
 export default connect(mapStateToProps)(Profile);

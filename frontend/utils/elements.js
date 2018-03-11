@@ -33,7 +33,8 @@ const textInputStyle = { display: 'block', outline: 'none', border: 'none', marg
                          fontSize: 13, padding: '3px 5px 4.5px 7.5px', fontFamily: 'Roboto' };
 
 export const TextInput = props => props.multiline === 'true' ?
-<textarea {...props} style={Object.assign({resize: 'none', height: `${props.numberoflines}00%`}, textInputStyle, props.style)}></textarea> :
+//make textarea dynamically resize
+<textarea {...props} style={Object.assign({resize: 'none', height: 43.5 * props.numberoflines}, textInputStyle, props.style)}></textarea> :
 <input {...props} style={Object.assign({}, textInputStyle, props.style)}/>;
 
 //React          onClick
@@ -63,9 +64,9 @@ const bulbStyle = {
 const lightbulbDispatchProps = dispatch => ({
   Visit: (path, id) => dispatch(visit(path, id))
 });
-const Lightbulb = ({ Visit, idea }) => ( //does `to` b4 `onClick`
+const Lightbulb = ({ Visit, idea, style }) => ( //does `to` b4 `onClick`
   <Link to={`/ideas/${idea.id}`} onClick={() => Visit('ideas', idea.id)}
-        style={bulbStyle.container}>
+        style={Object.assign({}, bulbStyle.container, style)}>
     <View style={Object.assign({backgroundImage: idea.cover_photo}, bulbStyle.top)}></View>
     <View style={bulbStyle.bottom}></View>
     <View style={{position: 'absolute'}}>
@@ -88,9 +89,9 @@ class Nullbulb extends React.Component {
 
   render() {
     const {form, showErrors, name, body, cover_photo, user_id} = this.state;
-    const {Create, errors} = this.props;
+    const {Create, errors, style} = this.props;
 
-    return form ? <View style={{flexDirection: 'column'}}>
+    return form ? <View style={Object.assign({flexDirection: 'column'}, style)}>
       <View style={bulbStyle.form}>
         <TextInput placeholder='idea' defaultValue={name} style={{marginBottom: 1}}
                    onChange={event => this.setState({name: event.target.value})}/>
@@ -101,15 +102,17 @@ class Nullbulb extends React.Component {
           <i className='fa fa-picture-o fa-lg' style={{marginLeft: 9.85}}></i>
           <i className='fa fa-check fa-lg'
              onClick={() => Create('ideas', {name, body, cover_photo, user_id}).then(
-               res => {if (res instanceof Array) this.setState({showErrors: true});}
+               res => {if (res instanceof Array) { this.setState({showErrors: true}); }
+                       else { this.setState({form: false}); }}
           )} style={{backgroundColor: '#ffff99', padding: '5px 11.25px', width: 20, cursor: 'pointer'}}></i>
         </View>
       </View>
-      {showErrors ? <View style={bulbStyle.errors} onClick={() => this.setState({showErrors: false})}>
+      {showErrors ? <View onClick={() => this.setState({showErrors: false})}
+                          style={Object.assign({}, bulbStyle.errors, style)}>
         {errors.map(err => <Text key={err} style={bulbStyle.err}>{`${err}.`}</Text> )}
       </View> : null}
     </View> :
-    <View onClick={() => this.setState({form: true})} style={bulbStyle.container}>
+    <View onClick={() => this.setState({form: true})} style={Object.assign({}, bulbStyle.container, style)}>
       <View style={Object.assign({}, bulbStyle.top, {backgroundColor: 'white'})}></View>
       <View style={bulbStyle.bottom}></View>
       <View style={{position: 'absolute'}}>

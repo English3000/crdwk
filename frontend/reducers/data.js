@@ -18,7 +18,18 @@ export default (state = _nullState, action) => {
         return newState;
       }
     case RECEIVE_DATA:
-      if (action.data instanceof Object) return merge({}, newState, action.data);
+      if (action.data instanceof Object) {
+        newState = merge({}, newState, action.data);
+
+        if (Object.keys(action.data).includes('ideas')) {
+          Object.values(action.data.ideas).forEach(
+            idea => newState.users[idea.user_id].ideas.includes(idea.id) ?
+              null : newState.users[idea.user_id].ideas.unshift(idea.id)
+          );
+        }
+
+        return newState;
+      }
     default:
       return state;
   }
