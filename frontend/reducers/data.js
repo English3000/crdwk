@@ -23,8 +23,9 @@ export default (state = _nullState, action) => {
 
         if (Object.keys(action.data).includes('ideas')) {
           Object.values(action.data.ideas).forEach(
-            idea => newState.users[idea.user_id].ideas.includes(idea.id) ?
-              null : newState.users[idea.user_id].ideas.unshift(idea.id)
+            idea => !newState.users[idea.user_id] ||
+                      newState.users[idea.user_id].ideas.includes(idea.id) ? null :
+                    newState.users[idea.user_id].ideas.unshift(idea.id)
           );
         }
 

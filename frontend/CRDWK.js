@@ -92,7 +92,7 @@ class CRDWK extends React.Component {
             </ScrollView>
             <ScrollView style={custom.scrollViewStyle}>
               <Text style={custom.titleStyle}>Ideas</Text>
-              {this.handleResults(searchResults.ideas, 'ideas')}
+              {this.handleResults(searchResults.ideas.filter(idea => idea.key.active), 'ideas')}
             </ScrollView>
           </View> ]}
         </Page>
