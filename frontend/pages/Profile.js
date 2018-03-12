@@ -11,7 +11,7 @@ const mapStateToProps = ({ data, session }, { match }) => ({
 
 const Profile = ({ user, ideas, currentUser, UpdateUser }) => user ? [
   <Field key='nameForm' field='name' item={user} path='users' color='#fff2e6'
-         editable={currentUser && user.id === currentUser.id} style={{marginLeft: 45}}/>,
+         editable={currentUser && user.id === currentUser.id} style={{marginBottom: 10}}/>,
   //skeleton page layout
   <View key='Ideas' style={{justifyContent: 'center', width: 750, flexWrap: 'wrap'}}>
     {currentUser && user.id === currentUser.id ? <NullBulb style={{marginLeft: 25, marginRight: 25, marginBottom: 10}}/> : null}

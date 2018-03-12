@@ -10,28 +10,55 @@ const mapStateToProps = ({ data, session }, { match }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  UpdateIdea: (idea, path = 'ideas') => dispatch(update(path, idea))
+  Update: (path, item) => dispatch(update(path, item))
 });
 
 const custom = {
   ideaBox: { flexDirection: 'column', width: 400, minHeight: 200,
              borderRadius: 15, alignItems: 'center', justifyContent: 'center',
-             backgroundColor: 'whitesmoke' }
+             backgroundColor: 'whitesmoke', backgroundSize: 'cover',
+             backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }
 };
 
 class Idea extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {visible: !(props.idea && props.idea.cover_photo)};
+    this.uploadPhoto = this.uploadPhoto.bind(this);
+  }
+
+  uploadPhoto(event) { //will need workaround for React Native
+    const reader = new FileReader();
+    const file = event.target.files[0];
+    reader.onloadend = () => this.props.Update('ideas', Object.assign({}, this.props.idea, {cover_photo: reader.result}));
+    if (file) reader.readAsDataURL(file);
+  }
+
   render() {
     const {idea, currentUser, UpdateIdea} = this.props;
     const editable = idea && currentUser && idea.user_id === currentUser.id;
 
     return idea ? [
       //comments here
-      <View key='Idea' style={Object.assign({backgroundImage: idea.cover_photo}, custom.ideaBox)}>
+      editable && this.state.visible ?
+      <i className='fa fa-picture-o fa-lg' key='Upload'
+         onClick={() => document.getElementById('upload').click()}
+         onMouseEnter={() => this.setState({visible: true})}
+         style={{position: 'absolute', marginLeft: -355, marginTop: 10, cursor: 'pointer', backgroundColor: 'white', borderRadius: 2}}>
+        <input type='file' id='upload' style={{display: 'none'}}
+               onChange={this.uploadPhoto}/>
+      </i> : null,
+      <View key='Idea' style={Object.assign({backgroundImage: `url(${idea.cover_photo})`}, custom.ideaBox)}
+            onMouseOver={() => this.setState({visible: true})}
+            onMouseOut={() => this.setState({visible: false})}>
         <Field field='name' item={idea} path='ideas' editable={editable}
-               style={{fontWeight: 700, marginLeft: -16.5}} color='whitesmoke'/>
+               color={idea.cover_photo ? 'transparent' : 'whitesmoke'}
+               text={{fontWeight: 700, textShadow: '0 0 2px white'}}
+               style={{marginBottom: 7.5}}/>
         <Field field='body' item={idea} path='ideas' editable={editable}
-               multiline='true' numberoflines={1.5} style={{marginLeft: -16.5}}
-               color='whitesmoke'/>
+               multiline='true' numberoflines={1.5}
+               color={idea.cover_photo ? 'transparent' : 'whitesmoke'}
+               text={{textShadow: '0 0 1px white'}}/>
       </View>
     ] : null;
   }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Switch, Route, Link } from 'react-router-dom';
 import { Page, ScrollView, View, Text, TextInput, ErrorBoundary } from './utils/elements';
 import { signOut } from './actions/auth';
-import { search, visit } from './actions/visit';
+import { search, visit, update } from './actions/visit';
 import AuthHeader from './pages/headers/AuthHeader';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
@@ -16,6 +16,7 @@ const mapStateToProps = ({ data, session, searches }) => ({
 const mapDispatchToProps = dispatch => ({
   Search: query => dispatch(search(query)),
   Visit: (path, id) => dispatch(visit(path, id)),
+  Update: (path, id) => dispatch(update(path, id)),
   SignOut: () => dispatch(signOut())
 });
 
@@ -41,7 +42,7 @@ class CRDWK extends React.Component {
   }
 
   render() {
-    const {data, SignOut, location, history} = this.props;
+    const {data, Update, SignOut, location, history} = this.props;
     const {currentUser, loading} = this.props.session;
     const {query} = this.state;
 
@@ -56,6 +57,7 @@ class CRDWK extends React.Component {
 
     const homePath = currentUser ? `/users/${currentUser.id}` : '/';
     const url = location.pathname;
+
     function urlMatch(path, id) {
       return currentUser ? url.substring(
         url.length - `${id}`.length, url.length
@@ -108,7 +110,11 @@ class CRDWK extends React.Component {
           urlMatch('users', currentUser.id) ||
           data.users[currentUser.id].ideas.some(id => urlMatch('ideas', id)) ? [
             <i key='Delete' className='fa fa-trash fa-lg'></i>,
-            <i key='Archive' className='fa fa-inbox fa-lg'></i>,
+            <i key='Archive' className='fa fa-inbox fa-lg' style={{cursor: 'pointer'}}
+               onClick={() => {if (url.includes('ideas')) {
+                 Update('ideas', {id: url.split('/')[url.split('/').length - 1], active: false});
+                 //.then redirect to currentUser page
+               } }}></i>,
             <Text key='placeholder' style={{width: 60}}></Text>
           ] : null : null}
           </View>
