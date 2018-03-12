@@ -21,12 +21,11 @@ export default (state = _nullState, action) => {
       if (action.data instanceof Object) {
         newState = merge({}, newState, action.data);
 
-        if (Object.keys(action.data).includes('ideas')) {
-          Object.values(action.data.ideas).forEach(
-            idea => !newState.users[idea.user_id] ||
-                      newState.users[idea.user_id].ideas.includes(idea.id) ? null :
-                    newState.users[idea.user_id].ideas.unshift(idea.id)
-          );
+        if (Object.values(action.data.ideas).length - 1 === 0) {
+          const idea = Object.values(action.data.ideas)[0];
+          const user = newState.users[idea.user_id];
+          if (user) { user.ideas.splice(user.ideas.indexOf(idea.id), 1);
+                      user.ideas.unshift(idea.id); }
         }
 
         return newState;

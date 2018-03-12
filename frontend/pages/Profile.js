@@ -10,10 +10,11 @@ const mapStateToProps = ({ data, session }, { match }) => ({
 });
 
 const Profile = ({ user, ideas, currentUser, UpdateUser }) => user ? [
+  //add profile_pic upload
   <Field key='nameForm' field='name' item={user} path='users' color='#fff2e6'
          editable={currentUser && user.id === currentUser.id} style={{marginBottom: 10}}/>,
   //skeleton page layout
-  <View key='Ideas' style={{justifyContent: 'center', width: 750, flexWrap: 'wrap'}}>
+  <View key='Ideas' style={{justifyContent: 'center', width: 750, flexWrap: 'wrap', backgroundImage: user.ideas.map(id => ideas[id].cover_photo)}}>
     {currentUser && user.id === currentUser.id ? <NullBulb style={{marginLeft: 25, marginRight: 25, marginBottom: 10}}/> : null}
     {user.ideas.map(id => ideas[id].active ?
     <LightBulb key={ideas[id].id} idea={ideas[id]} style={{marginLeft: 25, marginRight: 25, marginBottom: 10}}/> : null)}

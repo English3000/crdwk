@@ -109,12 +109,19 @@ class CRDWK extends React.Component {
             <Text key='placeholder' style={{width: 60}}></Text> ] :
           urlMatch('users', currentUser.id) ||
           data.users[currentUser.id].ideas.some(id => urlMatch('ideas', id)) ? [
-            <i key='Delete' className='fa fa-trash fa-lg'></i>,
+            <i key='Delete' className='fa fa-trash fa-lg' onClick={() => {
+              if (url.includes('ideas')) {
+                //makes `Delete?` button appear w/ hover affordance (color change)
+                //onClick, Delete, .then replace history w/ currentUser page
+              }
+            }}></i>,
             <i key='Archive' className='fa fa-inbox fa-lg' style={{cursor: 'pointer'}}
                onClick={() => {if (url.includes('ideas')) {
-                 Update('ideas', {id: url.split('/')[url.split('/').length - 1], active: false});
-                 //.then redirect to currentUser page
-               } }}></i>,
+                 //makes `Archive?` button appear w/ hover affordance (color change)
+                 //clicking `Archive`: Update('ideas', {id: url.split('/')[url.split('/').length - 1], active: false});
+                 //.then replace history w/ currentUser page
+               }
+            }}></i>,
             <Text key='placeholder' style={{width: 60}}></Text>
           ] : null : null}
           </View>
