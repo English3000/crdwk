@@ -28,9 +28,9 @@ export default (state = _nullState, action) => {
         if (ideas.length - 1 === 0) {
           const idea = ideas[0];
           const user = newState.users[idea.user_id];
-          if (user && state.ideas[idea.id].updated_at !== idea.updated_at) {
+          if (user && (!state.ideas[idea.id] || state.ideas[idea.id].updated_at !== idea.updated_at)) {
             user.ideas.splice(user.ideas.indexOf(idea.id), 1);
-            user.ideas.unshift(idea.id); 
+            user.ideas.unshift(idea.id);
           }
         }
 
