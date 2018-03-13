@@ -3,9 +3,6 @@
 0. Project setup + [documentation](https://github.com/English3000/Intro-to-Coding/tree/master) **(generic)**
 1. User auth + SSR & [mobile](https://github.com/English3000/crdwk-app) integrations + testing **(generic)** + styling + refactoring
   * `capybara-webkit`, Selenium `driven_by :headless_chrome` & Jest tests fail
-  > Should check that clicking auth buttons:
-  >* returns errors
-  >* redirects to Profile
 
 2. User search + integrations + styling
 3. MVPs for first features: Ideas & Projects
@@ -13,10 +10,10 @@
 _What distinguishes an idea from a project?_
 
 **AN idea is a discussion:**
-+ it has a name & a formattable description (which is an array of objects w/ text & date)
+- [x] it has a name & a description **_(make formattable later)_**
 + it can be commented on, liked, or requested (indicating one would like to collaborate on it as a project)
 + an idea can only be converted into a project by its owner
-+ an idea can be retired/archived
+- [x] an idea can be retired/archived
 > notepad feature
 
 **UI**

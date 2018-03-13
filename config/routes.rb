@@ -3,7 +3,7 @@ Rails.application.routes.draw do #http://guides.rubyonrails.org/routing.html
   # only client-rendered
   namespace :api, defaults: {format: :json} do
     resources :users, only: [:create, :show, :update]
-    resources :ideas, only: [:create, :show, :update]
+    resources :ideas, except: [:new, :edit, :index]
     resource :session, only: [:create, :destroy, :search] do
       get 'search', on: :collection
     end

@@ -20,11 +20,29 @@ class Api::IdeasController < ApplicationController
   end
 
   def update
-    @idea = Idea.find_by(id: params[:id])
-    if @idea.update_attributes(idea_params)
-      render partial: 'ideas.json.jbuilder', locals: {ideas: [@idea]}
+    unless params[:ids]
+      @idea = Idea.find_by(id: params[:id])
+      if @idea.update_attributes(idea_params)
+        render partial: 'ideas.json.jbuilder', locals: {ideas: [@idea]}
+      else
+        render json: @idea.errors.full_messages, status: 422
+      end
     else
-      render json: @idea.errors.full_messages, status: 422
+      @ideas = Idea.where(id: params[:ids])
+      @ideas.update_all(active: params[:idea][:active])
+      render partial: 'ideas.json.jbuilder', locals: {ideas: @ideas}
+    end
+  end
+
+  def destroy
+    if params[:ids]
+      @ideas = Idea.where(id: params[:ids])
+      @ideas = @ideas.destroy_all
+      render partial: 'ideas.json.jbuilder', locals: {ideas: @ideas}
+    else
+      @idea = Idea.find_by(id: params[:id])
+      @idea = @idea.destroy
+      render partial: 'ideas.json.jbuilder', locals: {ideas: [@idea]}
     end
   end
 

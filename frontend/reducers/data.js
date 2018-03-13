@@ -1,5 +1,5 @@
 import { RECEIVE_CURRENT_USER } from '../actions/auth';
-import { RECEIVE_DATA } from '../actions/visit';
+import { RECEIVE_DATA, REMOVE_DATA } from '../actions/rest';
 import merge from 'lodash/merge';
 
 const _nullState = {
@@ -9,6 +9,10 @@ const _nullState = {
 export default (state = _nullState, action) => {
   Object.freeze(state);
   let newState = merge({}, state);
+  let ideas = {};
+  if (action.data instanceof Object && action.data.ideas) {
+    ideas = Object.values(action.data.ideas);
+  }
 
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
@@ -21,12 +25,24 @@ export default (state = _nullState, action) => {
       if (action.data instanceof Object) {
         newState = merge({}, newState, action.data);
 
-        if (Object.values(action.data.ideas).length - 1 === 0) {
-          const idea = Object.values(action.data.ideas)[0];
+        if (ideas.length - 1 === 0) {
+          const idea = ideas[0];
           const user = newState.users[idea.user_id];
-          if (user) { user.ideas.splice(user.ideas.indexOf(idea.id), 1);
-                      user.ideas.unshift(idea.id); }
+          if (user && state.ideas[idea.id].updated_at !== idea.updated_at) {
+            user.ideas.splice(user.ideas.indexOf(idea.id), 1);
+            user.ideas.unshift(idea.id); 
+          }
         }
+
+        return newState;
+      }
+    case REMOVE_DATA:
+      if (ideas.length > 0) {
+        ideas.forEach(idea => {
+          delete newState.ideas[idea.id];
+          const user = newState.users[idea.user_id];
+          user.ideas.splice(user.ideas.indexOf(idea.id), 1);
+        });
 
         return newState;
       }

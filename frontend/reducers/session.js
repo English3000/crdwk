@@ -1,5 +1,5 @@
 import { RECEIVE_CURRENT_USER } from '../actions/auth';
-import { RECEIVE_QUERY, RECEIVE_DATA } from '../actions/visit';
+import { RECEIVE_QUERY, RECEIVE_DATA } from '../actions/rest';
 
 const _nullSession = {currentUser: null, loading: false};
 

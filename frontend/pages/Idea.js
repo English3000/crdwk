@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from '../utils/elements';
 import Field from '../utils/Field';
-import { update } from '../actions/visit';
+import { update } from '../actions/rest';
 
 const mapStateToProps = ({ data, session }, { match }) => ({
   idea: data.ideas[match.params.id],
@@ -56,12 +56,12 @@ class Idea extends React.Component {
             onMouseOut={() => this.setState({visible: false})}>
         <Field field='name' item={idea} path='ideas' editable={editable}
                color={idea.cover_photo ? 'transparent' : 'whitesmoke'}
-               text={{fontWeight: 700, textShadow: '0 0 2px white'}}
+               text={{fontWeight: 700, textShadow: '0 0 5px white'}}
                style={{marginBottom: 7.5}}/>
         <Field field='body' item={idea} path='ideas' editable={editable}
                multiline='true' numberoflines={1.5}
                color={idea.cover_photo ? 'transparent' : 'whitesmoke'}
-               text={{textShadow: '0 0 1px white'}}/>
+               text={{textShadow: '0 0 5px white'}}/>
       </View>
     ] : null;
   }

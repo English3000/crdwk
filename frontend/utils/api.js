@@ -20,9 +20,12 @@ export const create = (path, item) => axios.post(
 export const visit = (path, id) => axios.get(
   `${HOST}/api/${path}/${id}`, {params: {visited: true}}
 );
-export const update = (path, item) => axios.patch(
+export const update = (path, item, ids) => axios.patch(
   `${HOST}/api/${path}/${item.id}`,
-  {[path.substring(0, path.length - 1)]: item}
+  {[path.substring(0, path.length - 1)]: item, ids}
+);
+export const destroy = (path, id, ids) => axios.delete(
+  `${HOST}/api/${path}/${id}`, {params: {ids}}
 );
 export const search = query => axios.get(
   `${HOST}/api/session/search`, {params: {query}}

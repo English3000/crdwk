@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { styles, P } from './util';
-
+//update when Profile is fully skeletoned
 const Profile = ({ data }) => <div style={styles.page}>
   <P>{data.user.name ? <em>{data.user.name}</em> : [
     <input key='Name' placeholder='Name' style={styles.textInput} readOnly/>,

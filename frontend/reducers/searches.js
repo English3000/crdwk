@@ -1,4 +1,4 @@
-import { RECEIVE_QUERY } from '../actions/visit';
+import { RECEIVE_QUERY } from '../actions/rest';
 import merge from 'lodash/merge';
 
 export default (state = {}, action) => {

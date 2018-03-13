@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, TextInput, Text } from './elements';
-import { update } from '../actions/visit';
+import { update } from '../actions/rest';
 
 const mapStateToProps = ({ errors }) => ({ errors });
 
@@ -53,7 +53,9 @@ class Field extends React.Component {
     return <View style={Object.assign({backgroundColor: color, marginBottom: 5, marginLeft: editable ? -35 : 0, alignItems: 'center'}, style)}>
       {editable ? [
         <i key='Revise' className={`fa fa-${icon} fa-lg`}
-           onClick={() => { if (revising) Update(path, {[field]: value, id});
+           onMouseEnter={() => this.setState({revising: true})}
+           onMouseLeave={() => {if (item[field]) this.setState({revising: false});}}
+           onClick={() => { if (active) Update(path, {[field]: value, id});
                             this.setState({revising: false, active: false}); }}
            style={Object.assign({ backgroundColor: colors[0], color: colors[1], cursor, border, borderRight },
                                 custom.formLeft, numberoflines ? {paddingTop: 21.75 * numberoflines - 3.5, paddingBottom: 21.75 * numberoflines - 4} : {})}></i>,
@@ -62,9 +64,9 @@ class Field extends React.Component {
                    onClick={() => this.setState({revising: true, active: true})}
                    onMouseEnter={() => this.setState({revising: true})}
                    onMouseLeave={() => {if (item[field] && !active) this.setState({revising: false});}}
-                   onBlur={() => {if (item[field]) this.setState({active: false});}}
+                   onBlur={() => {if (item[field]) this.setState({revising: false});}}
                    onChange={event => this.setState({ [field]: event.target.value })}
-                   onKeyDown={event => {if (event.keyCode === 13 && value.length > 0 && revising && !multiline) {
+                   onKeyDown={event => {if (event.keyCode === 13 && value.length > 0 && active && !multiline) {
                                           Update(path, {[field]: value, id});
                                           this.setState({revising: false, active: false});} }}
                    style={Object.assign({backgroundColor: colors[2], border, borderLeft}, text, custom.formRight)}/>
