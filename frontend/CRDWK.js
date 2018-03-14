@@ -192,7 +192,8 @@ class CRDWK extends React.Component {
           </View>
 
           <View style={{width: 115, justifyContent: 'space-between'}}>{currentUser ? [
-            <i key='MyOrgs' className='fa fa-briefcase fa-lg'></i>,
+            <i key='MyOrgs' className='fa fa-briefcase fa-lg'></i>, //* REMOVE *
+            // further flesh out Mail/Notif's
             <i key='Mail' className='fa fa-envelope fa-lg' style={{position: 'relative', top: -1.5}}></i>,
             <i key='Build' className='fa fa-plus fa-lg'></i>, //links to Build page
             <i key='SignOut' className='fa fa-sign-out fa-lg' style={{cursor: 'pointer'}}

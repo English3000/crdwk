@@ -41,6 +41,14 @@ class Idea extends React.Component {
     const editable = idea && currentUser && idea.user_id === currentUser.id;
 
     return idea ? [
+      //should show comments on idea; click on comment to see responses
+      //can request only an idea (= an interaction)
+      // -> prompts a message modal, where person can express how they'd like to contribute
+
+      //an idea can be edited, OR revised in which case a new idea is created w/ an idea_id
+      //visiting Idea page displays most recent revision at page center (prob. via an anchor tag)
+
+      //CommentForm
       //comments here
       editable && this.state.visible ?
       <i className='fa fa-picture-o fa-lg' key='Upload'

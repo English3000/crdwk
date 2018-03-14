@@ -49,6 +49,6 @@ class Api::IdeasController < ApplicationController
   private
   def idea_params
     params.require(:idea).permit(:id, :name, :body, :active, :cover_photo,
-                                 :user_id)
+                                 :user_id, :idea_id)
   end
 end

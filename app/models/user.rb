@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates_attachment_content_type :profile_pic, content_type: /\Aimage\/.*\Z/
 
   has_many :ideas
+  has_many :comments
 
   after_initialize :ensure_token
   def ensure_token
