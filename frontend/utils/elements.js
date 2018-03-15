@@ -29,11 +29,10 @@ export const Text = props => <p {...props} style={Object.assign({display: 'flex'
 const textInputStyle = { display: 'block', outline: 'none', border: 'none', margin: 0,
                          fontSize: 13, padding: '3px 5px 4.5px 7.5px', fontFamily: 'Roboto' };
 
-export const TextInput = props => props.multiline === 'true' ?
-//make textarea dynamically resize
-<textarea {...props} style={Object.assign(
+export const TextInput = props => props.multiline ? <textarea {...props} style={Object.assign(
   {resize: 'none', height: 43.5 * props.numberoflines}, textInputStyle, props.style
 )}></textarea> : <input {...props} style={Object.assign({}, textInputStyle, props.style)}/>;
+//make textarea dynamically resize
 
 //React          onClick
 //React Native   onPress

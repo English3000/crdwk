@@ -19,15 +19,18 @@ const Page = ({ parent, ideas, comments }) => {
   }
 
   return [
-    //<Field isForm={true} key='commentForm'/>,
+    <Field key='commentForm' field='body' path='comments' item={{}}
+           isForm={true} multiline={'true'} numberoflines={2}
+           text={{width: 175}}/>,
 
     versions.map((item, index) => {
       if (Object.keys(item).includes('comment_id')) {
         return <Comment key={`comment${item.id}`} comment={comments[item.id]}/>;
       }
-      return [
+
+      return [ //anchor tag not working
         <a key={index} href={`#${index}`}
-           style={{height: (window.innerHeight - 200) * 0.5, display: 'block', visibility: 'hidden'}}></a>,
+           style={{height: (window.innerHeight - 200) * 0.5, display: 'none'}}></a>,
         <Idea key={`idea${item.id}`} idea={ideas[item.id]}/>
       ];
     })

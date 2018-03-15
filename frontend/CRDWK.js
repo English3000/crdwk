@@ -213,7 +213,7 @@ class CRDWK extends React.Component {
   }
 
   handleResults(results, path) {
-    const anchor = path === 'ideas' ? '#1' : '';
+    const anchor = path === 'ideas' ? '#0' : '';
     return results && results.length > 0 ? results.map(
       item => <Link key={item.key.id} style={{marginBottom: 5}}
                     to={`/${path}/${item.key.id}${anchor}`}

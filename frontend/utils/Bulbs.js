@@ -31,7 +31,7 @@ const lightbulbDispatchProps = dispatch => ({
 const Lightbulb = ({ Visit, idea, style }) => {//does `to` b4 `onClick`
   const boxShadow = idea.cover_photo ? '0 0 2px yellow' : '0 0 2px #e6e6e6';
 
-  return <Link to={`/ideas/${idea.id}#1`} onClick={() => Visit('ideas', idea.id)}
+  return <Link to={`/ideas/${idea.id}#0`} onClick={() => Visit('ideas', idea.id)}
         style={Object.assign({}, bulbStyle.container, style)}>
     <View style={Object.assign({backgroundImage: `url(${idea.cover_photo})`, boxShadow}, bulbStyle.top)}></View>
     <View style={bulbStyle.bottom}></View>
