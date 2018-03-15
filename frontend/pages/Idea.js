@@ -19,10 +19,9 @@ const Page = ({ parent, ideas, comments }) => {
   }
 
   return [
-    <Field isForm={true} key='commentForm'/>,
+    //<Field isForm={true} key='commentForm'/>,
 
     versions.map((item, index) => {
-      console.log(Object.keys(item)); //to confirm my conditional works
       if (Object.keys(item).includes('comment_id')) {
         return <Comment key={`comment${item.id}`} comment={comments[item.id]}/>;
       }

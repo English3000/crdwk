@@ -39,19 +39,19 @@ class Idea extends React.Component {
     const {idea, comments, currentUser} = this.props;
     const editable = idea && currentUser && idea.user_id === currentUser.id;
 
-    return idea ? [
-      editable && this.state.visible ?
-      <i className='fa fa-picture-o fa-lg' key='Upload'
-         onClick={() => document.getElementById('upload').click() }
-         onMouseEnter={() => this.setState({visible: true})}
-         style={{position: 'absolute', marginLeft: -355, marginTop: 10, cursor: 'pointer', backgroundColor: 'white', borderRadius: 2}}>
-        <input type='file' id='upload' style={{display: 'none'}}
-               onChange={this.uploadPhoto}/>
-      </i> : null,
-      <View key='Idea' style={Object.assign({ backgroundImage: `url(${idea.cover_photo})`,
-                                              backgroundColor: idea.cover_photo ? 'transparent' : 'whitesmoke'}, custom.ideaBox)}
-            onMouseOver={() => this.setState({visible: true})}
-            onMouseOut={() => this.setState({visible: false})}>
+    return idea ? <View style={Object.assign({ backgroundImage: `url(${idea.cover_photo})`,
+                                               backgroundColor: idea.cover_photo ?
+                                                 'transparent' : 'whitesmoke' }, custom.ideaBox)}
+                        onMouseOver={() => this.setState({visible: true})}
+                        onMouseOut={() => this.setState({visible: false})}>
+        {editable && this.state.visible ?
+        <i className='fa fa-picture-o fa-lg'
+           onClick={() => document.getElementById('upload').click() }
+           onMouseEnter={() => this.setState({visible: true})}
+           style={{position: 'absolute', marginLeft: -355, cursor: 'pointer', backgroundColor: 'white', borderRadius: 2}}>
+          <input type='file' id='upload' style={{display: 'none'}}
+                 onChange={this.uploadPhoto}/>
+        </i> : null}
         <Field field='name' item={idea} path='ideas' editable={editable}
                color={idea.cover_photo ? 'transparent' : 'whitesmoke'}
                text={{fontWeight: 700, textShadow: '0 0 5px white'}}
@@ -60,8 +60,7 @@ class Idea extends React.Component {
                multiline='true' numberoflines={1.5}
                color={idea.cover_photo ? 'transparent' : 'whitesmoke'}
                text={{textShadow: '0 0 5px white'}}/>
-      </View>
-    ] : null;
+      </View> : null;
     //requesting an idea prompts a message modal--can express how one wants to contribute
     //visiting Idea page displays most recent revision at page center (prob. via an anchor tag)
   }

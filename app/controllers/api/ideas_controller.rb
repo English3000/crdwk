@@ -2,7 +2,7 @@ class Api::IdeasController < ApplicationController
   def show
     @idea = Idea.find_by(id: params[:id])
     if @idea && params[:visited]
-      render partial: 'show.json.jbuilder', locals: {idea: @idea}
+      render partial: 'show', locals: {idea: @idea}
     elsif @idea
       render template: 'application/idea'
     else
@@ -13,7 +13,7 @@ class Api::IdeasController < ApplicationController
   def create
     @idea = Idea.new(idea_params)
     if @idea.save
-      render partial: 'ideas.json.jbuilder', locals: {ideas: [@idea]}
+      render partial: 'ideas', locals: {ideas: [@idea]}
     else
       render json: @idea.errors.full_messages, status: 422
     end
@@ -23,14 +23,14 @@ class Api::IdeasController < ApplicationController
     unless params[:ids]
       @idea = Idea.find_by(id: params[:id])
       if @idea.update_attributes(idea_params)
-        render partial: 'ideas.json.jbuilder', locals: {ideas: [@idea]}
+        render partial: 'ideas', locals: {ideas: [@idea]}
       else
         render json: @idea.errors.full_messages, status: 422
       end
     else
       @ideas = Idea.where(id: params[:ids])
       @ideas.update_all(active: params[:idea][:active])
-      render partial: 'ideas.json.jbuilder', locals: {ideas: @ideas}
+      render partial: 'ideas', locals: {ideas: @ideas}
     end
   end
 
@@ -38,11 +38,11 @@ class Api::IdeasController < ApplicationController
     if params[:ids]
       @ideas = Idea.where(id: params[:ids])
       @ideas = @ideas.destroy_all
-      render partial: 'ideas.json.jbuilder', locals: {ideas: @ideas}
+      render partial: 'ideas', locals: {ideas: @ideas}
     else
       @idea = Idea.find_by(id: params[:id])
       @idea = @idea.destroy
-      render partial: 'ideas.json.jbuilder', locals: {ideas: [@idea]}
+      render partial: 'ideas', locals: {ideas: [@idea]}
     end
   end
 

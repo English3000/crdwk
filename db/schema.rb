@@ -1,4 +1,4 @@
-ActiveRecord::Schema.define(version: 20180314080104) do
+ActiveRecord::Schema.define(version: 20180315193952) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
@@ -38,9 +38,10 @@ ActiveRecord::Schema.define(version: 20180314080104) do
     t.integer "comment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "like"
     t.index ["comment_id", "user_id"], name: "index_interactions_on_comment_id_and_user_id", unique: true
     t.index ["coworker_id", "user_id"], name: "index_interactions_on_coworker_id_and_user_id", unique: true
-    t.index ["idea_id", "user_id", "collab"], name: "index_interactions_on_idea_id_and_user_id_and_collab", unique: true
+    t.index ["idea_id", "user_id"], name: "index_interactions_on_idea_id_and_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
