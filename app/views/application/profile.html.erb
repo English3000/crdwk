@@ -11,7 +11,7 @@
 
 <% if !signed_in? || current_user.id != @user.id %>
   <script>
-    window.show = <%= render(
+    window.showUser = <%= render(
       "api/sessions/index.json.jbuilder",
       users: [@user], ideas: @user.ideas
     ).html_safe %>

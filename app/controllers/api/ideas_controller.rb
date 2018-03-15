@@ -2,7 +2,7 @@ class Api::IdeasController < ApplicationController
   def show
     @idea = Idea.find_by(id: params[:id])
     if @idea && params[:visited]
-      render partial: 'ideas.json.jbuilder', locals: {ideas: [@idea]}
+      render partial: 'show.json.jbuilder', locals: {idea: @idea}
     elsif @idea
       render template: 'application/idea'
     else

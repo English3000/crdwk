@@ -13,7 +13,8 @@ export default class Idea extends React.Component {
   }
 
   render() {
-    const {idea} = this.props.data;
+    const {ideas} = this.props.data;
+    const idea = Object.values(ideas)[0];
 
     return [
       <div key='Idea' style={Object.assign({backgroundImage: idea.cover_photo}, custom.ideaBox)}>

@@ -1,7 +1,8 @@
-json.id idea.id
-json.name idea.name
-json.body idea.body
-json.user_id idea.user_id
-json.active idea.active
+json.extract! idea, :id, :name, :body, :user_id, :idea_id, :active, :updated_at
 json.cover_photo asset_path(idea.cover_photo.url(:original))
-json.updated_at idea.updated_at
+json.comments do
+  json.array! idea.comments.order(updated_at: :desc).pluck(:id)
+end
+json.revisions do
+  json.array! idea.revisions.order(created_at: :desc).pluck(:id)
+end

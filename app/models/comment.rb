@@ -3,6 +3,8 @@ class Comment < ApplicationRecord
 
   belongs_to :user
   belongs_to :idea
+  has_many :interactions, dependent: :destroy
+  
   belongs_to :parent, #may trigger validation
     primary_key: :id,
     foreign_key: :comment_id,

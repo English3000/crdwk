@@ -14,13 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
     preloadedState.data.ideas = window.presets.ideas ? window.presets.ideas : {};
     delete window.presets;
   }
-  if (window.show) {
-    preloadedState.data = merge({}, preloadedState.data, window.show);
-    delete window.show;
-  }
-  if (window.idea) {
-    preloadedState.data.ideas[window.idea.id] = window.idea;
-    delete window.idea;
+  if (window.showUser) {
+    preloadedState.data = merge({}, preloadedState.data, window.showUser);
+    delete window.showUser;
+  } else if (window.showIdea) {
+    preloadedState.data = merge({}, preloadedState.data, window.showIdea);
+    delete window.showIdea;
   }
   const store = createStore(preloadedState);
   window.getState = store.getState;

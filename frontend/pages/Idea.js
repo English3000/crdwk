@@ -6,6 +6,7 @@ import { update } from '../actions/rest';
 
 const mapStateToProps = ({ data, session }, { match }) => ({
   idea: data.ideas[match.params.id],
+  comments: data.comments,
   currentUser: session.currentUser,
 });
 
@@ -37,18 +38,16 @@ class Idea extends React.Component {
   }
 
   render() {
-    const {idea, currentUser, UpdateIdea} = this.props;
+    const {idea, comments, currentUser, UpdateIdea} = this.props;
     const editable = idea && currentUser && idea.user_id === currentUser.id;
 
     return idea ? [
-      //should show comments on idea; click on comment to see responses
-      //can request only an idea (= an interaction)
-      // -> prompts a message modal, where person can express how they'd like to contribute
-
-      //an idea can be edited, OR revised in which case a new idea is created w/ an idea_id
+      //click on comment to see responses
+      //requesting an idea prompts a message modal--can express how one wants to contribute
       //visiting Idea page displays most recent revision at page center (prob. via an anchor tag)
 
       //CommentForm
+      idea.comments.map(id => comments[id]),
       //comments here
       editable && this.state.visible ?
       <i className='fa fa-picture-o fa-lg' key='Upload'

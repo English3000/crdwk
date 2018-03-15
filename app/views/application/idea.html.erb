@@ -1,8 +1,8 @@
 <%= javascript_pack_tag 'application' %>
 
 <script>
-  window.idea = <%= render(
-    "api/ideas/idea.json.jbuilder",
+  window.showIdea = <%= render(
+    "api/ideas/show.json.jbuilder",
     idea: @idea
   ).html_safe %>
 </script>
@@ -10,7 +10,7 @@
 <% if !signed_in? %>
   <%= react_component 'AuthHeader', prerender: true %>
 <% end %>
-<%= react_component 'Idea', data: {idea: @idea}, prerender: true %>
+<%= react_component 'Idea', data: {idea: @idea, comments: @idea.comments}, prerender: true %>
 <%= react_component 'Nav', prerender: true, page: 'Idea', signedIn: signed_in? %>
 
 <%= javascript_pack_tag 'bundle' %>

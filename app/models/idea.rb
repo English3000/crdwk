@@ -7,6 +7,9 @@ class Idea < ApplicationRecord
   validates_attachment_content_type :cover_photo, content_type: /\Aimage\/.*\Z/
 
   belongs_to :user
+  has_many :comments, dependent: :destroy
+  has_many :interactions, dependent: :destroy
+
   belongs_to :parent, #may trigger validation
     primary_key: :id,
     foreign_key: :idea_id,
@@ -15,7 +18,4 @@ class Idea < ApplicationRecord
     primary_key: :id,
     foreign_key: :idea_id,
     class_name: :Idea
-  has_many :comments
-  # has_many :likes
-  # has_many :requests
 end
