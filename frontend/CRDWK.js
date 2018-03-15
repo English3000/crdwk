@@ -213,9 +213,10 @@ class CRDWK extends React.Component {
   }
 
   handleResults(results, path) {
+    const anchor = path === 'ideas' ? '#1' : '';
     return results && results.length > 0 ? results.map(
       item => <Link key={item.key.id} style={{marginBottom: 5}}
-                    to={`/${path}/${item.key.id}`}
+                    to={`/${path}/${item.key.id}${anchor}`}
                     onClick={() => this.props.Visit(path, item.key.id).then(
                              () => this.setState({query: '', archive: false, trash: false}) )}>
                 {item.key.name}

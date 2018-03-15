@@ -14,7 +14,7 @@ class Idea < ApplicationRecord
     primary_key: :id,
     foreign_key: :idea_id,
     class_name: :Idea
-  has_many :revisions,
+  has_one :child, #implementing "Linked List" for versioning
     primary_key: :id,
     foreign_key: :idea_id,
     class_name: :Idea

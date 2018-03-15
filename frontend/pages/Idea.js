@@ -11,26 +11,26 @@ const mapStateToProps = ({ data }, { match }) => ({
 });
 
 const Page = ({ parent, ideas, comments }) => {
-  const revisions = parent.revisions.map(id => ideas[id]);
-  const feedback = parent.comments.map(id => comments[id]);
-
-  function reverseChron(a, b) {
-    if (a.created_at > b.created_at) return -1;
-    if (a.created_at < b.created_at) return 1;
-    return 0;
+  const versions = []; //"Stack"
+  let current = parent;
+  while (current) {
+    versions.unshift(current);
+    current = ideas[current.child_id];
   }
 
-  const components = [parent].concat(revisions, feedback).sort(reverseChron);
-  //could pass in attr to most recent revision so only it has cover_photo
   return [
     <Field isForm={true} key='commentForm'/>,
 
-    components.map(item => {
+    versions.map((item, index) => {
       console.log(Object.keys(item)); //to confirm my conditional works
       if (Object.keys(item).includes('comment_id')) {
         return <Comment key={`comment${item.id}`} comment={comments[item.id]}/>;
       }
-      return <Idea key={`idea${item.id}`} idea={ideas[item.id]}/>;
+      return [
+        <a key={index} href={`#${index}`}
+           style={{height: (window.innerHeight - 200) * 0.5, display: 'block', visibility: 'hidden'}}></a>,
+        <Idea key={`idea${item.id}`} idea={ideas[item.id]}/>
+      ];
     })
   ];
 };
