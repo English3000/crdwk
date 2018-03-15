@@ -4,7 +4,7 @@ import { withRouter, Switch, Route, Link } from 'react-router-dom';
 import { Page, ScrollView, View, Text, TextInput, Button, ErrorBoundary } from './utils/elements';
 import { signOut } from './actions/auth';
 import { search, visit, update, destroy } from './actions/rest';
-import AuthHeader from './pages/headers/AuthHeader';
+import AuthHeader from './pages/components/AuthHeader';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Idea from './pages/Idea';

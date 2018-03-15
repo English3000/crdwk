@@ -1,20 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, TextInput, Text } from './elements';
-import { update } from '../actions/rest';
+import { create, update } from '../actions/rest';
 
 const mapStateToProps = ({ errors }) => ({ errors });
 
 const mapDispatchToProps = dispatch => ({
-  Update: (path, item) => dispatch(update(path, item))
+  Update: (path, item) => dispatch(update(path, item)),
+  Create: (path, item) => dispatch(create(path, item))
 });
 
 const custom = {
-  formLeft: { padding: '5.25px 5px 5.25px 10px', borderTopLeftRadius: 10,
-              borderBottomLeftRadius: 10 },
-  formRight: { width: 100, padding: '4.5px 5px 4px 5px', fontSize: 15,
-               borderTopRightRadius: 10, borderBottomRightRadius: 10,
-               textAlign: 'center' }
+  formStyle: { width: 100, padding: '4.5px 5px 4px', fontSize: 15,
+               textAlign: 'center' },
+  roundLeft: {borderTopLeftRadius: 10, borderBottomLeftRadius: 10},
+  roundRight: {borderTopRightRadius: 10, borderBottomRightRadius: 10}
 };
 
 class Field extends React.Component {
@@ -37,8 +37,9 @@ class Field extends React.Component {
   }
 
   render() { //value doesn't persist on refresh
-    const { item, field, Update, path, editable, text,
-            style, color, multiline, numberoflines } = this.props;
+    //editable shouldn't be passed in
+    const { item, field, Update, Create, path, editable, text,
+            style, color, multiline, numberoflines, isForm } = this.props;
     const {revising, active} = this.state;
     const value = this.state[field];
     const id = item.id;
@@ -50,15 +51,21 @@ class Field extends React.Component {
     const borderRight = `1px solid ${revising ? '#ffff99' : 'transparent'}`;
     const borderLeft = `1px solid ${revising ? 'white' : 'transparent'}`;
 
+    const iconStyle = Object.assign( { backgroundColor: colors[0], cursor,
+                                       color: colors[1], border, borderRight },
+                        numberoflines ? { paddingTop: 21.75 * numberoflines - 3.5,
+                                          paddingBottom: 21.75 * numberoflines - 4 } : {}
+    );
+
     return <View style={Object.assign({backgroundColor: color, marginBottom: 5, marginLeft: editable ? -35 : 0, alignItems: 'center'}, style)}>
       {editable ? [
+        isForm ? null :
         <i key='Revise' className={`fa fa-${icon} fa-lg`}
            onMouseEnter={() => this.setState({revising: true})}
            onMouseLeave={() => {if (item[field]) this.setState({revising: false});}}
            onClick={() => { if (active) Update(path, {[field]: value, id});
                             this.setState({revising: false, active: false}); }}
-           style={Object.assign({ backgroundColor: colors[0], color: colors[1], cursor, border, borderRight },
-                                custom.formLeft, numberoflines ? {paddingTop: 21.75 * numberoflines - 3.5, paddingBottom: 21.75 * numberoflines - 4} : {})}></i>,
+           style={Object.assign({padding: '5.25px 5px 5.25px 10px'}, iconStyle, custom.roundLeft)}></i>,
         <TextInput key={`${field}`} placeholder={`${field}`} value={value}
                    multiline={`${multiline}`} numberoflines={numberoflines}
                    onClick={() => this.setState({revising: true, active: true})}
@@ -69,8 +76,15 @@ class Field extends React.Component {
                    onKeyDown={event => {if (event.keyCode === 13 && value.length > 0 && active && !multiline) {
                                           Update(path, {[field]: value, id});
                                           this.setState({revising: false, active: false});} }}
-                   style={Object.assign({backgroundColor: colors[2], border, borderLeft}, text, custom.formRight)}/>
-        ] : <Text style={Object.assign({backgroundColor: color, width: 125, textAlign: 'center', display: 'block'}, text)}>{item[field]}</Text> }
+                   style={Object.assign({backgroundColor: colors[2], border, borderLeft},
+                          text, custom.formStyle, isForm ? custom.roundLeft : custom.roundRight)}/>,
+        isForm ? <i key='Create' className={`fa fa-${icon} fa-lg`}
+                    onMouseEnter={() => this.setState({revising: true})}
+                    onMouseLeave={() => {if (item[field]) this.setState({revising: false});}}
+                    onClick={() => { if (active) Create(path, {[field]: value, id});
+                                     this.setState({revising: false, active: false}); }}
+                    style={Object.assign({padding: '5.25px 10px 5.25px 5px'}, iconStyle, custom.roundRight)}></i> : null
+      ] : isForm ? null : <Text style={Object.assign({backgroundColor: color, width: 125, textAlign: 'center', display: 'block'}, text)}>{item[field]}</Text> }
     </View>;
   }
 }

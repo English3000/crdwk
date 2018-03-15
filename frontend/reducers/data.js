@@ -32,7 +32,8 @@ export default (state = _nullState, action) => {
         if (ideas.length - 1 === 0) {
           const idea = ideas[0];
           const parent = newState.users[idea.user_id] || newState.ideas[idea.idea_id];
-          if (parent && (!state.ideas[idea.id] || state.ideas[idea.id].updated_at !== idea.updated_at)) {
+          if (parent && (!state.ideas[idea.id] ||
+                state.ideas[idea.id].updated_at !== idea.updated_at)) {
             parent.ideas.splice(parent.ideas.indexOf(idea.id), 1);
             parent.ideas.unshift(idea.id);
           }
@@ -41,7 +42,8 @@ export default (state = _nullState, action) => {
         if (comments.length - 1 === 0) {
           const comment = comments[0];
           const parent = newState.ideas[comment.idea_id] || newState.comments[comment.comment_id];
-          if (parent && (!state.comments[comment.id] || state.comments[comment.id].updated_at !== comment.updated_at)) {
+          if (parent && (!state.comments[comment.id] ||
+                state.comments[comment.id].updated_at !== comment.updated_at)) {
             parent.comments.splice(parent.comments.indexOf(comment.id), 1);
             parent.comments.unshift(comment.id);
           }
