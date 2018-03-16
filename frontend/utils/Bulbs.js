@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import { View, Text, TextInput } from './elements';
 import { visit, create } from '../actions/rest';
 //Source: http://cssdeck.com/labs/light-bulb
@@ -31,14 +31,15 @@ const lightbulbDispatchProps = dispatch => ({
 const Lightbulb = ({ Visit, idea, style }) => {//does `to` b4 `onClick`
   const boxShadow = idea.cover_photo ? '0 0 2px yellow' : '0 0 2px #e6e6e6';
 
-  return <Link to={`/ideas/${idea.id}#0`} onClick={() => Visit('ideas', idea.id)}
-        style={Object.assign({}, bulbStyle.container, style)}>
+  return <HashLink to={`/ideas/${idea.id}#0`} onClick={() => Visit('ideas', idea.id)}
+                   scroll={element => element.scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' })}
+                   style={Object.assign({}, bulbStyle.container, style)}>
     <View style={Object.assign({backgroundImage: `url(${idea.cover_photo})`, boxShadow}, bulbStyle.top)}></View>
     <View style={bulbStyle.bottom}></View>
     <View style={{position: 'absolute'}}>
       <Text style={bulbStyle.text}>{idea.name}</Text>
     </View>
-  </Link>;
+  </HashLink>;
 };
 
 export const LightBulb = connect(null, lightbulbDispatchProps)(Lightbulb);

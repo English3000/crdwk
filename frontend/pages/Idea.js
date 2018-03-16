@@ -26,12 +26,7 @@ const Page = ({ parent, ideas, comments }) => {
       if (Object.keys(item).includes('comment_id')) {
         return <Comment key={`comment${item.id}`} comment={comments[item.id]}/>;
       }
-
-      return [ //anchor tag not working
-        <a key={index} href={`#${index}`}
-           style={{height: (window.innerHeight - 200) * 0.5, display: 'none'}}></a>,
-        <Idea key={`idea${item.id}`} idea={ideas[item.id]}/>
-      ];
+      return <Idea key={`idea${item.id}`} id={`${index}`} idea={ideas[item.id]}/>;
     })
   ];
 };

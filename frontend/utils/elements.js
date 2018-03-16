@@ -1,5 +1,7 @@
 //React Native-style custom components
 import React from 'react'; // Color-styling resource ~ https://www.w3schools.com/colors/colors_picker.asp
+import TextareaAutosize from 'react-autosize-textarea';
+import AutosizeInput from 'react-input-autosize';
 //React          flexDirection: 'row'
 //React Native   flexDirection: 'column'
 export const View = props => <div {...props} style={Object.assign({display: 'flex'}, props.style)}>
@@ -28,12 +30,12 @@ export const Text = props => <p {...props} style={Object.assign({display: 'flex'
 
 const textInputStyle = { display: 'block', outline: 'none', border: 'none',
                          margin: 0, fontSize: 13, fontFamily: 'Roboto',
-                         padding: '3px 5px 4.5px 7.5px', boxSizing: 'border-box' };
+                         padding: '3px 5px 4.5px 7.5px' };
 
 export const TextInput = props => props.height ?
-<textarea {...props} style={Object.assign({resize: 'none', overflow: 'hidden', height: props.height },
-                                          textInputStyle, props.style)}></textarea> :
-<input {...props} style={Object.assign({}, textInputStyle, props.style)}/>;
+<TextareaAutosize {...props} style={Object.assign({resize: 'none', boxSizing: 'border-box'}, textInputStyle, props.style)}/> :
+<AutosizeInput {...props} style={{border: 'none'}} inputStyle={Object.assign({}, textInputStyle, props.style)}/>;
+//to disable resizing, assign a height
 
 //React          onClick
 //React Native   onPress

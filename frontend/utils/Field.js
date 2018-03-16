@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const custom = {
-  formStyle: { width: 100, padding: '4.5px 5px 4px', fontSize: 15,
+  formStyle: { minWidth: 100, padding: '4.5px 5px 4px', fontSize: 15,
                textAlign: 'center' },
   roundLeft: {borderTopLeftRadius: 10, borderBottomLeftRadius: 10},
   roundRight: {borderTopRightRadius: 10, borderBottomRightRadius: 10}

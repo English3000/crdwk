@@ -38,10 +38,10 @@ class Idea extends React.Component {
   }
 
   render() {
-    const {idea, comments, currentUser} = this.props;
+    const {idea, comments, currentUser, id} = this.props;
     const editable = idea && currentUser && idea.user_id === currentUser.id;
 
-    return idea ? <View style={Object.assign({ backgroundImage: `url(${idea.cover_photo})`,
+    return idea ? <View id={id} style={Object.assign({ backgroundImage: `url(${idea.cover_photo})`,
                                                backgroundColor: idea.cover_photo ?
                                                  'transparent' : 'whitesmoke' }, custom.ideaBox)}
                         onMouseOver={() => this.setState({visible: true})}

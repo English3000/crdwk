@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Switch, Route, Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import { Page, ScrollView, View, Text, TextInput, Button, ErrorBoundary } from './utils/elements';
 import { signOut } from './actions/auth';
 import { search, visit, update, destroy } from './actions/rest';
@@ -215,12 +216,13 @@ class CRDWK extends React.Component {
   handleResults(results, path) {
     const anchor = path === 'ideas' ? '#0' : '';
     return results && results.length > 0 ? results.map(
-      item => <Link key={item.key.id} style={{marginBottom: 5}}
+      item => <HashLink key={item.key.id} style={{marginBottom: 5}}
                     to={`/${path}/${item.key.id}${anchor}`}
+                    scroll={element => element.scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' })}
                     onClick={() => this.props.Visit(path, item.key.id).then(
                              () => this.setState({query: '', archive: false, trash: false}) )}>
                 {item.key.name}
-              </Link>
+              </HashLink>
     ) : null;
   }
 }
