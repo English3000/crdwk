@@ -20,8 +20,7 @@ const Page = ({ parent, ideas, comments }) => {
 
   return [
     <Field key='commentForm' field='body' path='comments' item={{}}
-           isForm={true} multiline='true' numberoflines={2}
-           text={{width: 175}}/>,
+           isForm={true} multiline='true' text={{width: 175}}/>,
 
     versions.map((item, index) => {
       if (Object.keys(item).includes('comment_id')) {

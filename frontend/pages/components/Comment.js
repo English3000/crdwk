@@ -12,8 +12,7 @@ const mapStateToProps = ({ session, data }, { comment }) => ({
 const Comment = ({ comment, currentUser, author }) => (
   //click on comment to see replies (displayed above it)
   <View style={{flexDirection: 'column'}}>
-    <Field field='body' item={comment} path='comments' multiline='true'
-           numberoflines={1.5} editable={currentUser && currentUser.id === comment.user_id}/>
+    <Field field='body' item={comment} path='comments' multiline='true'/>
 
     <Link to={`/users/${author.id}`}>
       <View style={{height: 25, width: 25, borderRadius: '100%',

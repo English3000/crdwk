@@ -57,7 +57,7 @@ class Idea extends React.Component {
                text={{fontWeight: 700, textShadow: '0 0 5px white'}}
                color={idea.cover_photo ? 'transparent' : 'whitesmoke'}/>
         <Field field='body' item={idea} path='ideas' multiline='true'
-               numberoflines={1.5} text={{textShadow: '0 0 5px white'}}
+               text={{textShadow: '0 0 5px white'}}
                color={idea.cover_photo ? 'transparent' : 'whitesmoke'}/>
       </View> : null;
     //requesting an idea prompts a message modal--can express how one wants to contribute

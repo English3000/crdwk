@@ -21,13 +21,16 @@ const custom = {
 
 class Field extends React.Component {
   constructor(props) {
-    super(props); const {item, field} = props;
-    this.state = {[field]: item[field], revising: false, active: false};
+    super(props); const {item, field } = props;
+    this.state = { [field]: item[field], revising: false, active: false, height: '' };
   }
 
-  componentWillMount() {
-    const {item, field} = this.props;
-    if (!item[field]) this.setState({revising: true});
+  componentDidMount() {
+    const {item, field, path, multiline} = this.props;
+    const height = multiline ? document.getElementById(`${path}-${field}-${item.id}`).scrollHeight : '';
+    const revising = !item[field] ? true : false;
+
+    this.setState({height, revising});
   }
 
   componentWillReceiveProps(newProps) {
@@ -79,19 +82,21 @@ class Field extends React.Component {
                                          this.setState({revising: false, active: false}); }}}
            style={Object.assign({padding: '5.25px 5px 5.25px 10px'}, iconStyle, custom.roundLeft)}></i>,
 
-        <TextInput key={`${field}`} placeholder={isForm ? 'Comment:' : `${field}`} value={value}
-                   multiline={multiline} numberoflines={numberoflines}
+        <TextInput key={`${field}`} id={`${path}-${field}-${id}`} placeholder={isForm ? 'Comment:' : `${field}`}
+                   value={value} height={multiline ? this.state.height : ''}
                    onClick={() => this.setState({revising: true, active: true})}
                    onMouseEnter={() => this.setState({revising: true})}
                    onMouseLeave={() => {if (item[field] && !active) this.setState({revising: false});}}
                    onBlur={() => {if (item[field]) this.setState({revising: false});}}
                    onChange={event => this.setState({ [field]: event.target.value })}
-                   onKeyDown={event => {if (event.keyCode === 13 && value.length > 0 && active && !multiline) {
-                                          Update(path, {[field]: value, id});
-                                          this.setState({revising: false, active: false});} }}
-                   style={Object.assign({backgroundColor: colors[2], border},
-                                        custom.formStyle, text,
-                                        isForm ? custom.roundLeft : custom.roundRight)}/>,
+                   onKeyDown={event => { //resizes clunkily; to undo, make `multiline` a #
+                     this.setState({height: document.getElementById(`${path}-${field}-${id}`).scrollHeight});
+                     if (event.keyCode === 13 && !multiline && value.length > 0 && active) {
+                       Update(path, {[field]: value, id});
+                       this.setState({revising: false, active: false});}
+                   }} style={Object.assign({backgroundColor: colors[2], border},
+                                           custom.formStyle, text,
+                                           isForm ? custom.roundLeft : custom.roundRight)}/>,
 
         isForm ? <i key='Create' className={`fa fa-${icon} fa-lg`}
                     onMouseEnter={() => this.setState({revising: true})}

@@ -10,10 +10,11 @@ class Idea < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :interactions, dependent: :destroy
 
-  belongs_to :parent, #may trigger validation
+  belongs_to :parent,
     primary_key: :id,
     foreign_key: :idea_id,
-    class_name: :Idea
+    class_name: :Idea,
+    optional: true
   has_one :child, #implementing "Linked List" for versioning
     primary_key: :id,
     foreign_key: :idea_id,
