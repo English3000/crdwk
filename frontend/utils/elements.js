@@ -32,16 +32,22 @@ const textInputStyle = { display: 'block', outline: 'none', border: 'none',
                          margin: 0, fontSize: 13, fontFamily: 'Roboto',
                          padding: '3px 5px 4.5px 7.5px' };
 
-export const TextInput = props => props.height ?
+export const TextInput = props => props.multiline ?
 <TextareaAutosize {...props} style={Object.assign({resize: 'none', boxSizing: 'border-box'}, textInputStyle, props.style)}/> :
-<AutosizeInput {...props} style={{border: 'none'}} inputStyle={Object.assign({}, textInputStyle, props.style)}/>;
-//to disable resizing, assign a height
+<AutosizeInput {...props} placeholderIsMinWidth style={{border: 'none'}}
+                          inputStyle={Object.assign({}, textInputStyle, props.style)}/>;
+//to disable `AutosizeInput` resizing, assign a width
+// EDIT so SearchBar doesn't mis-size on render (adding props.inputStyle)
 
 //React          onClick
 //React Native   onPress
 export const Button = props => <button {...props} style={Object.assign({cursor: 'pointer', outline: 'none', border: 'none'}, props.style)}>
                                  {props.title}
                                </button>;
+
+export const Icon = props => <View {...props} style={Object.assign({justifyContent: 'center', alignItems: 'center'}, props.style)}>
+                               <i className={`fa fa-${props.icon} fa-lg`}></i>
+                             </View>;
 
 export class ErrorBoundary extends React.Component {
   constructor() {

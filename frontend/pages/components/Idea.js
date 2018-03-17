@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from '../../utils/elements';
+import { View, Text, ErrorBoundary } from '../../utils/elements';
 import Field from '../../utils/Field';
 import { update } from '../../actions/rest';
 
@@ -41,25 +41,27 @@ class Idea extends React.Component {
     const {idea, comments, currentUser, id} = this.props;
     const editable = idea && currentUser && idea.user_id === currentUser.id;
 
-    return idea ? <View id={id} style={Object.assign({ backgroundImage: `url(${idea.cover_photo})`,
-                                               backgroundColor: idea.cover_photo ?
-                                                 'transparent' : 'whitesmoke' }, custom.ideaBox)}
-                        onMouseOver={() => this.setState({visible: true})}
-                        onMouseOut={() => this.setState({visible: false})}>
-        {editable && this.state.visible ?
-        <i className='fa fa-picture-o fa-lg' style={custom.uploadStyle}
-           onClick={() => document.getElementById('upload').click() }
-           onMouseEnter={() => this.setState({visible: true})}>
-          <input type='file' id='upload' style={{display: 'none'}}
-                 onChange={this.uploadPhoto}/>
-        </i> : null}
-        <Field field='name' item={idea} path='ideas' style={{marginBottom: 7.5}}
-               text={{fontWeight: 700, textShadow: '0 0 5px white'}}
-               color={idea.cover_photo ? 'transparent' : 'whitesmoke'}/>
-        <Field field='body' item={idea} path='ideas' multiline='true'
-               text={{textShadow: '0 0 5px white'}}
-               color={idea.cover_photo ? 'transparent' : 'whitesmoke'}/>
-      </View> : null;
+    return <ErrorBoundary>
+      {idea ? <View id={id} style={Object.assign({ backgroundImage: `url(${idea.cover_photo})`,
+                                                 backgroundColor: idea.cover_photo ?
+                                                   'transparent' : 'whitesmoke' }, custom.ideaBox)}
+                          onMouseOver={() => this.setState({visible: true})}
+                          onMouseOut={() => this.setState({visible: false})}>
+          {editable && this.state.visible ?
+          <i className='fa fa-picture-o fa-lg' style={custom.uploadStyle}
+             onClick={() => document.getElementById('upload').click() }
+             onMouseEnter={() => this.setState({visible: true})}>
+            <input type='file' id='upload' style={{display: 'none'}}
+                   onChange={this.uploadPhoto}/>
+          </i> : null}
+          <Field field='name' item={idea} path='ideas' style={{marginBottom: 7.5}}
+                 text={{fontWeight: 700, textShadow: '0 0 5px white'}}
+                 color={idea.cover_photo ? 'transparent' : 'whitesmoke'}/>
+          <Field field='body' item={idea} path='ideas' multiline='true'
+                 text={{textShadow: '0 0 5px white'}}
+                 color={idea.cover_photo ? 'transparent' : 'whitesmoke'}/>
+        </View> : null}
+    </ErrorBoundary>;
     //requesting an idea prompts a message modal--can express how one wants to contribute
     //visiting Idea page displays most recent revision at page center (prob. via an anchor tag)
   }

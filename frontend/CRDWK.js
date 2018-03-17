@@ -179,7 +179,7 @@ class CRDWK extends React.Component {
           </View>
 
           <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
-            <TextInput placeholder='Search users & orgs'
+            <TextInput placeholder='Search users & orgs      '
                        style={{borderRadius: 1, paddingRight: 25}}
                        onChange={event => this.handleSearch(event.target.value)}
                        onFocus={event => this.setState({query: event.target.value})}/>
@@ -218,7 +218,7 @@ class CRDWK extends React.Component {
     return results && results.length > 0 ? results.map(
       item => <HashLink key={item.key.id} style={{marginBottom: 5}}
                     to={`/${path}/${item.key.id}${anchor}`}
-                    scroll={element => element.scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' })}
+                    scroll={element => element.scrollIntoView({ behavior: 'instant', block: 'center' })}
                     onClick={() => this.props.Visit(path, item.key.id).then(
                              () => this.setState({query: '', archive: false, trash: false}) )}>
                 {item.key.name}

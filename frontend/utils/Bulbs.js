@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { HashLink } from 'react-router-hash-link';
-import { View, Text, TextInput } from './elements';
+import { View, Text, TextInput, ErrorBoundary } from './elements';
 import { visit, create } from '../actions/rest';
 //Source: http://cssdeck.com/labs/light-bulb
 const bulbStyle = {
@@ -31,15 +31,17 @@ const lightbulbDispatchProps = dispatch => ({
 const Lightbulb = ({ Visit, idea, style }) => {//does `to` b4 `onClick`
   const boxShadow = idea.cover_photo ? '0 0 2px yellow' : '0 0 2px #e6e6e6';
 
-  return <HashLink to={`/ideas/${idea.id}#0`} onClick={() => Visit('ideas', idea.id)}
-                   scroll={element => element.scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' })}
-                   style={Object.assign({}, bulbStyle.container, style)}>
-    <View style={Object.assign({backgroundImage: `url(${idea.cover_photo})`, boxShadow}, bulbStyle.top)}></View>
-    <View style={bulbStyle.bottom}></View>
-    <View style={{position: 'absolute'}}>
-      <Text style={bulbStyle.text}>{idea.name}</Text>
-    </View>
-  </HashLink>;
+  return <ErrorBoundary>
+    <HashLink to={`/ideas/${idea.id}#0`} onClick={() => Visit('ideas', idea.id)}
+              scroll={element => element.scrollIntoView({ behavior: 'instant', block: 'center' })}
+              style={Object.assign({}, bulbStyle.container, style)}>
+      <View style={Object.assign({backgroundImage: `url(${idea.cover_photo})`, boxShadow}, bulbStyle.top)}></View>
+      <View style={bulbStyle.bottom}></View>
+      <View style={{position: 'absolute'}}>
+        <Text style={bulbStyle.text}>{idea.name}</Text>
+      </View>
+    </HashLink>
+  </ErrorBoundary>;
 };
 
 export const LightBulb = connect(null, lightbulbDispatchProps)(Lightbulb);
@@ -67,39 +69,41 @@ class Nullbulb extends React.Component {
     const {form, showErrors, name, body, cover_photo, user_id} = this.state;
     const {Create, errors, style} = this.props;
 
-    return form ? <View style={Object.assign({flexDirection: 'column'}, style)}>
-      <View style={bulbStyle.form}>
-        <TextInput placeholder='idea' defaultValue={name} autoFocus style={{marginBottom: 1}}
-                   onChange={event => this.setState({name: event.target.value})}/>
-        <TextInput placeholder='description' defaultValue={body}
-                   multiline='true' numberoflines={2}
-                   onChange={event => this.setState({body: event.target.value})}/>
-        <View style={{justifyContent: 'space-between', alignItems: 'center', backgroundColor: cover_photo ? 'lightgreen' : 'transparent'}}>
-          <i className='fa fa-picture-o fa-lg'
-             onClick={() => document.getElementById('upload').click()}
-             style={{marginLeft: 9.85, cursor: 'pointer'}}>
-            <input type='file' id='upload' style={{display: 'none'}}
-                   onChange={this.uploadPhoto}/>
-          </i>
-          <i className='fa fa-check fa-lg'
-             onClick={() => Create('ideas', {name, body, cover_photo, user_id}).then(
-               res => {if (res instanceof Array) { this.setState({showErrors: true}); }
-                       else { this.setState({form: false, name: '', body: '', cover_photo: ''}); }}
-          )} style={{backgroundColor: '#ffff99', padding: '5px 11.25px', width: 20, cursor: 'pointer'}}></i>
+    return <ErrorBoundary>
+      {form ? <View style={Object.assign({flexDirection: 'column'}, style)}>
+        <View style={bulbStyle.form}>
+          <TextInput placeholder='idea' defaultValue={name} autoFocus style={{marginBottom: 1}}
+                     onChange={event => this.setState({name: event.target.value})}/>
+          <TextInput placeholder='description' defaultValue={body}
+                     multiline='true' numberoflines={2}
+                     onChange={event => this.setState({body: event.target.value})}/>
+          <View style={{justifyContent: 'space-between', alignItems: 'center', backgroundColor: cover_photo ? 'lightgreen' : 'transparent'}}>
+            <i className='fa fa-picture-o fa-lg'
+               onClick={() => document.getElementById('upload').click()}
+               style={{marginLeft: 9.85, cursor: 'pointer'}}>
+              <input type='file' id='upload' style={{display: 'none'}}
+                     onChange={this.uploadPhoto}/>
+            </i>
+            <i className='fa fa-check fa-lg'
+               onClick={() => Create('ideas', {name, body, cover_photo, user_id}).then(
+                 res => {if (res instanceof Array) { this.setState({showErrors: true}); }
+                         else { this.setState({form: false, name: '', body: '', cover_photo: ''}); }}
+            )} style={{backgroundColor: '#ffff99', padding: '5px 11.25px', width: 20, cursor: 'pointer'}}></i>
+          </View>
         </View>
-      </View>
-      {showErrors ? <View onClick={() => this.setState({showErrors: false})}
-                          style={bulbStyle.errors}>
-        {errors.map(err => <Text key={err} style={bulbStyle.err}>{`${err}.`}</Text> )}
-      </View> : null}
-    </View> :
-    <View onClick={() => this.setState({form: true})} style={Object.assign({}, bulbStyle.container, style)}>
-      <View style={Object.assign({}, bulbStyle.top, {backgroundColor: 'white'})}></View>
-      <View style={bulbStyle.bottom}></View>
-      <View style={{position: 'absolute'}}>
-        <i className='fa fa-plus fa-lg' style={{marginTop: -35}}></i>
-      </View>
-    </View>;
+        {showErrors ? <View onClick={() => this.setState({showErrors: false})}
+                            style={bulbStyle.errors}>
+          {errors.map(err => <Text key={err} style={bulbStyle.err}>{`${err}.`}</Text> )}
+        </View> : null}
+      </View> :
+      <View onClick={() => this.setState({form: true})} style={Object.assign({}, bulbStyle.container, style)}>
+        <View style={Object.assign({}, bulbStyle.top, {backgroundColor: 'white'})}></View>
+        <View style={bulbStyle.bottom}></View>
+        <View style={{position: 'absolute'}}>
+          <i className='fa fa-plus fa-lg' style={{marginTop: -35}}></i>
+        </View>
+      </View>}
+    </ErrorBoundary>;
   }
 }
 export const NullBulb = connect(nullbulbState, nullbulbDispatchProps)(Nullbulb);
