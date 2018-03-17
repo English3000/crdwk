@@ -25,7 +25,8 @@ const mapDispatchToProps = dispatch => ({
 const custom = {
   navStyle: { justifyContent: 'space-between', alignItems: 'flex-end',
               position: 'fixed', bottom: 7.5, width: '97.5%', margin: '0 1.25%' },
-  connectSym: {fontSize: 32, height: 23.5, fontWeight: 600, position: 'relative', top: -2.5},
+  connectSym: { fontSize: 32, height: 23.5, fontWeight: 600, fontFamily: 'sans-serif',
+                position: 'relative', top: 2 },
   scrollViewStyle: { width: window.innerWidth * 0.5, alignItems: 'center',
                      height: (window.innerHeight - 85.5) * 0.5 },
   titleStyle: {fontWeight: 700, marginBottom: 10, marginTop: 5},
@@ -113,11 +114,11 @@ class CRDWK extends React.Component {
       //add onHover tooltips?
       <ErrorBoundary key='Nav'><div>
         <View style={custom.navStyle}>
-          <View style={{width: 115, justifyContent: 'space-between', alignItems: 'flex-end'}}>
+          <View style={{width: 82, justifyContent: 'space-between', alignItems: 'flex-end'}}>
           {currentUser ? !urlMatch('users', currentUser.id) && url.includes('users') ? [
             <Text key='Connect' style={custom.connectSym}>&infin;</Text>,
             <i key='Chat' className='fa fa-comments fa-lg'></i>,
-            <Text key='placeholder' style={{width: 60}}></Text> ] :
+            <Text key='placeholder' style={{width: 18}}></Text> ] :
 
           urlMatch('users', currentUser.id) ||
           data.users[currentUser.id].ideas.some(id => urlMatch('ideas', id)) ? [
@@ -174,12 +175,12 @@ class CRDWK extends React.Component {
             <i key='Archive' className='fa fa-inbox fa-lg' style={{cursor: 'pointer'}}
                onClick={() => this.setState({archive: true, trash: false})}></i>,
 
-            <Text key='placeholder' style={{width: 60}}></Text>
+            <Text key='placeholder' style={{width: 25}}></Text>
           ] : null : null}
           </View>
 
           <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
-            <TextInput placeholder='Search users & orgs      '
+            <TextInput placeholder='Search users & orgs...    '
                        style={{borderRadius: 1, paddingRight: 25}}
                        onChange={event => this.handleSearch(event.target.value)}
                        onFocus={event => this.setState({query: event.target.value})}/>
@@ -192,8 +193,7 @@ class CRDWK extends React.Component {
                             style={{position: 'absolute', marginRight: 7.5, fontSize: '1.2em', fontWeight: 500, cursor: 'pointer'}}>&times;</Text>}
           </View>
 
-          <View style={{width: 115, justifyContent: 'space-between'}}>{currentUser ? [
-            <i key='MyOrgs' className='fa fa-briefcase fa-lg'></i>, //* REMOVE *
+          <View style={{width: 82, justifyContent: 'space-between'}}>{currentUser ? [
             // further flesh out Mail/Notif's
             <i key='Mail' className='fa fa-envelope fa-lg' style={{position: 'relative', top: -1.5}}></i>,
             <i key='Build' className='fa fa-plus fa-lg'></i>, //links to Build page

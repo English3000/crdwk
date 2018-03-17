@@ -37,7 +37,7 @@ export const TextInput = props => props.multiline ?
 <AutosizeInput {...props} placeholderIsMinWidth style={{border: 'none'}}
                           inputStyle={Object.assign({}, textInputStyle, props.style)}/>;
 //to disable `AutosizeInput` resizing, assign a width
-// EDIT so SearchBar doesn't mis-size on render (adding props.inputStyle)
+// mis-sizes pre-focus (bug w/ `react-input-autosize`)
 
 //React          onClick
 //React Native   onPress
