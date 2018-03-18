@@ -72,10 +72,10 @@ class Nullbulb extends React.Component {
     return <ErrorBoundary>
       {form ? <View style={Object.assign({flexDirection: 'column'}, style)}>
         <View style={bulbStyle.form}>
-          <TextInput placeholder='idea' defaultValue={name} autoFocus style={{marginBottom: 1}}
+          <TextInput placeholder='idea' defaultValue={name} autoFocus style={{marginBottom: 1, width: 85, boxSizing: 'border-box'}}
                      onChange={event => this.setState({name: event.target.value})}/>
           <TextInput placeholder='description' defaultValue={body}
-                     multiline='true' numberoflines={2}
+                     multiline='true' numberoflines={2} rows={5}
                      onChange={event => this.setState({body: event.target.value})}/>
           <View style={{justifyContent: 'space-between', alignItems: 'center', backgroundColor: cover_photo ? 'lightgreen' : 'transparent'}}>
             <i className='fa fa-picture-o fa-lg'

@@ -33,7 +33,7 @@ const textInputStyle = { display: 'block', outline: 'none', border: 'none',
                          padding: '3px 5px 4.5px 7.5px' };
 
 export const TextInput = props => props.multiline ?
-<TextareaAutosize {...props} style={Object.assign({resize: 'none', boxSizing: 'border-box'}, textInputStyle, props.style)}/> :
+<TextareaAutosize {...props} rows={props.rows} style={Object.assign({resize: 'none', boxSizing: 'border-box'}, textInputStyle, props.style)}/> :
 <AutosizeInput {...props} placeholderIsMinWidth style={{border: 'none'}}
                           inputStyle={Object.assign({}, textInputStyle, props.style)}/>;
 //to disable `AutosizeInput` resizing, assign a width

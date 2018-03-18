@@ -7,10 +7,11 @@ import Comment from './components/Comment';
 const mapStateToProps = ({ data }, { match }) => ({
   parent: data.ideas[match.params.id],
   ideas: data.ideas,
-  comments: data.comments
+  comments: data.comments,
+  users: data.users
 });
 
-const Page = ({ parent, ideas, comments }) => {
+const Page = ({ parent, ideas, comments, users }) => {
   const versions = []; //"Stack"
   let current = parent;
   while (current) {
@@ -18,17 +19,19 @@ const Page = ({ parent, ideas, comments }) => {
     current = ideas[current.child_id];
   }
 
-  return [
-    <Field key='commentForm' field='body' path='comments' item={{}}
-           isForm={true} multiline='true' text={{width: 175}}/>,
+  return Object.keys(comments).length > 0 ? [
+    <Field key='commentForm' field='body' path='comments' item={{}} isForm={true}
+           ideaId={parent.id} multiline='true' text={{width: 175}} style={{marginBottom: 0}}/>,
 
     versions.map((item, index) => {
-      if (Object.keys(item).includes('comment_id')) {
-        return <Comment key={`comment${item.id}`} comment={comments[item.id]}/>;
-      }
-      return <Idea key={`idea${item.id}`} id={`${index}`} idea={ideas[item.id]}/>;
+      return [
+        item.comments.map(
+          id => <Comment key={`comment${id}`} comment={comments[id]}
+                         author={users[comments[id].user_id]}/>
+        ),<Idea key={`idea${item.id}`} id={`${index}`} idea={ideas[item.id]}/>
+      ];
     })
-  ];
+  ] : null;
 };
 
 export default connect(mapStateToProps)(Page);

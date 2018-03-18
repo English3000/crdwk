@@ -6,7 +6,7 @@ import createStore from './store';
 import ReactWrapper from './App';
 
 document.addEventListener('DOMContentLoaded', () => {
-  let preloadedState = { data: {users: {}, ideas: {}},
+  let preloadedState = { data: {users: {}, ideas: {}, comments: {}},
                          session: {} };
   if (window.presets) {
     preloadedState.session.currentUser = window.presets.currentUser;

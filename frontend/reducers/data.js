@@ -42,11 +42,10 @@ export default (state = _nullState, action) => {
         if (comments.length - 1 === 0) {
           const comment = comments[0];
           const parent = newState.ideas[comment.idea_id] || newState.comments[comment.comment_id];
-          if (parent && (!state.comments[comment.id] ||
-                state.comments[comment.id].updated_at !== comment.updated_at)) {
+          if (parent && state.comments[comment.id] && state.comments[comment.id].updated_at !== comment.updated_at) {
             parent.comments.splice(parent.comments.indexOf(comment.id), 1);
-            parent.comments.unshift(comment.id);
           }
+          parent.comments.unshift(comment.id);
         }
 
         return newState;

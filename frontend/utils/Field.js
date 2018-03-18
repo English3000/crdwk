@@ -42,8 +42,8 @@ class Field extends React.Component {
   }
 
   render() { //value doesn't persist on refresh
-    const { item, field, path, currentUser, Update, Create,       //`color` allows for easier access to the parent component's `backgroundColor`
-            isForm, style, color, text, multiline } = this.props; //`text` allows to style text's appearance & not View's
+    const { item, field, path, currentUser, Update, Create, isForm,          //`color` allows for easier access to the parent component's `backgroundColor`
+            style, color, text, multiline, ideaId, commentId } = this.props; //`text` allows to style text's appearance & not View's
     const {revising, active, height} = this.state; //`revising` controls TextInput style/visibility
                                                    //`active` tracks whether TextInput is being edited, adapting UI accordingly
     const value = this.state[field];
@@ -98,11 +98,11 @@ class Field extends React.Component {
                                              custom.formStyle, text,
                                              isForm ? {borderRight} : {borderLeft},
                                              isForm ? custom.roundLeft : custom.roundRight)}/>,
-
+                         //abstract Create() arg's
           isForm ? <Icon key='Create' icon={icon}
                          onMouseEnter={() => this.setState({revising: true})}
                          onMouseLeave={() => {if (item[field]) this.setState({revising: false});}}
-                         onClick={() => { if (active) Create(path, {[field]: value});
+                         onClick={() => { if (active) Create(path, {[field]: value, user_id: currentUser.id, idea_id: ideaId, comment_id: commentId});
                                           this.setState({revising: false, active: false}); }}
                          style={Object.assign({padding: '5.25px 10px 5.25px 5px', borderLeft},
                                               iconStyle, custom.roundRight)}/> : null
